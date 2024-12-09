@@ -391,7 +391,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>In the Guided Setup Pane, switch from the <strong>Network</strong> tab to the <strong>Distributed Services</strong> tab.  <em>Be sure to switch over to Distributed Services from the Network Tab</em>!</p></li>
 </ol>
-<p><img alt="Distributed Services Menu" src="images/lab3-distributed-services-menu.png" /><br />
+<p><img alt="Distributed Services Menu" src="_images/lab3-distributed-services-menu.png" /><br />
 <em>Fig. Distributed Services Menu</em></p>
 <ol class="arabic simple" start="2">
 <li><p>Click <strong>Configure VRFs</strong> to navigate to the VRFs page under <strong>Configuration/Routing</strong></p></li>
@@ -401,7 +401,7 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>Be sure to select the dsa/over VRF</p>
 </div>
-<p><img alt="dsa over" src="images/lab3-dsa-over.png" /><br />
+<p><img alt="dsa over" src="_images/lab3-dsa-over.png" /><br />
 <em>Fig. dsa/over</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -410,7 +410,7 @@ document.write(`
 <ol class="arabic simple" start="4">
 <li><p>In the <strong>ACTIONS</strong> menu under the <strong>Networks</strong> tab, click <strong>Add</strong> and configure the following for VLAN 10.</p></li>
 </ol>
-<p><img alt="Add Redirect" src="images/lab3-add-redirect.png" /><br />
+<p><img alt="Add Redirect" src="_images/lab3-add-redirect.png" /><br />
 <em>Fig. Add Redirect</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -509,7 +509,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>You should see the newly created networks under the Networks tab for the VRF in a green Healthy state.</p></li>
 </ol>
-<p><img alt="VLANs Created" src="images/lab3-vlans-created.png" /><br />
+<p><img alt="VLANs Created" src="_images/lab3-vlans-created.png" /><br />
 <em>Fig. VLANs Created</em></p>
 <ol class="arabic simple" start="2">
 <li><p>Verify the VLANs are in operation by using the embedded <strong>CLI Command Tool</strong> to verify their status.</p></li>
@@ -536,7 +536,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>In the <strong>Guided Setup Pane</strong>, under the <strong>Distributed Services</strong> tab, click <strong>Configure Policy</strong>, followed by <strong>Endpoint Groups</strong> on the left-hand menu.</p></li>
 </ol>
-<p><img alt="Configure Policy" src="images/lab3-configure-policy.png" /><br />
+<p><img alt="Configure Policy" src="_images/lab3-configure-policy.png" /><br />
 <em>Fig. Configure Policy</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -546,7 +546,7 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>To proceed with manual endpoint group creation, begin by clicking Add under the ACTIONS Menu in the top-right under Configuration/Policy/Endpoint Groups/Actions Menu (top-right)/Add</p>
 </div>
-<p><img alt="Add Enpoint Group" src="images/lab3-add-endpoint-group.png" /><br />
+<p><img alt="Add Enpoint Group" src="_images/lab3-add-endpoint-group.png" /><br />
 <em>Fig. Add Enpoint Group</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Enter the following configuration to create an Endoint Group for Workload01 &amp; Workload02:</p></li>
@@ -617,7 +617,7 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><img alt="VM Tag" src="images/lab3-vm-tag.png" /><br />
+<p><img alt="VM Tag" src="_images/lab3-vm-tag.png" /><br />
 <em>Fig. VM Tag</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -667,7 +667,7 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><img alt="Web Server EPG" src="images/lab3-web-server-epg.png" /><br />
+<p><img alt="Web Server EPG" src="_images/lab3-web-server-epg.png" /><br />
 <em>Fig. Web Server EPG</em></p>
 <ol class="arabic simple" start="4">
 <li><p>Now create a second Endpoint Group for the Database Servers, by clicking <strong>Add</strong> under the <strong>ACTIONS</strong> menu.</p></li>
@@ -745,7 +745,7 @@ document.write(`
 <section id="id2">
 <h3>Expected Results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>Verify the Endpoint Groups were created successfully, as shown in the following screenshot.</p>
-<p><img alt="Endpoint Groups" src="images/lab3-endpoint-groups.png" /><br />
+<p><img alt="Endpoint Groups" src="_images/lab3-endpoint-groups.png" /><br />
 <em>Fig. Endpoint Groups</em></p>
 </section>
 </section>
@@ -765,7 +765,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>Under the <strong>Configuration</strong> menu, go to <strong>Policy/Rules</strong></p></li>
 </ol>
-<p><img alt="Policy Rules Menu" src="images/lab3-policy-rules-menu.png" /><br />
+<p><img alt="Policy Rules Menu" src="_images/lab3-policy-rules-menu.png" /><br />
 <em>Fig. Policy Rules Menu</em></p>
 <ol class="arabic simple" start="2">
 <li><p>First, we will create the <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">SSH</span> <span class="pre">Web</span> <span class="pre">to</span> <span class="pre">DB</span> <span class="pre">Rule</span></code>.  Under <strong>ACTIONS</strong>, click <strong>ADD</strong> to create a rule, and configure the following parameters.</p></li>
@@ -774,7 +774,7 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>Stick to lower-case &amp; NO SPACES for the Rule Name (may result in errors when applying these rules to a policy if not entered the same as below as the UI does not restrict case at this time.)</p>
 </div>
-<p><img alt="Rule Workflow" src="images/lab3-rule-workflow.png" /><br />
+<p><img alt="Rule Workflow" src="_images/lab3-rule-workflow.png" /><br />
 <em>Fig. Rule Worklow</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1153,7 +1153,7 @@ document.write(`
 <section id="id5">
 <h3>Expected Results<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>When finished, you should see four rules like in the screenshot below.</p>
-<p><img alt="Rule List" src="images/lab3-rule-list.png" /><br />
+<p><img alt="Rule List" src="_images/lab3-rule-list.png" /><br />
 <em>Fig. Rule List</em></p>
 </section>
 </section>
@@ -1175,7 +1175,7 @@ document.write(`
 <ol class="arabic simple" start="2">
 <li><p>Under the Actions Menu, select <strong>Add</strong> to create a policy and configure the following parameters:</p></li>
 </ol>
-<p><img alt="Policy" src="images/pol1.png" /><br />
+<p><img alt="Policy" src="_images/pol1.png" /><br />
 <em>Fig. Policy</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1219,12 +1219,12 @@ document.write(`
 <p>Add rules to the policy by using the <strong>Actions</strong> menu and select <strong>Add</strong>. You will add existing rules to this policy, make sure they are in the correct order.</p>
 <p>Using the arrows on the left move the rules into the correct order. Be sure to move the allow-all rule to the bottom of the sequence (rule #4)</p>
 <p>Click <strong>NEXT</strong> to continue</p>
-<p><img alt="Arange Rules" src="images/pol2.png" /><br />
+<p><img alt="Arange Rules" src="_images/pol2.png" /><br />
 <em>Fig. Arange Rules</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Add the enforcer information.</p></li>
 </ol>
-<p><img alt="Arange Rules" src="images/pol3.png" /><br />
+<p><img alt="Arange Rules" src="_images/pol3.png" /><br />
 <em>Fig. Enforcers</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1267,7 +1267,7 @@ document.write(`
 <li><p>Using the same process, add another policy for the <strong>egreess</strong> policy.</p></li>
 <li><p>Under the Actions Menu, select <strong>Add</strong> to create a policy and configure the following parameters:</p></li>
 </ol>
-<p><img alt="Policy" src="images/pol1.png" /><br />
+<p><img alt="Policy" src="_images/pol1.png" /><br />
 <em>Fig. Policy</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1311,12 +1311,12 @@ document.write(`
 <p>Add rules to the policy by using the <strong>Actions</strong> menu and select <strong>Add</strong>. You will add existing rules to this policy, make sure they are in the correct order.</p>
 <p>Using the arrows on the left move the rules into the correct order. Be sure to move the allow-all rule to the bottom of the sequence (rule #4)</p>
 <p>Click <strong>NEXT</strong> to continue</p>
-<p><img alt="Arange Rules" src="images/pol2.png" /><br />
+<p><img alt="Arange Rules" src="_images/pol2.png" /><br />
 <em>Fig. Arange Rules</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Add the enforcer information.</p></li>
 </ol>
-<p><img alt="Arange Rules" src="images/pol3.png" /><br />
+<p><img alt="Arange Rules" src="_images/pol3.png" /><br />
 <em>Fig. Enforcers</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -1360,7 +1360,7 @@ document.write(`
 <section id="id7">
 <h3>Expected Results<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p>Verify the policies.
-<img alt="Arange Rules" src="images/pol5.png" /><br />
+<img alt="Arange Rules" src="_images/pol5.png" /><br />
 <em>Fig. Policies</em></p>
 </section>
 </section>

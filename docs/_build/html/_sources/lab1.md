@@ -27,6 +27,8 @@ The following table represents the Management IP Addresses we will use to access
 | Workload-02 | Managment | 10.250.2<span style="color:orange">**[LG]**</span>.202 |
 | Workload-03 | Managment | 10.250.2<span style="color:orange">**[LG]**</span>.203 |
 
+
+
 ## 1.2 Lab Software Versions  
 | DEVICE    | SOFTWARE VERSION |  
 | -------- | ------- |  

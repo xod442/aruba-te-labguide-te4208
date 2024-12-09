@@ -424,17 +424,17 @@ At this point of the lab. All traffic between the endpoint groups should be bloc
 <p><code class="docutils literal notranslate"><span class="pre">C:\Users\Admin&gt;</span> <span class="pre">ssh</span> <span class="pre">arubatm&#64;10.250.2LG.201</span> </code>
 <code class="docutils literal notranslate"><span class="pre">C:\Users\Admin&gt;</span> <span class="pre">ssh</span> <span class="pre">arubatm&#64;10.250.2LG.202</span> </code>
 <code class="docutils literal notranslate"><span class="pre">C:\Users\Admin&gt;</span> <span class="pre">ssh</span> <span class="pre">arubatm&#64;10.250.2LG.203</span> </code></p>
-<p><img alt="ssh sessions" src="images/image2.png" /><br />
+<p><img alt="ssh sessions" src="_images/image2.png" /><br />
 <em>Fig. 3 SSH sessions</em></p>
 <ol class="arabic simple" start="2">
 <li><p>Once logged into <strong>Workload01</strong>. Try to ping <strong>10.0.20.101</strong>, this should fail. Use <strong>CRTL+C</strong> to exit the ping.</p></li>
 </ol>
-<p><img alt="ssh works" src="images/image3.png" /><br />
+<p><img alt="ssh works" src="_images/image3.png" /><br />
 <em>Fig. SSH Succeeded</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Try to <strong>ssh</strong> to <strong>10.0.20.101</strong>.  (ssh <a class="reference external" href="mailto:arubatm&#37;&#52;&#48;10&#46;0&#46;20&#46;101">arubatm<span>&#64;</span>10<span>&#46;</span>0<span>&#46;</span>20<span>&#46;</span>101</a>)</p></li>
 </ol>
-<p><img alt="ssh works" src="images/image4.png" /><br />
+<p><img alt="ssh works" src="_images/image4.png" /><br />
 <em>Fig. SSH Succeeded</em></p>
 <p><code class="docutils literal notranslate"><span class="pre">If</span> <span class="pre">your</span> <span class="pre">ssh</span> <span class="pre">fails,</span> <span class="pre">check</span> <span class="pre">the</span> <span class="pre">routes</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">workstations!</span></code></p>
 <ol class="arabic simple" start="4">
@@ -442,7 +442,7 @@ At this point of the lab. All traffic between the endpoint groups should be bloc
 arubatm&#64;workload-v10-101:
 <strong>ip route</strong></p></li>
 </ol>
-<p><img alt="ssh works" src="images/image5.png" /><br />
+<p><img alt="ssh works" src="_images/image5.png" /><br />
 <em>Fig. ip routes</em></p>
 <p><strong>Workload-v10-101</strong> seems to have a route to the 10.0.20.0/24 network. If the route is not there, add it.
 Enter <strong>sudo ip route add 10.0.20.0/24 via 10.0.10.1</strong> (password: admin)</p>
@@ -451,7 +451,7 @@ Enter <strong>sudo ip route add 10.0.20.0/24 via 10.0.10.1</strong> (password: a
 arubatm&#64;workload-v10-102:
 ip route</p></li>
 </ol>
-<p><img alt="ssh works" src="images/image6.png" /><br />
+<p><img alt="ssh works" src="_images/image6.png" /><br />
 <em>Fig. ip routes</em></p>
 <p><strong>Workload-v10-102</strong> needs to have a route to get to the <strong>10.0.20.0/24a</strong> network.
 If it’s not there, add it. Enter <strong>sudo ip route add 10.0.20.0/24 via 10.0.10.1</strong> (password: admin)</p>
@@ -462,7 +462,7 @@ ip route</p></li>
 </ol>
 <p><strong>Workload-v12-101</strong> needs to have a route to get back to the <strong>10.0.10.0/24</strong> network.
 Enter <strong>sudo ip route add 10.0.10.0/24 via 10.0.20.1</strong> (password: admin)</p>
-<p><img alt="ssh works" src="images/image7.png" /><br />
+<p><img alt="ssh works" src="_images/image7.png" /><br />
 <em>Fig. ip routes</em></p>
 <section id="ssh-for-workload-2-and-3">
 <h3>SSH for workload 2 and 3<a class="headerlink" href="#ssh-for-workload-2-and-3" title="Link to this heading">#</a></h3>
@@ -486,7 +486,7 @@ Enter <strong>sudo ip route add 10.0.10.0/24 via 10.0.20.1</strong> (password: a
 <ol class="arabic simple">
 <li><p>Go back to the Aruba Fabric Composer window and navigate to <strong>Configuration/Policy/Rules</strong></p></li>
 </ol>
-<p><img alt="rules" src="images/image8.png" /><br />
+<p><img alt="rules" src="_images/image8.png" /><br />
 <em>Fig. Rules</em></p>
 </section>
 <section id="create-the-allow-db-ssh-web-rule">
@@ -588,7 +588,7 @@ Enter <strong>sudo ip route add 10.0.10.0/24 via 10.0.20.1</strong> (password: a
 <section id="expected-results">
 <h2>Expected Results<a class="headerlink" href="#expected-results" title="Link to this heading">#</a></h2>
 <p>On the screen you will see a new rule. Next task is to add this rule to the ingress and egress policy.</p>
-<p><img alt="new-rule" src="images/image9.png" /><br />
+<p><img alt="new-rule" src="_images/image9.png" /><br />
 <em>Fig. New Rule</em></p>
 </section>
 <section id="lab-4-3-modify-the-egress-policy-with-the-new-rule">
@@ -597,22 +597,22 @@ Enter <strong>sudo ip route add 10.0.10.0/24 via 10.0.20.1</strong> (password: a
 <li><p>Navigate to Configuration/Policy/Policies</p></li>
 <li><p>Select the <strong>egress</strong> policy and from the <strong>Actions</strong> menu choose edit.</p></li>
 </ol>
-<p><img alt="edit-policy" src="images/image10.png" /><br />
+<p><img alt="edit-policy" src="_images/image10.png" /><br />
 <em>Fig. Edit Egress Policy</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Click on the <strong>rules</strong> tab at the top of the dialog. Then <strong>Add/Existing</strong>.</p></li>
 </ol>
-<p><img alt="edit-policy" src="images/image11.png" /><br />
+<p><img alt="edit-policy" src="_images/image11.png" /><br />
 <em>Fig. Add Existing Rule</em></p>
 <ol class="arabic simple" start="4">
 <li><p>Click on the <strong>allow-ssh-db-web</strong> rule and click <strong>Apply</strong>.</p></li>
 </ol>
-<p><img alt="select-rule" src="images/image12.png" /><br />
+<p><img alt="select-rule" src="_images/image12.png" /><br />
 <em>Fig. Select Rule</em></p>
 <ol class="arabic simple" start="5">
 <li><p>Make sure the rules appear like the next diagram shows. The allow SSH rules must be <strong>at the top</strong> of the rule list. Click <strong>APPLY</strong>.</p></li>
 </ol>
-<p><img alt="rule-position" src="images/image13.png" /><br />
+<p><img alt="rule-position" src="_images/image13.png" /><br />
 <em>Fig. Rule Position</em></p>
 </section>
 <section id="lab-4-4-modify-the-ingress-policy-with-the-new-rule">
@@ -621,22 +621,22 @@ Enter <strong>sudo ip route add 10.0.10.0/24 via 10.0.20.1</strong> (password: a
 <li><p>Navigate to Configuration/Policy/Policies</p></li>
 <li><p>Select the <strong>ingress</strong> policy and from the <strong>Actions</strong> menu choose edit.</p></li>
 </ol>
-<p><img alt="edit-policy" src="images/image14.png" /><br />
+<p><img alt="edit-policy" src="_images/image14.png" /><br />
 <em>Fig. Edit Egress Policy</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Click on the <strong>rules</strong> tab at the top of the dialog. Then <strong>Add/Existing</strong>.</p></li>
 </ol>
-<p><img alt="edit-policy" src="images/image15.png" /><br />
+<p><img alt="edit-policy" src="_images/image15.png" /><br />
 <em>Fig. Add Existing Rule</em></p>
 <ol class="arabic simple" start="4">
 <li><p>Click on the <strong>allow-ssh-db-web</strong> rule and click <strong>Apply</strong>.</p></li>
 </ol>
-<p><img alt="select-rule" src="images/image16.png" /><br />
+<p><img alt="select-rule" src="_images/image16.png" /><br />
 <em>Fig. Select Rule</em></p>
 <ol class="arabic simple" start="5">
 <li><p>Make sure the rules appear like the next diagram shows. The allow SSH rules must be <strong>at the top</strong> of the rule list. Click <strong>APPLY</strong>.</p></li>
 </ol>
-<p><img alt="rule-position" src="images/image13.png" /><br />
+<p><img alt="rule-position" src="_images/image13.png" /><br />
 <em>Fig. Rule Position</em></p>
 </section>
 <section id="lab-4-5-test-new-rule">
@@ -645,7 +645,7 @@ Enter <strong>sudo ip route add 10.0.10.0/24 via 10.0.20.1</strong> (password: a
 <li><p>Return to the SSH sessions that have been established to each workload.</p></li>
 <li><p>Once logged into <strong>Workload03</strong> try to ping <strong>10.0.10.101</strong>, this should fail. Use CRTL+C to exit the ping.</p></li>
 </ol>
-<p><img alt="ping-fails" src="images/image17.png" /><br />
+<p><img alt="ping-fails" src="_images/image17.png" /><br />
 <em>Fig. Ping Fails</em></p>
 <ol class="arabic simple" start="3">
 <li><p>From <strong>workload03</strong> try to SSH to <strong>Workload01</strong>.</p></li>
@@ -653,7 +653,7 @@ Enter <strong>sudo ip route add 10.0.10.0/24 via 10.0.20.1</strong> (password: a
 <section id="id2">
 <h3>Expected Results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>You can see that the ssh session is succesful. If not, go back and check the rule order.</p>
-<p><img alt="ssh-works" src="images/image18.png" /><br />
+<p><img alt="ssh-works" src="_images/image18.png" /><br />
 <em>Fig. ssh works</em></p>
 </section>
 </section>

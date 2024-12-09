@@ -7,7 +7,7 @@
 
 <h2>Technical Enablement Hands-On Lab Guide</h2>
 
-# Lab Overview
+# Lab Overview 
 The popularity of micro data centers is on the rise. Edge data can have a very short shelf life. Sometimes the data needs to collected and analyzed at the edge. To run the applications found in a hyperscale data center, the micro data center needs to be robust and secure. During this session you will deploy a micro data center (MDC). Your MDC will be built out of a pair of HPE Aruba CK10 Distributed Services Switches. A layer 2 switch will be added to the core of the MDC as well as a VMware ESX server. Using AFC you will create a new vSwitch in VMware and add VM hosts. Explore adding VMs to endpoint groups and observing the virtual network behavior.
 
 ### Introduction  

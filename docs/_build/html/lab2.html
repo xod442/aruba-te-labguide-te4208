@@ -390,7 +390,7 @@ document.write(`
 <h2>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h2>
 <p>Lab time:  45 minutes</p>
 <p>The spine leaf architecture provides for massive bandwidth between racks in the data center. Another reason for deploying a spine leaf is resiliency. The spine switches connect to leafs, the leafs, to the spines. The connections between them, are routed IP layer 3 links. They will not pass VLAN information. To get layer 2 traffic between the leafs, VXLAN must be used to create an overlay network.</p>
-<p><img alt="Spine Leaf Architecture" src="images/lab2-spine-leaf-architecture.png" /><br />
+<p><img alt="Spine Leaf Architecture" src="_images/lab2-spine-leaf-architecture.png" /><br />
 <em>Fig. Spine Leaf Architecture</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -429,7 +429,7 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><img alt="AFC Login" src="images/lab2-afc-login.png" /><br />
+<p><img alt="AFC Login" src="_images/lab2-afc-login.png" /><br />
 <em>Fig. AFC Login</em></p>
 <ol class="arabic simple" start="2">
 <li><p>Once logged in, we will use the <strong>L3 Leaf-Spine Configuration</strong> worflow on the right hand side to launch the configuration workflow. This workflow will configure all the routed interfaces used by the spine-leaf.</p></li>
@@ -438,12 +438,12 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>If the workflows on the right-hand side are not present, click on the icon next to the person at the top right</p>
 </div>
-<p><img alt="AFC Wizard Menu" src="images/lab2-afc-wizard-menu.png" /><br />
+<p><img alt="AFC Wizard Menu" src="_images/lab2-afc-wizard-menu.png" /><br />
 <em>Fig. AFC Wizard Menu</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Follow the workflow by filling out the forms and clicking next. Finish by reviewing content and selecting <strong>Apply</strong>.</p></li>
 </ol>
-<p><img alt="Workflow Screens" src="images/lab2-workflow-screens.png" /><br />
+<p><img alt="Workflow Screens" src="_images/lab2-workflow-screens.png" /><br />
 <em>Fig. Workflow Screens</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -512,7 +512,7 @@ document.write(`
 <section id="expected-results">
 <h3>Expected Results<a class="headerlink" href="#expected-results" title="Link to this heading">#</a></h3>
 <p>You should see the newly created configuration, similar to the below screenshot.</p>
-<p><img alt="L3 Leaf-Spine Created" src="images/lab2-leaf-spine-created.png" /><br />
+<p><img alt="L3 Leaf-Spine Created" src="_images/lab2-leaf-spine-created.png" /><br />
 <em>Fig. L3 Leaf-Spine Created</em></p>
 </section>
 </section>
@@ -527,7 +527,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>Begin by choosing the UNDERLAYS workflow from the right hand menu, to launch the configuration workflow.</p></li>
 </ol>
-<p><img alt="Underlays Menu" src="images/lab2-underlays-menu.png" /><br />
+<p><img alt="Underlays Menu" src="_images/lab2-underlays-menu.png" /><br />
 <em>Fig. Underlays Menu</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -536,7 +536,7 @@ document.write(`
 <ol class="arabic simple" start="2">
 <li><p>Follow the workflow by filling out the forms and clicking next. Finish by reviewing content and selecting <strong>Apply</strong>.</p></li>
 </ol>
-<p><img alt="Create Underlay Network" src="images/lab2-create-underlay-network.png" /><br />
+<p><img alt="Create Underlay Network" src="_images/lab2-create-underlay-network.png" /><br />
 <em>Fig. Create Underlay Network</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -623,7 +623,7 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><img alt="Underlay Created" src="images/lab2-underlay-created.png" /><br />
+<p><img alt="Underlay Created" src="_images/lab2-underlay-created.png" /><br />
 <em>Fig. Underlay Created</em></p>
 </section>
 <section id="id3">
@@ -631,7 +631,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>You can see the underlay exists in the <strong>Underlays Tab</strong> above, use the embedded <strong>CLI Command Tool</strong> to verify the loopback interfaces and confirm the underlay routing tables have been established.</p></li>
 </ol>
-<p><img alt="Show Commands Menu" src="images/lab2-show-commands-menu.png" /><br />
+<p><img alt="Show Commands Menu" src="_images/lab2-show-commands-menu.png" /><br />
 <em>Fig. Show Commands Menu</em></p>
 <ol class="arabic simple" start="2">
 <li><p>Pull down the fabric menu and select the <strong>dsa</strong> fabric</p></li>
@@ -654,7 +654,7 @@ document.write(`
 <h3>Description<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>With the Underlay established, the next step is to configure the Overlay Network. The Aruba ESP Data Center spine-and-leaf design uses the <strong>Internal Border Gateway Protocol (iBGP)</strong> as the control plane for the fabric overlay. iBGP provides a mechanism to share host routes across the fabric using the EVPN address family. VTEP interfaces are the VXLAN encapsulation and decapsulation points for traffic entering and exiting the overlay.</p>
 <p>To briefly summarize from the primer presentation and external links from the workshop’s introduction, <strong>EVPN-VXLAN</strong> is an industry standard network fabric technology that extends Layer 2 connectivity as a network overlay over an existing physical network. <strong>VXLAN</strong> is an IEEE standard that is used to address scalability issues in cloud-based environments via switch-to-switch tunneling. This protocol encapsulates Layer 2 Ethernet frames in Layer 3 UDP packets, meaning <strong>virtual L2 subnets</strong> can span underlying L3 networks. The Layer 2 information is simply wrapped inside a Layer 3 frame.</p>
-<p><img alt="Overlay Ethernet Frame" src="images/lab2-overlay-eth-frame.png" /><br />
+<p><img alt="Overlay Ethernet Frame" src="_images/lab2-overlay-eth-frame.png" /><br />
 <em>Fig. Overlay Ethernet Frame</em></p>
 <p>A <strong>Virtual Network Identifier (VNI)</strong> is mapped to traditional VLAN IDs. <strong>VXLAN Endpoints</strong>, in turn, terminate VXLAN tunnels, which can be virtual or physical, and are therefore referred to as <strong>VXLAN Tunnel Endpoints (VTEPS)</strong>.</p>
 <div class="admonition note">
@@ -668,12 +668,12 @@ document.write(`
 <ol class="arabic simple">
 <li><p>3.1	In the Configuration workflows on the right-hand side, click <strong>Overlays</strong>.</p></li>
 </ol>
-<p><img alt="Configure Overlays" src="images/lab2-configure-overlays.png" /><br />
+<p><img alt="Configure Overlays" src="_images/lab2-configure-overlays.png" /><br />
 <em>Fig. Configure Overlays</em></p>
 <ol class="arabic simple" start="2">
 <li><p>In the Overlay Configuration Workflow, configure the following parameters for each page.</p></li>
 </ol>
-<p><img alt="Overlay Workflow" src="images/lab2-overlay-workflow.png" /><br />
+<p><img alt="Overlay Workflow" src="_images/lab2-overlay-workflow.png" /><br />
 <em>Fig. Overlay Workflow</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -785,7 +785,7 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><img alt="Overlay Created" src="images/lab2-overlay-created.png" /><br />
+<p><img alt="Overlay Created" src="_images/lab2-overlay-created.png" /><br />
 <em>Fig. Overlay Created</em></p>
 </section>
 <section id="id6">
@@ -807,7 +807,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>In the Configuration Workflows on the right-hand side, click <strong>EVPN Configuration</strong></p></li>
 </ol>
-<p><img alt="EVPN Configuration" src="images/lab2-evpn-configuration.png" /><br />
+<p><img alt="EVPN Configuration" src="_images/lab2-evpn-configuration.png" /><br />
 <em>Fig. EVPN Configuration</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -816,7 +816,7 @@ document.write(`
 <ol class="arabic simple" start="2">
 <li><p>In the EVPN Configuration Workflow, configure the following parameters for each page.</p></li>
 </ol>
-<p><img alt="EVPN Workflow" src="images/lab2-evpn-workflow.png" /><br />
+<p><img alt="EVPN Workflow" src="_images/lab2-evpn-workflow.png" /><br />
 <em>Fig. EVPN Workflow</em></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -925,7 +925,7 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><img alt="EVPN Created" src="images/lab2-evpn-created.png" /><br />
+<p><img alt="EVPN Created" src="_images/lab2-evpn-created.png" /><br />
 <em>Fig. EVPN Created</em></p>
 </section>
 <section id="id9">
@@ -947,7 +947,7 @@ document.write(`
 <li><p>To create a VRF for the overlay, navigate to <strong>Configuration/Routing/VRF</strong> using the top menu.</p></li>
 <li><p>In the <strong>ACTIONS</strong> menu, select <strong>Add</strong> to create a new <strong>VRF</strong>. The following screen will appear.</p></li>
 </ol>
-<p><img alt="Create VRF" src="images/lab2-create-vrf.png" /><br />
+<p><img alt="Create VRF" src="_images/lab2-create-vrf.png" /><br />
 <em>Fig. Create VRF</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Configure the following parameters:</p></li>
@@ -1089,7 +1089,7 @@ document.write(`
 <section id="id12">
 <h3>Expected Results<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p>You shoudl see the newly created Overlay VRF in the VRF list as in the screenshot below.</p>
-<p><img alt="Overlay VRF Created" src="images/lab2-overlay-vrf-created.png" /><br />
+<p><img alt="Overlay VRF Created" src="_images/lab2-overlay-vrf-created.png" /><br />
 <em>Fig. Overlay VRF Created</em></p>
 </section>
 </section>
@@ -1105,7 +1105,7 @@ document.write(`
 <li><p>Click the <em>three green dots</em> on the left-hand side of the <strong>Overlay VRF</strong> you created called <strong>over</strong> and select <strong>IP Interfaces</strong>.</p></li>
 <li><p>In the <strong>IP Interfaces</strong> Tab, click <strong>ACTIONS</strong> on the right-hand side and select <strong>Add</strong></p></li>
 </ol>
-<p><img alt="IP Interfaces" src="images/lab2-ip-interfaces.png" /><br />
+<p><img alt="IP Interfaces" src="_images/lab2-ip-interfaces.png" /><br />
 <em>Fig. IP Interfaces</em></p>
 <ol class="arabic simple" start="3">
 <li><p>Create the Switched Virtual Interfaces (SVI) VLAN 10 with the following parameters:</p></li>
@@ -1194,7 +1194,7 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><img alt="VLAN10 SVI" src="images/lab2-vlan10-svi.png" /><br />
+<p><img alt="VLAN10 SVI" src="_images/lab2-vlan10-svi.png" /><br />
 <em>Fig. VLAN10 SVI</em></p>
 <ol class="arabic simple" start="4">
 <li><p>Repeat the same process to create the SVI for VLAN 20 now - In the <strong>IP Interfaces</strong> Tab, click <strong>ACTIONS</strong> on the right-hand side and select <strong>Add</strong> and enter the following paramaters:</p></li>
@@ -1283,7 +1283,7 @@ document.write(`
 </tbody>
 </table>
 </div>
-<p><img alt="VLAN20 SVI" src="images/lab2-vlan20-svi.png" /><br />
+<p><img alt="VLAN20 SVI" src="_images/lab2-vlan20-svi.png" /><br />
 <em>Fig. VLAN20 SVI</em></p>
 </section>
 <section id="id15">
@@ -1291,7 +1291,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>Verify the underlay use the <strong>Underlays Tab</strong>, and then use the embedded <strong>CLI Command Tool</strong> to verify the loopback interfaces and confirm the underlay routing tables have been established</p></li>
 </ol>
-<p><img alt="Show Commands" src="images/lab2-show-commands.png" /><br />
+<p><img alt="Show Commands" src="_images/lab2-show-commands.png" /><br />
 <em>Fig. Show Commands</em></p>
 <ol class="arabic simple" start="2">
 <li><p>Pull down the fabric menu and select the <strong>dsa</strong> fabric</p></li>
