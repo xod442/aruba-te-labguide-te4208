@@ -183,11 +183,8 @@
         </ul>
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">Lab 1 - Accessing the Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - Create Network Resource Pools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3 - Build the Fabric</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - AFC Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab5.html">Lab 5 - Microsegmentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab6.html">Lab 6 - Visibility and Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - Microsegmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab6.html">Lab 3 - Visibility and Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="summary.html">Summary and Feedback</a></li>
 </ul>
 
@@ -337,8 +334,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lab Overview</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective">Objective</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#microsegmentation-the-basics">Microsegmentation, the basics.</a></li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -355,10 +357,9 @@ document.write(`
 <h2>Technical Enablement Hands-On Lab Guide</h2>
 <section id="lab-overview">
 <h1>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h1>
-<p>This Lab Guide will walk you through the various parts of this Hands On Lab session.  During this deep dive session, you will:</p>
+<p>This Lab Guide will walk you through the various parts of this Hands On Lab session.  During this test dive session, you will:</p>
 <ul class="simple">
-<li><p>Use Aruba Fabric Composer to orchestrate the network fabric and the stateful policies</p></li>
-<li><p>Integrate the AMD Pensando Policy and Services Manager as the intermediary between the CX 10000 switches and Fabric Composer for policy deployment and orchestration</p></li>
+<li><p>Use Aruba Fabric Composer to depoly endpoint groups, rules, and stateful policies</p></li>
 <li><p>Deploy microsegmentation as part of a distributed services architecture based on the CX 10000 Switch integrated stateful firewall preventing the east-west traffic associated with security threats</p></li>
 <li><p>Leverage the CX 10000 telemetry to gain full visibility into every flow on the network</p></li>
 </ul>
@@ -366,13 +367,14 @@ document.write(`
 <h2>Objective<a class="headerlink" href="#objective" title="Link to this heading">#</a></h2>
 <p>This Hands-On Lab is composed of the following activities:</p>
 <ol class="arabic simple">
-<li><p>Import the CX 10000 switches, and assign them to a new fabric</p></li>
-<li><p>Create a VSX cluster using both CX 10000 switches</p></li>
-<li><p>Integrate VMware vSphere and AMD Pensando Policy and Services Manager</p></li>
 <li><p>Deploy micro segmentation to apply and enforce a traffic policy between two VMs (Workloads)</p></li>
 <li><p>Test the policy applied between the Workloads</p></li>
 </ol>
 </section>
+</section>
+<section id="microsegmentation-the-basics">
+<h1>Microsegmentation, the basics.<a class="headerlink" href="#microsegmentation-the-basics" title="Link to this heading">#</a></h1>
+<p>Traditionally, if you wanted to deploy a firewall policy between two different hosts, it would have to be defined on a Layer 3 boundry, like a router interface. This is called MACRO segmentation. Microsegemtation, is the capability to deploy a firewall policy between two hosts on the same subnet. This solution is built on Private VLAN. When a host is assigned to a private vlan, it can only communicate with the primary vlan interface. It cannot communicate with any other host on the same Layer 2 network. With the implementation of the DPU chips in the CX10K, A packet arriving at the Primary vlan, on the VMware distributed virtual switch, it is forwarded to the DPU where a stateful firewall decision can be made. That frame can be sent back the the VMware distributed virtual switch and forwared to any other host defined by the security policy. For an example, in the workshop, a policy will be defined that controls the traffic sent between the ubuntu workloads.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -432,8 +434,13 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lab Overview</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective">Objective</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#microsegmentation-the-basics">Microsegmentation, the basics.</a></li>
+</ul>
+
   </nav></div>
 
 </div></div>

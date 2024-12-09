@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 6 - Visibility and Troubleshooting &#8212; TE4201</title>
+    <title>Lab 3 - Visibility and Troubleshooting &#8212; TE4201</title>
   
   
   
@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Summary and Feedback" href="summary.html" />
-    <link rel="prev" title="Lab 5 - Microsegmentation" href="lab5.html" />
+    <link rel="prev" title="Lab 2 - Microsegmentation" href="lab2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,11 +182,8 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="lab1.html">Lab 1 - Accessing the Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - Create Network Resource Pools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3 - Build the Fabric</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - AFC Integrations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab5.html">Lab 5 - Microsegmentation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 6 - Visibility and Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - Microsegmentation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 3 - Visibility and Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="summary.html">Summary and Feedback</a></li>
 </ul>
 
@@ -326,7 +323,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 6 - Visibility and Troubleshooting</h1>
+    <h1>Lab 3 - Visibility and Troubleshooting</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -337,55 +334,49 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-1-add-svi-to-vlan-10">Lab 6.1 - Add SVI to VLAN 10</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-1-add-svi-to-vlan-10">Lab 3.1 - Add SVI to VLAN 10</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-2-test-policies-and-svi">Lab 6.2 - Test Policies and SVI</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-2-test-policies-and-svi">Lab 3.2 - Test Policies and SVI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-3-view-flow-logs">Lab 6.3 - View Flow Logs</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-3-view-flow-logs">Lab 3.3 - View Flow Logs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-4-analyze-flow-graphs">Lab 6.4 - Analyze Flow Graphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-4-add-policy-rules">Lab 3.4 - Add Policy Rules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-5-add-policy-rules">Lab 6.5 - Add Policy Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-5-test-policy-rules">Lab 3.5 - Test Policy Rules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-6-test-policy-rules">Lab 6.6 - Test Policy Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-6-testing-iperf">Lab 3.6 - Testing iPerf</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-7-testing-iperf">Lab 6.7 - Testing iPerf</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-7-unique-flows">Lab 3.7 - Unique Flows</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-8-unique-flows">Lab 6.8 - Unique Flows</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Validate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Expected Results</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-summary">Lab 6 Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-summary">Lab 3 Summary</a></li>
 </ul>
             </nav>
         </div>
@@ -398,15 +389,15 @@ document.write(`
                 <article class="bd-article">
                   
   <p>Confidential | For Training Purposes Only</p>
-<section class="tex2jax_ignore mathjax_ignore" id="lab-6-visibility-and-troubleshooting">
-<h1>Lab 6 - Visibility and Troubleshooting<a class="headerlink" href="#lab-6-visibility-and-troubleshooting" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="lab-3-visibility-and-troubleshooting">
+<h1>Lab 3 - Visibility and Troubleshooting<a class="headerlink" href="#lab-3-visibility-and-troubleshooting" title="Link to this heading">#</a></h1>
 <section id="lab-overview">
 <h2>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h2>
 <p>Lab time:  30 minutes</p>
 <p>On top of the stateful services and microsegmentation, the CX 10000 also delivers visibility into each and every East / West flow.  During this lab, we will test some basic traffic flows (ping, SSH, iPerf3), the firewalling policies and also explore the power of having complete visibility.</p>
 </section>
-<section id="lab-6-1-add-svi-to-vlan-10">
-<h2>Lab 6.1 - Add SVI to VLAN 10<a class="headerlink" href="#lab-6-1-add-svi-to-vlan-10" title="Link to this heading">#</a></h2>
+<section id="lab-3-1-add-svi-to-vlan-10">
+<h2>Lab 3.1 - Add SVI to VLAN 10<a class="headerlink" href="#lab-3-1-add-svi-to-vlan-10" title="Link to this heading">#</a></h2>
 <section id="description">
 <h3>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h3>
 <p>In order to successfully redirect packets over the switch, we need to create a correspondng Switched Virtual Interface (SVI) for VLAN 10 to the switch.</p>
@@ -418,7 +409,7 @@ document.write(`
 <li><p>Click the 3 dots left of <strong>default</strong> and select <strong>IP Interfaces</strong>.</p></li>
 </ol>
 <p><img alt="IP Interfaces" src="_images/image49.png" /><br />
-<em>Fig. Lab 6 IP Interfaces</em></p>
+<em>Fig. Lab 3 IP Interfaces</em></p>
 <ol class="arabic simple" start="3">
 <li><p>In the <strong>IP Interfaces</strong> context, select <strong>Actions</strong>, then <strong>Add</strong> and enter the following information in the form</p></li>
 </ol>
@@ -527,11 +518,11 @@ document.write(`
 <li><p>Go to <strong>Tenants / Networks</strong>  and you should see VLAN10 listed in your networks</p></li>
 </ol>
 <p><img alt="PSM Networks" src="_images/lab5-psm-networks.png" /><br />
-<em>Fig. Lab 6 PSM Networks</em></p>
+<em>Fig. Lab 3 PSM Networks</em></p>
 </section>
 </section>
-<section id="lab-6-2-test-policies-and-svi">
-<h2>Lab 6.2 - Test Policies and SVI<a class="headerlink" href="#lab-6-2-test-policies-and-svi" title="Link to this heading">#</a></h2>
+<section id="lab-3-2-test-policies-and-svi">
+<h2>Lab 3.2 - Test Policies and SVI<a class="headerlink" href="#lab-3-2-test-policies-and-svi" title="Link to this heading">#</a></h2>
 <section id="id1">
 <h3>Description<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>In the previous activity, you created a policy with a single <code class="docutils literal notranslate"><span class="pre">allow_all</span></code> rule, to allow all traffic between <code class="docutils literal notranslate"><span class="pre">Workload01</span></code> and <code class="docutils literal notranslate"><span class="pre">Workload02</span></code>.</p>
@@ -574,7 +565,7 @@ document.write(`
 <li><p>From each workload, ping the VLAN 10 SVI 10.0.10.1 to verify connectivity between the VMs and the switches.</p></li>
 </ol>
 <p><img alt="Ping SVI" src="_images/lab5-ping-svi.png" /><br />
-<em>Fig. Lab 6 Ping SVI</em></p>
+<em>Fig. Lab 3 Ping SVI</em></p>
 </section>
 <section id="id3">
 <h3>Expected Results<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
@@ -588,12 +579,12 @@ document.write(`
 <em>Fig. show ip interface brief</em></p>
 <p>Now have a look at the following network diagram to understand the flow.  Both WL01 and WL2 have <a class="reference external" href="http://10.0.10.xxx">10.0.10.xxx</a> IP Addresses and the Primary VLAN (VLAN 10) is paired with an Isolated VLAN (VLAN 11).  The traffic on VLAN 11 is re-routed to the DSM chip on the CX10K for processing via the primary VLAN 10.</p>
 <p><img alt="SVI Diagram" src="_images/lab5-svi-diagram.png" /><br />
-<em>Fig. Lab 6 SVI Diagram</em></p>
+<em>Fig. Lab 3 SVI Diagram</em></p>
 <p>Policies will be defined using the AFC and sent, via automation, to the Pensando PSM. In turn, the PSM will program the enforcement on the DSM chips. A workload aware infrastructure built on top of a fully programmable, Automated, Scalable network pipeline.</p>
 </section>
 </section>
-<section id="lab-6-3-view-flow-logs">
-<h2>Lab 6.3 - View Flow Logs<a class="headerlink" href="#lab-6-3-view-flow-logs" title="Link to this heading">#</a></h2>
+<section id="lab-3-3-view-flow-logs">
+<h2>Lab 3.3 - View Flow Logs<a class="headerlink" href="#lab-3-3-view-flow-logs" title="Link to this heading">#</a></h2>
 <section id="id4">
 <h3>Description<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>Now that we have traffic on VLAN 10 being redirected over the DSM, we can start to look at some of the telemetry.  During this lab, we will generate traffic betweeen two VMs on the same ESXi host, and will view the live flow logs.</p>
@@ -644,7 +635,7 @@ document.write(`
 </ol>
 <p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">dsm</span> <span class="pre">redirect</span></code></p>
 <p><img alt="Show DSM Redirect" src="_images/lab5-show-dsm-redirect.png" /><br />
-<em>Fig. Lab 6 Show DSM Redirect</em></p>
+<em>Fig. Lab 3 Show DSM Redirect</em></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In this example, VLAN 10 is redirected to DSM 1/1 on both switches, however in your lab, you may see redirection to DSM 1/2</p>
@@ -669,46 +660,10 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="lab-6-4-analyze-flow-graphs">
-<h2>Lab 6.4 - Analyze Flow Graphs<a class="headerlink" href="#lab-6-4-analyze-flow-graphs" title="Link to this heading">#</a></h2>
+<section id="lab-3-4-add-policy-rules">
+<h2>Lab 3.4 - Add Policy Rules<a class="headerlink" href="#lab-3-4-add-policy-rules" title="Link to this heading">#</a></h2>
 <section id="id7">
 <h3>Description<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>The Switches forward flow data to the PSM and using the PSM, you can create different visualizations and dashboards based on that data.  During this exercise, we will create some flow graphs to do just that.</p>
-</section>
-<section id="id8">
-<h3>Validate<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p>In the PSM browser tab, goto <strong>Sytem / DSS</strong> and then click on the <em>first DSS-ID</em></p></li>
-</ol>
-<p><img alt="DSS Overview" src="_images/lab5-dss-overview.png" /><br />
-<em>Fig. Lab 6 DSS Overview</em></p>
-<ol class="arabic simple" start="2">
-<li><p>Scroll down and look to the bottom right to see the graphs.</p></li>
-</ol>
-<p><img alt="Flow Graphs" src="_images/lab5-flow-graphs.png" /><br />
-<em>Fig. Lab 6 Flow Graphs</em></p>
-<ol class="arabic simple" start="3">
-<li><p>Go to <strong>Monitoring / Metrics</strong> and select <strong>CREATE CHART</strong> (top right)</p></li>
-</ol>
-<p><img alt="Create Chart" src="_images/image61.png" /><br />
-<em>Fig. Create Chart</em></p>
-<ol class="arabic simple" start="4">
-<li><p>Create a chart using the following paramters and save it.  For the <em><strong>Select DSSs</strong></em> drop down, choose the <em><strong>both switches</strong></em>.  <em>Make sure to select the DPU you saw from the PDSCTL command you ran earlier</em> (should be either 1/1 or 1/2).  Once completed, click <strong>Save Chart</strong></p></li>
-</ol>
-<p><img alt="Create Chart" src="_images/lab5-create-chart.png" /><br />
-<em>Fig. Chart Options</em></p>
-</section>
-<section id="id9">
-<h3>Expected Results<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<p>Since we should still have ping running between the workloads, we should see a graph similar to the following screenshot.  You can use this reporting function from the PSM to visualize all traffic passing through the DSM chips.</p>
-<p><img alt="New Flow Chart" src="_images/lab5-new-flow-chart.png" /><br />
-<em>Fig. New Flow Chart</em></p>
-</section>
-</section>
-<section id="lab-6-5-add-policy-rules">
-<h2>Lab 6.5 - Add Policy Rules<a class="headerlink" href="#lab-6-5-add-policy-rules" title="Link to this heading">#</a></h2>
-<section id="id10">
-<h3>Description<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <p>During this exercise, we will use the AFC to modify the policy that we created in an earlier step, and add the following rules between Workload01 and Workload02:</p>
 <ul class="simple">
 <li><p>Allow SSH</p></li>
@@ -716,8 +671,8 @@ document.write(`
 <li><p>Deny All (block everything else, including ping)</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3>Validate<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<section id="id8">
+<h3>Validate<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Using the browser, navigate back to the Fabric Composer</p></li>
 <li><p>Go to <strong>Configuration / Policy / Rules</strong></p></li>
@@ -1075,19 +1030,19 @@ document.write(`
 <p>Ensure the deny_all rule is the last rule in the policy - this will create a default deny scenario.  If the deny all rule is not the last rule, you can change the order by editing the policy.</p>
 </div>
 </section>
-<section id="id12">
-<h3>Expected Results<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3>Expected Results<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <p>Our Firewall Policy should now have a zero trust type of behavior, where all East/West traffic on VLAN 10 is dropped, with the exception of SSH between two workloads, and iPerf.</p>
 </section>
 </section>
-<section id="lab-6-6-test-policy-rules">
-<h2>Lab 6.6 - Test Policy Rules<a class="headerlink" href="#lab-6-6-test-policy-rules" title="Link to this heading">#</a></h2>
-<section id="id13">
-<h3>Description<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<section id="lab-3-5-test-policy-rules">
+<h2>Lab 3.5 - Test Policy Rules<a class="headerlink" href="#lab-3-5-test-policy-rules" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h3>Description<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <p>In the previous activity you created new rules for traffic between Workload011 and Workload02, as well as a deny_all rule.  Now we will test the behavior of these new rules.  Our pings between Workload01 and Workload02 should still be running in the background as well.</p>
 </section>
-<section id="id14">
-<h3>Validate<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<section id="id11">
+<h3>Validate<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Go back to the SSH session from one of your switches and rerun the command:  <code class="docutils literal notranslate"><span class="pre">pdsctl</span> <span class="pre">show</span> <span class="pre">flow</span></code></p></li>
 </ol>
@@ -1116,25 +1071,20 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>Notice that the action for the flow to and from port 22 (SSH) is A (Allow)</p>
 </div>
-<ol class="arabic simple" start="5">
-<li><p>Open the PSM browser tab and refresh the Metrics page.  You should see a graph similar to the following screenshot.</p></li>
-</ol>
-<p><img alt="Graph SSH" src="_images/lab5-graph-ssh.png" /><br />
-<em>Fig. Graph SSH</em></p>
 </section>
-<section id="id15">
-<h3>Expected Results<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<section id="id12">
+<h3>Expected Results<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p>During this lab we tested the firewall policies that we created from the previous exercise.  Ping should now be blocked on VLAN 10, however SSH between our two Workload VMs should still be allowed.  The graphs and flow data available in PSM allows us to view all of the allowed and denied traffic patterns.</p>
 </section>
 </section>
-<section id="lab-6-7-testing-iperf">
-<h2>Lab 6.7 - Testing iPerf<a class="headerlink" href="#lab-6-7-testing-iperf" title="Link to this heading">#</a></h2>
-<section id="id16">
-<h3>Description<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<section id="lab-3-6-testing-iperf">
+<h2>Lab 3.6 - Testing iPerf<a class="headerlink" href="#lab-3-6-testing-iperf" title="Link to this heading">#</a></h2>
+<section id="id13">
+<h3>Description<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>Other than SSH, we also added a rule to test iPerf which is a network performance testing tool.  We will configure Workload02 as the iPerf3 server, and Workload01 as the iPerf3 client.</p>
 </section>
-<section id="id17">
-<h3>Validate<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<section id="id14">
+<h3>Validate<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Go back to your SSH session on <code class="docutils literal notranslate"><span class="pre">Workload02</span></code> and run the following command in order to start the <strong>iPerf3 server</strong>:  <code class="docutils literal notranslate"><span class="pre">iperf3</span> <span class="pre">-s</span></code></p></li>
 </ol>
@@ -1151,56 +1101,35 @@ document.write(`
 </ol>
 <p><img alt="iPerf Flow Logs" src="_images/lab5-iperf-flow-logs.png" /><br />
 <em>Fig. iPerf Flow Logs</em></p>
-<ol class="arabic simple" start="5">
-<li><p>Go to the PSM UI and refresh the Metrics page one more time.  You should see some updated graphs like the following.</p></li>
-</ol>
-<p><img alt="iPerf Graph" src="_images/lab5-iperf-graphs.png" /><br />
-<em>Fig. iPerf Graph</em></p>
 </section>
-<section id="id18">
-<h3>Expected Results<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<section id="id15">
+<h3>Expected Results<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>Just like in the previous lab, we should have the behavior that all traffic in VLAN 10 is denied, with the exception of SSH and iPerf.  This lab should have confirmed this behavior.</p>
 </section>
 </section>
-<section id="lab-6-8-unique-flows">
-<h2>Lab 6.8 - Unique Flows<a class="headerlink" href="#lab-6-8-unique-flows" title="Link to this heading">#</a></h2>
-<section id="id19">
-<h3>Description<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<section id="lab-3-7-unique-flows">
+<h2>Lab 3.7 - Unique Flows<a class="headerlink" href="#lab-3-7-unique-flows" title="Link to this heading">#</a></h2>
+<section id="id16">
+<h3>Description<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <p>Enabling stateful services or microsegmentation in a brownfield environment, where little to no enforcement is d, is not an easy task.  This is where some of the built in metrics to the CX 10000 help.  We will look at how to find analyze unique flows on a given network.</p>
 </section>
-<section id="id20">
-<h3>Validate<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<section id="id17">
+<h3>Validate<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p>In the PSM UI, navigate to <strong>Tenant / Security Policies</strong></p></li>
-<li><p>Click the <strong>Table View</strong> menu from the top right corner, and select <strong>Network Graph</strong></p></li>
-</ol>
-<p><img alt="Network Graph Menu" src="_images/lab5-network-graph-menu.png" /><br />
-<em>Fig. Network Graph Menu</em></p>
-<ol class="arabic simple" start="3">
-<li><p>Under the Security Policies filter, select the <strong>default</strong> VRF</p></li>
-</ol>
-<p><img alt="Security Policies Filter" src="_images/lab5-security-policies-filter.png" /><br />
-<em>Fig. Security Policies Filter</em></p>
-<ol class="arabic simple" start="4">
-<li><p>Wait for the data to load and analyze the Unique Flows table on the right hand side.</p></li>
-<li><p>Go to workload01 and stop the ipfer3 client.</p></li>
-</ol>
-<p>Verify the ssh rule is working.</p>
-<ol class="arabic simple" start="6">
 <li><p>Open an SSH session from <strong>workload01</strong> to <strong>workload02</strong></p></li>
 </ol>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">arubatm&#64;10.0.10.102</span></code></p></li>
 </ul>
 </section>
-<section id="id21">
-<h3>Expected Results<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<section id="id18">
+<h3>Expected Results<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
 <p>The SSH session should connect, if not check the rules assigned to the policy.</p>
-<p>Using the Unique Flows function from the PSM, we are able to see all of our unique flows on VLAN, over a specified time period.  Having this level of data is crucial for implementing stateful services on your network.</p>
+<p>If necessary, using the Unique Flows function from the PSM, we are able to see all of our unique flows on VLAN, over a specified time period.  Having this level of data is crucial for implementing stateful services on your network. Integration with PSM is covered in the TE4.207 course Fundamentals with AFC.</p>
 </section>
 </section>
-<section id="lab-6-summary">
-<h2>Lab 6 Summary<a class="headerlink" href="#lab-6-summary" title="Link to this heading">#</a></h2>
+<section id="lab-3-summary">
+<h2>Lab 3 Summary<a class="headerlink" href="#lab-3-summary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>We added a Switched Virtual Interface to the switch for VLAN 10</p></li>
 <li><p>We verified that the traffic for VLAN 10 is successfully redirected over the AMD DSM, and become stateful</p></li>
@@ -1248,12 +1177,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="lab5.html"
+       href="lab2.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab 5 - Microsegmentation</p>
+        <p class="prev-next-title">Lab 2 - Microsegmentation</p>
       </div>
     </a>
     <a class="right-next"
@@ -1282,55 +1211,49 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-1-add-svi-to-vlan-10">Lab 6.1 - Add SVI to VLAN 10</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-1-add-svi-to-vlan-10">Lab 3.1 - Add SVI to VLAN 10</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-2-test-policies-and-svi">Lab 6.2 - Test Policies and SVI</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-2-test-policies-and-svi">Lab 3.2 - Test Policies and SVI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-3-view-flow-logs">Lab 6.3 - View Flow Logs</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-3-view-flow-logs">Lab 3.3 - View Flow Logs</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-4-analyze-flow-graphs">Lab 6.4 - Analyze Flow Graphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-4-add-policy-rules">Lab 3.4 - Add Policy Rules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-5-add-policy-rules">Lab 6.5 - Add Policy Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-5-test-policy-rules">Lab 3.5 - Test Policy Rules</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-6-test-policy-rules">Lab 6.6 - Test Policy Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-6-testing-iperf">Lab 3.6 - Testing iPerf</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-7-testing-iperf">Lab 6.7 - Testing iPerf</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-7-unique-flows">Lab 3.7 - Unique Flows</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Validate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Expected Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-8-unique-flows">Lab 6.8 - Unique Flows</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Validate</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Expected Results</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-summary">Lab 6 Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-summary">Lab 3 Summary</a></li>
 </ul>
   </nav></div>
 
