@@ -1,0 +1,1342 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab 5 - Microsegmentation &#8212; TE4201</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lab5';</script>
+    <link rel="icon" href="_static/fav-icon-32.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 6 - Visibility and Troubleshooting" href="lab6.html" />
+    <link rel="prev" title="Lab 4 - AFC Integrations" href="lab4.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="home.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/hpe-logo.png" class="logo__image only-light" alt="TE4201 - Home"/>
+    <script>document.write(`<img src="_static/hpe-logo.png" class="logo__image only-dark" alt="TE4201 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="home.html">
+                    Lab Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">Lab 1 - Accessing the Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - Create Network Resource Pools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3 - Build the Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - AFC Integrations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 5 - Microsegmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab6.html">Lab 6 - Visibility and Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary.html">Summary and Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lab5.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 5 - Microsegmentation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-1-create-endpoint-group-for-workloads">Lab 5.1 - Create Endpoint Group for Workloads</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-2-create-firewall-rule">Lab 5.2 - Create Firewall Rule</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-3-create-firewall-policy">Lab 5.3 - Create Firewall Policy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-4-configure-microsegmentation">Lab 5.4 - Configure Microsegmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-summary">Lab 5 Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-learning-check">Lab 5 Learning Check</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>Confidential | For Training Purposes Only</p>
+<section class="tex2jax_ignore mathjax_ignore" id="lab-5-microsegmentation">
+<h1>Lab 5 - Microsegmentation<a class="headerlink" href="#lab-5-microsegmentation" title="Link to this heading">#</a></h1>
+<section id="lab-overview">
+<h2>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h2>
+<p>Lab time:  40 minutes</p>
+<p>In the previous labs, we built a fabric, attached switches, and added integrations with vSphere and the PSM.  There are several workload VMs running in each lab and during this lab, we will levarage the integrations to build firewall policies to microsegment the workloads from each other.</p>
+</section>
+<section id="lab-5-1-create-endpoint-group-for-workloads">
+<h2>Lab 5.1 - Create Endpoint Group for Workloads<a class="headerlink" href="#lab-5-1-create-endpoint-group-for-workloads" title="Link to this heading">#</a></h2>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h3>
+<p>In this task, you will create 2 endpoint groups. An endpoint group in Fabric Composer is a set of VMs that have the same set of policy rules.</p>
+</section>
+<section id="validate">
+<h3>Validate<a class="headerlink" href="#validate" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Using the AFC, select <strong>Policy</strong> and then <strong>Enpoint Groups</strong> from the top level menu</p></li>
+</ol>
+<p><img alt="Endpoint Groups Menu" src="_images/lab4-endpoint-groups-menu.png" /><br />
+<em>Fig. Lab 5 Endpoint Groups Menu</em></p>
+<ol class="arabic simple" start="2">
+<li><p>From the <strong>ACTIONS</strong> menu, select <strong>Add</strong><br />
+If there are existing endpoint groups, just ignore them.</p></li>
+</ol>
+<p><img alt="Add Endpoint Group" src="_images/image30.png" /><br />
+<em>Fig. Lab 5 Add Endpoint Group</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Create an Endpoint Group for Workload01</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>WL-group-01</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - Type</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3 - IP Address</p></td>
+</tr>
+<tr class="row-even"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3 - Endpoints</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>VM/VNIC/VMKernel Endpoint</p></td>
+<td><p>Yes (selected)</p></td>
+</tr>
+<tr class="row-even"><td><p>Criteria</p></td>
+<td><p>VM Tag* (select from the pull down menu)</p></td>
+</tr>
+<tr class="row-odd"><td><p>VM Tag</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AFC-Integration.Workload01</span></code> (Look for your <strong>Lab Group</strong> Number)</p></td>
+</tr>
+<tr class="row-even"><td><p>VNIC</p></td>
+<td><p>Select any <em><strong>Network Adapter 2</strong></em> with <code class="docutils literal notranslate"><span class="pre">10.0.10.101</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Scroll down, <em><strong>click ADD, NEXT and APPLY</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Look for your workload number and verify it is assigned to your lab group!</p>
+<p><img alt="Add Endpoint Group" src="_images/image31.png" /><br />
+<em>Fig. Choose Wisely</em></p>
+<ol class="arabic simple" start="4">
+<li><p>From the <strong>ACTIONS</strong> menu, select <strong>Add</strong> to create an Endpoint Group for Workload02</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>WL-group-02</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - Type</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3 - IP Address</p></td>
+</tr>
+<tr class="row-even"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3 - Endpoints</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>VM/VNIC/VMKernel Endpoint</p></td>
+<td><p>Yes (selected)</p></td>
+</tr>
+<tr class="row-even"><td><p>Criteria</p></td>
+<td><p>VM Tag* (select from the pull down menu)</p></td>
+</tr>
+<tr class="row-odd"><td><p>VM Tag</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AFC-Integration.Workload02</span></code> (Look for your <strong>Lab Group</strong> Number)</p></td>
+</tr>
+<tr class="row-even"><td><p>VNIC</p></td>
+<td><p>Select any <em><strong>Network Adapter 2</strong></em> with <code class="docutils literal notranslate"><span class="pre">10.0.10.102</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Scroll down, <em><strong>click ADD, NEXT and APPLY</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="expected-results">
+<h3>Expected Results<a class="headerlink" href="#expected-results" title="Link to this heading">#</a></h3>
+<p>The Endpoint Groups should have been created based on VM Tag and visible in the list.</p>
+<p><img alt="Add Endpoint Group" src="_images/image32.png" /><br />
+<em>Fig. Two complete Endpoint Groups</em></p>
+</section>
+</section>
+<section id="lab-5-2-create-firewall-rule">
+<h2>Lab 5.2 - Create Firewall Rule<a class="headerlink" href="#lab-5-2-create-firewall-rule" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Description<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>When enabling Microsegmentation, an explicit Deny All rule is placed at the bottom of the rule list, which acts as a catch all. For the purpose of these labs and in order to test the Switch Firewalling functionality, we will place an <strong>Allow All</strong> rule at the bottom, and add specific Deny rules above it.</p>
+</section>
+<section id="id2">
+<h3>Validate<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Using the AFC, select <strong>Policy</strong> and then <strong>Rules</strong> from the top level menu, or if still visible, select <strong>Rules</strong> from the left menu.</p></li>
+<li><p>From the <strong>ACTIONS</strong> menu, select <strong>Add</strong> to add a new Rule</p></li>
+</ol>
+<p><img alt="Add Endpoint Group" src="_images/image34.png" /><br />
+<em>Fig. Lab 5 Add Endpoint Group</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>allow_all_v10</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3</p></td>
+</tr>
+<tr class="row-even"><td><p>Action</p></td>
+<td><p>Allow</p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3 - Endpoint Groups</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source Endpoint Groups</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">WL-group-01</span></code> and <code class="docutils literal notranslate"><span class="pre">WL-group-02</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Destination Endpoint Groups</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">WL-group-01</span></code> and <code class="docutils literal notranslate"><span class="pre">WL-group-02</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 4 - Applications and Service Qualifiers</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Applications</p></td>
+<td><p>(leave empty)</p></td>
+</tr>
+<tr class="row-even"><td><p>Service Qualifiers</p></td>
+<td><p>(leave empty)</p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Review the summary and <em><strong>APPLY</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id3">
+<h3>Expected Results<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>The Allow All rule should be successfully created and visible in the list of Rules.</p>
+</section>
+</section>
+<section id="lab-5-3-create-firewall-policy">
+<h2>Lab 5.3 - Create Firewall Policy<a class="headerlink" href="#lab-5-3-create-firewall-policy" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>Description<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Firewall Rules are placed in Policies and are enforced in a top to bottom fashion.  We will create a Policy in this lab, and assign our Allow All rule to it.</p>
+</section>
+<section id="id5">
+<h3>Validate<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Using the AFC, select <strong>Policy</strong> and then <strong>Policies</strong> from the top level menu, or if still visible, select <strong>Policies</strong> from the left menu.</p></li>
+<li><p>From the <strong>ACTIONS</strong> menu, select <strong>Add</strong> to add a new Rule
+<img alt="Add Endpoint Group" src="_images/image35.png" /><br />
+<em>Fig. Adding a policy</em></p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>dsf-leaf<strong>LG</strong>01</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p><em>Distributed Firewall *</em></p></td>
+</tr>
+<tr class="row-even"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For other CX switches, that are non CX-10K, you can use this same procedure to
+configure L2 or L3 ACLs</p></li>
+</ul>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3 - Rules</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Go to <strong>ACTIONS / ADD / Existing</strong> (top right of this form)</p></td>
+</tr>
+<tr class="row-even"><td><p><img alt="Select Rules" src="_images/lab4-select-rules.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>Click APPLY</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p><img alt="Select Checkbox" src="_images/lab4-select-checkbox.png" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><em><strong>If you don’t select this there will only be an implicit deny all rule in the policy and nothing will ping!</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p><em><strong>Click NEXT</strong></em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 4 - Enforcers</strong></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Fabric</p></td>
+<td><p>dsf</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Policy Distribution Target Type</p></td>
+<td><p>Select <strong>LEAF</strong> from the dropdown</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Direction</p></td>
+<td><p>Egress (direction is selected from the point of view of the workload/host)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>VRF</p></td>
+<td><p>default</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Networks</p></td>
+<td><p>Select <strong>ADD</strong> on the right side of this option to add the network (one or more VLANs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><em><strong>Sub-step A - Name</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Name</p></td>
+<td><p>VLAN10</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><em><strong>Sub-step B - Settings</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>VLAN</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Review the Summary and <em><strong>APPLY</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Scroll down, click <em><strong>ADD</strong></em> (at bottom of dialog) and <em><strong>NEXT</strong></em></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Review the Summary and <em><strong>APPLY</strong></em></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id6">
+<h3>Expected Results<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>The newly created Policy should appear in the Policy list (see screenshot below).</p>
+<p><img alt="Policy List" src="_images/lab4-policy-list.png" /><br />
+<em>Fig. Lab 5 Policy List</em></p>
+</section>
+</section>
+<section id="lab-5-4-configure-microsegmentation">
+<h2>Lab 5.4 - Configure Microsegmentation<a class="headerlink" href="#lab-5-4-configure-microsegmentation" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>A microsegmentation is a set of configurations starting with a private/isolated VLAN on the host that extends to the switch. On the switch, that VLAN is redirected to the Pensando DSM processor for policy enforcement.</p>
+<p>We will use the Microsegmentation Configuration in Fabric Composer which will:</p>
+<ul class="simple">
+<li><p>Creates, on the host:</p>
+<ul>
+<li><p>A Distributed Virtual Switch</p></li>
+<li><p>Two Port Groups:  one for the private primary VLAN and another for the isolated VLAN</p></li>
+</ul>
+</li>
+<li><p>Creates, between the host and the Switches:</p>
+<ul>
+<li><p>A Link Aggregation Group transporting that VLAN (as a promiscuous port)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id8">
+<h3>Validate<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Using the AFC, we will use the Guided Setup menu on the right side.  Go to <strong>DISTRIBUTED SERVICES</strong> and select <strong>CONFIGURE MICROSEGMENTATION</strong></p></li>
+</ol>
+<p><img alt="Configure Microsegmentation" src="_images/lab4-configure-microsegmentation.png" /><br />
+<em>Fig. Lab 5 Configure Microsegmentation</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name (dvswitch)</p></td>
+<td><p>dsf-leaf<strong>LG</strong> (LG = Lab Group Number)</p></td>
+</tr>
+<tr class="row-even"><td><p>Host</p></td>
+<td><p>Enter the address of your host (see table below)</p></td>
+</tr>
+<tr class="row-odd"><td><p>NICs</p></td>
+<td><p>vmnic6 and vmnic7</p></td>
+</tr>
+<tr class="row-even"><td><p><em><strong>Click ADD and NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Lab Group</p></th>
+<th class="head"><p>vSphere Host</p></th>
+<th class="head"><p>Lab Group</p></th>
+<th class="head"><p>vSphere Host</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>01</p></td>
+<td><p>10.250.0.101</p></td>
+<td><p>06</p></td>
+<td><p>10.250.0.106</p></td>
+</tr>
+<tr class="row-odd"><td><p>02</p></td>
+<td><p>10.250.0.102</p></td>
+<td><p>07</p></td>
+<td><p>10.250.0.107</p></td>
+</tr>
+<tr class="row-even"><td><p>03</p></td>
+<td><p>10.250.0.103</p></td>
+<td><p>08</p></td>
+<td><p>10.250.0.108</p></td>
+</tr>
+<tr class="row-odd"><td><p>04</p></td>
+<td><p>10.250.0.104</p></td>
+<td><p>09</p></td>
+<td><p>10.250.0.109</p></td>
+</tr>
+<tr class="row-even"><td><p>05</p></td>
+<td><p>10.250.0.105</p></td>
+<td><p>10</p></td>
+<td><p>10.250.0.110</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - PVLAN</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Portgroup Name Prefix</p></td>
+<td><p>dsf-leaf<strong>LG</strong> (LG = Lab Group Number)</p></td>
+</tr>
+<tr class="row-even"><td><p>Primary VLAN</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-odd"><td><p>Primary VLAN NICS</p></td>
+<td><p><strong>(do NOT select any)</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Isolated VLAN</p></td>
+<td><p>11</p></td>
+</tr>
+<tr class="row-odd"><td><p>Isolated VLAN NICS</p></td>
+<td><p>Click <strong>SELECT VNICS</strong></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Scroll down, select both Network Adapter 2 with IP address: <code class="docutils literal notranslate"><span class="pre">10.0.10.101</span></code> and <code class="docutils literal notranslate"><span class="pre">10.0.10.102</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><em>Note: workloads must be connected to the isolated VLAN</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><img alt="Add Endpoint Group" src="_images/image40.png" /></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>| <em><strong>Click NEXT</strong></em> | |</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3 - Fabric</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Fabric</p></td>
+<td><p>dsf</p></td>
+</tr>
+<tr class="row-even"><td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 4 - LAGs</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><img alt="DVS LAGs" src="_images/lab4-dvs-lags.png" /></p></td>
+</tr>
+<tr class="row-even"><td><p>vSphere LAG Name</p></td>
+<td><p>dsf_lag_lg<strong>LG</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Host</p></td>
+<td><p>(pull down menu and use the pre-populated address)</p></td>
+</tr>
+<tr class="row-even"><td><p>Host NICS</p></td>
+<td><p>vmnic6 and vmnic7</p></td>
+</tr>
+<tr class="row-odd"><td><p>Switch LAG</p></td>
+<td><p>Click <strong>ADD</strong> on the right to configure the LAG on the CX10k VSX pair</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="Configure LAG" src="_images/lab4-configure-lag.png" /></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>Sub-step A - Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Create Mode</p></td>
+<td><p>Create a single LAG/MLAG <em>(default)</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dsf_lag_lgLG-10.250.0.10LG</span></code> <em>(pre-populated)</em></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>LAG Number</p></td>
+<td><p>31</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Inter-Switch Link</p></td>
+<td><p><strong>Check it! (if not greyed out)</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><em><strong>Click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>Sub-step B - Ports</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>LAG Switch Member</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dsf_LGLG-Leaf01A-Leaf01B</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Select the LAG Switch Member and then click the small picture icon as highlighted in the following screenshot to view the port selection on the switches</p>
+</div>
+<p><img alt="LAG Ports" src="_images/lab4-lag-ports.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Select the switch ports as highlighted in the following screenshot</p>
+</div>
+<p><img alt="Select Ports" src="_images/lab4-select-ports.png" /></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p>Click <em><strong>NEXT</strong></em> after port selection <em>(see screenshots above)</em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><strong>Sub-step C - LACP Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Review and <em><strong>click NEXT</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><strong>Sub-step D - VLANs</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>VLANs</p></td>
+<td><p><strong>10,11</strong> (should be populated)</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><em><strong>Click NEXT and APPLY</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>In the DVS Task main window, <em><strong>click ADD</strong></em> at the bottom left</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 5 - VRF</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Leave emtpy and click <em><strong>NEXT</strong></em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 6 - Policy</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Leave emtpy and click <em><strong>NEXT</strong></em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 7 - Summary</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Review the Summary and click <em><strong>APPLY</strong></em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id9">
+<h3>Expected Results<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>To confirm that Microsegmentation has been properly configured, click <em><strong>Visualization / Hosts</strong></em> from the top menu.</p>
+<p>On the left side fo the map, under <strong>Settings</strong>, you can use the <strong>Zoom Out</strong> function until you can see the whole diagram.  Also under <strong>Settings</strong>, select <strong>Name Truncation: None</strong></p>
+<p><img alt="Diagram Settings" src="_images/lab4-diagram-settings.png" /><br />
+<em>Fig. Lab 5 Diagram Settings</em></p>
+<p>Check the diagram to verify the connections and make sure you are looking at your specific Lab Group.</p>
+<p><img alt="Host Visualization" src="_images/lab4-host-visualization.png" /><br />
+<em>Fig. Lab 5 Host Visualization</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The VMs are connected to the Isolated VLAN 11 port group. And now you see the switch connections</p>
+</div>
+</section>
+</section>
+<section id="lab-5-summary">
+<h2>Lab 5 Summary<a class="headerlink" href="#lab-5-summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>During this lab, we enabled microsegmentation on the CX 10000 switches</p></li>
+<li><p>We created Endpoint Groups for each of the workloads running in the lab</p>
+<ul>
+<li><p>We used VM Tags for matching to demostrate how to create dynamic firewall rules</p></li>
+</ul>
+</li>
+<li><p>We created an Allow All firewall rule</p></li>
+<li><p>We created a firewall policy and added the Allow All rule to that policy</p></li>
+<li><p>We use the AFC to activate Microsegmentation</p>
+<ul>
+<li><p>We created a Private VLAN and added our test workload vNICs to this new Private VLAN  to ensure VM isolation</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="lab-5-learning-check">
+<h2>Lab 5 Learning Check<a class="headerlink" href="#lab-5-learning-check" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Endpoint Groups can be created manually or automatically learned from VMware</p></li>
+<li><p>Rules are added to policies.</p></li>
+<li><p>Policies are atuomatically sent to the AMD Pensando Policy Services Manager(PSM)</p></li>
+<li><p>PSM programs the DPU chips on the HPE Aruba CX 10000 switch</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab 4 - AFC Integrations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lab6.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lab 6 - Visibility and Troubleshooting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-1-create-endpoint-group-for-workloads">Lab 5.1 - Create Endpoint Group for Workloads</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-2-create-firewall-rule">Lab 5.2 - Create Firewall Rule</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-3-create-firewall-policy">Lab 5.3 - Create Firewall Policy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-4-configure-microsegmentation">Lab 5.4 - Configure Microsegmentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-summary">Lab 5 Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-5-learning-check">Lab 5 Learning Check</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By aruba-te@hpe.com - Confidential - For training purposes only
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Hewlett Packard Enterprise Development LP.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

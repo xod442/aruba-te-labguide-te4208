@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Spine-Leaf-Workshop-Docs'
-copyright = '2024, Spine-Leaf-Workshop'
-author = 'General'
+project = 'TE42021'
+copyright = '2024, TE4201'
+author = 'Frey'
 release = '0.1'
 
 # -- General configuration ---------------------------------------------------

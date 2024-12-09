@@ -1,10 +1,10 @@
-title : CX 10K Spine-Leaf Workshop
+title : TE4201
 author: 'aruba-te@hpe.com - Confidential - For training purposes only'
 copyright: '2024 Hewlett Packard Enterprise Development LP'
 logo: 'images/hpe-logo.png'
 
 description: >-
-  CX 10K Spine-Leaf Lab Guide
+ TE4201 Lab Guide
 
 execute:
   execute_notebooks           : off

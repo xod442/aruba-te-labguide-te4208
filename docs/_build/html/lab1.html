@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 1 - Accessing the Lab &#8212; CX 10K Spine-Leaf Workshop</title>
+    <title>Lab 1 - Accessing the Lab &#8212; TE4201</title>
   
   
   
@@ -61,7 +61,7 @@
     <link rel="icon" href="_static/fav-icon-32.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lab 2 - AFC Configuration" href="lab2.html" />
+    <link rel="next" title="Lab 2 - Create Network Resource Pools" href="lab2.html" />
     <link rel="prev" title="Lab Overview" href="home.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -154,8 +154,8 @@
       
     
     
-    <img src="_static/hpe-logo.png" class="logo__image only-light" alt="CX 10K Spine-Leaf Workshop - Home"/>
-    <script>document.write(`<img src="_static/hpe-logo.png" class="logo__image only-dark" alt="CX 10K Spine-Leaf Workshop - Home"/>`);</script>
+    <img src="_static/hpe-logo.png" class="logo__image only-light" alt="TE4201 - Home"/>
+    <script>document.write(`<img src="_static/hpe-logo.png" class="logo__image only-dark" alt="TE4201 - Home"/>`);</script>
   
   
 </a></div>
@@ -182,9 +182,11 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 1 - Accessing the Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - AFC Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3 - Create EPG’s and Deploy a Policy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - Test the Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - Create Network Resource Pools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3 - Build the Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - AFC Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab5.html">Lab 5 - Microsegmentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab6.html">Lab 6 - Visibility and Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="summary.html">Summary and Feedback</a></li>
 </ul>
 
@@ -334,14 +336,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-1-management-ip-addresses">Lab 1.1 Management IP Addresses</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-software-versions">1.2 Lab Software Versions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-3-pre-staged-workshop-environment">Lab 1.3 Pre-Staged Workshop Environment</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vsphere-integration">Vsphere integration</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pensando-integration">Pensando integration</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ipv4-address-pool">IPv4 Address Pool</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-address-pool">MAC address pool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-3-lab-details-and-accessing-the-aruba-fabric-composer">Lab 1.3 - Lab Details and Accessing the Aruba Fabric Composer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Expected Results</a></li>
 </ul>
 </li>
 </ul>
@@ -355,23 +357,45 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-accessing-the-lab">
+  <p>Confidential | For Training Purposes Only</p>
+<section class="tex2jax_ignore mathjax_ignore" id="lab-1-accessing-the-lab">
 <h1>Lab 1 - Accessing the Lab<a class="headerlink" href="#lab-1-accessing-the-lab" title="Link to this heading">#</a></h1>
 <section id="lab-overview">
 <h2>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h2>
 <p>Lab time:  15 minutes</p>
 <p>In this lab, we are going to explore the lab environment and access the various components of the lab.  The lab consists of the following components:</p>
 <ul class="simple">
-<li><p>1x CX 6300 Switch which acts as the Spine</p></li>
-<li><p>2x CX 10000 Switches configured as Leaf Switches</p></li>
-<li><p>1x ProLiant Server running ESXi and connected to both Leaf Switches</p></li>
+<li><p>2x CX 10000 Switches</p></li>
+<li><p>1 ProLiant Server</p></li>
 </ul>
-<p><img alt="Lab Layout" src="_images/lab1-lab-topology.png" />
+<p><img alt="Lab Layout" src="_images/lab1-lab-layout.png" />
 <em>Fig. Lab Physical Layout</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The last number of your workshop will be used to determine you lab group number. If you are user1 then your lab group number will be 01. If your userid ends with 10, then you lab grpoup number is 10. You will use the lab group number through out the workshop.</p>
+</div>
+<section id="expected-results">
+<h3>Expected Results<a class="headerlink" href="#expected-results" title="Link to this heading">#</a></h3>
+<p>Once inside, you will be connected via https and RDP to a Windows 10 machine that will work as your lab platform. In the rest of this guide, all applications mentioned run on this VM unless a different platform is specified.</p>
+<p><b>A word about the keyboard</b><br />
+This Hands On Lab is accessed by many engineers all around the world. Look in the tool bar at the bottom of the screen of your student jump host and select the language you normally use. Do not move on until this step is verified!</p>
+<p><img alt="Windows Language" src="_images/lab1-windows-language.png" /><br />
+<em>Fig. Lab 1 Windows Language</em></p>
+<p>All activities will be conducted using the Chrome browser on this machine, except for a few accesses to the console of the switches that can be done via MTputty. In this first activity you will use Fabric Composer to:</p>
+<ul class="simple">
+<li><p>Discover the switches</p></li>
+<li><p>Create a fabric</p></li>
+<li><p>Add the switches to the fabric</p></li>
+<li><p>Configure NTP and DNS services on the switches</p></li>
+</ul>
 </section>
-<section id="lab-1-1-management-ip-addresses">
-<h2>Lab 1.1 Management IP Addresses<a class="headerlink" href="#lab-1-1-management-ip-addresses" title="Link to this heading">#</a></h2>
-<p>The following table represents the Management IP Addresses we will use to access each of the different components within the labs:</p>
+</section>
+<section id="lab-1-3-lab-details-and-accessing-the-aruba-fabric-composer">
+<h2>Lab 1.3 - Lab Details and Accessing the Aruba Fabric Composer<a class="headerlink" href="#lab-1-3-lab-details-and-accessing-the-aruba-fabric-composer" title="Link to this heading">#</a></h2>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h3>
+<p>This is a table of all the IP addresses in your lab group. This is where you will you find your lab group assignment. The 3rd octet of the IP address will be the number “2” + you lab group number. If you have been assigned Lab 2 (ie. User2) then 202 is the 3rd octet.</p>
+<p><b>Management IP Addresses</b></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>DEVICE</p></th>
@@ -416,63 +440,24 @@ document.write(`
 </table>
 </div>
 </section>
-<section id="lab-software-versions">
-<h2>1.2 Lab Software Versions<a class="headerlink" href="#lab-software-versions" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>DEVICE</p></th>
-<th class="head"><p>SOFTWARE VERSION</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Aruba Fabric Composer (AFC)</p></td>
-<td><p>7.01</p></td>
-</tr>
-<tr class="row-odd"><td><p>Policy Services Manager</p></td>
-<td><p>1.80.1-T-6</p></td>
-</tr>
-<tr class="row-even"><td><p>CX Switches</p></td>
-<td><p>DL 10.13.1010</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<section id="validate">
+<h3>Validate<a class="headerlink" href="#validate" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Open the browser on the lab Windows machine</p></li>
+<li><p>Navigate to the Fabric Composer using the following URL:  <a class="reference external" href="https://10.250.2LG.30/">https://10.250.2LG.30/</a></p></li>
+</ol>
+<p><span style="color:orange"><em><strong>Make sure to replace LG with your Lab Group Number in the URL</strong></em></span></p>
+<ol class="arabic simple" start="3">
+<li><p>Log in using the following credentials:<br />
+<strong>Username:</strong>  <code class="docutils literal notranslate"><span class="pre">admin</span></code><br />
+<strong>Password:</strong>  <code class="docutils literal notranslate"><span class="pre">admin</span></code></p></li>
+</ol>
+<p><img alt="AFC Login" src="_images/lab1-afc-login.png" /><br />
+<em>Fig. Lab 1 AFC Login</em></p>
 </section>
-<section id="lab-1-3-pre-staged-workshop-environment">
-<h2>Lab 1.3 Pre-Staged Workshop Environment<a class="headerlink" href="#lab-1-3-pre-staged-workshop-environment" title="Link to this heading">#</a></h2>
-<p>This is an accelerated workshop. A lot of the initial setup functions have been already configured. For this workshop to be successfully completed, in a reasonable amount of time, the lab gear must be configured to a specific level. The follow items are pre-staged:</p>
-<ul class="simple">
-<li><p>Discovery of the network switches</p></li>
-<li><p>Creating a fabric</p></li>
-<li><p>Adding the switches to the data center fabric</p></li>
-<li><p>Configuring Network Time Protocol (NTP)</p></li>
-<li><p>MAC and IPv4 pools</p></li>
-<li><p>Configuring Domain Naming Services (DNS)</p></li>
-<li><p>vSphere and Pensando integrations</p></li>
-</ul>
-<section id="vsphere-integration">
-<h3>Vsphere integration<a class="headerlink" href="#vsphere-integration" title="Link to this heading">#</a></h3>
-<p>For this workshop, the vSphere integration in AFC has been pre-staged. The Virtual Machines already have an identity tag applied. Two Endpoint groups should have automatically been created. These are the Endpoint Groups used in this workshop.</p>
-<p>There are three (3) virtual machines (VMs) being used for this workshop that will serve as our Endpoints; <strong>LGXX-WL01, LGXX-WL02 and LGXX-WL03</strong>. These workloads are Ubuntu Linux VM’s The <strong>XX</strong> will be replaced with the <em>Lab Group number</em> that was assigned at the start of this workshop.</p>
-<p>These workload VMs are tagged in vSphere and will be leveraged for Rule and Policy mapping.</p>
-<p>For more information on Data Center deployment check out the Aruba Validated Solutions Guide’s (VSG) VMware vSphere section located here:</p>
-<p><a class="reference external" href="https://www.arubanetworks.com/techdocs/VSG/docs/050-dc-deploy/esp-dc-deploy-120-fabric-deploy/#vmware-vsphere-integration">https://www.arubanetworks.com/techdocs/VSG/docs/050-dc-deploy/esp-dc-deploy-120-fabric-deploy/#vmware-vsphere-integration</a></p>
-<ul class="simple">
-<li><p>See also AFC User Guide (Version 6.5 used for this workshop):
-<a class="reference external" href="https://www.arubanetworks.com/techdocs/AFC/PDFs/64/AFC64UG.pdf">https://www.arubanetworks.com/techdocs/AFC/PDFs/64/AFC64UG.pdf</a></p></li>
-</ul>
-</section>
-<section id="pensando-integration">
-<h3>Pensando integration<a class="headerlink" href="#pensando-integration" title="Link to this heading">#</a></h3>
-<p>For this workshop, the AMD Pensando Policy and Services Manager (PSM) integration has been pre-staged.</p>
-</section>
-<section id="ipv4-address-pool">
-<h3>IPv4 Address Pool<a class="headerlink" href="#ipv4-address-pool" title="Link to this heading">#</a></h3>
-<p>As the Aruba Fabric Composer relies on automation to deploy the data center infrastructure, an IPv4 address pool has been created and ready to use. (<strong>10.100.0.0/24</strong>)</p>
-</section>
-<section id="mac-address-pool">
-<h3>MAC address pool<a class="headerlink" href="#mac-address-pool" title="Link to this heading">#</a></h3>
-<p>As the Aruba Fabric Composer relies on automation to deploy the data center infrastructure, a MAC address pool has been created. This is just a pool of address that AFC can use to assign MAC addresses when required. (<strong>02:00:00:00:00:aa-02:00:00:00:00:ff</strong>)</p>
+<section id="id1">
+<h3>Expected Results<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>After supplying the credentials to AFC you will see the dashboard.</p>
 </section>
 </section>
 </section>
@@ -521,7 +506,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab 2 - AFC Configuration</p>
+        <p class="prev-next-title">Lab 2 - Create Network Resource Pools</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -541,14 +526,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-1-management-ip-addresses">Lab 1.1 Management IP Addresses</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-software-versions">1.2 Lab Software Versions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-3-pre-staged-workshop-environment">Lab 1.3 Pre-Staged Workshop Environment</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vsphere-integration">Vsphere integration</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pensando-integration">Pensando integration</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ipv4-address-pool">IPv4 Address Pool</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-address-pool">MAC address pool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-3-lab-details-and-accessing-the-aruba-fabric-composer">Lab 1.3 - Lab Details and Accessing the Aruba Fabric Composer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Expected Results</a></li>
 </ul>
 </li>
 </ul>

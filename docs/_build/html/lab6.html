@@ -1,0 +1,1388 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab 6 - Visibility and Troubleshooting &#8212; TE4201</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lab6';</script>
+    <link rel="icon" href="_static/fav-icon-32.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Summary and Feedback" href="summary.html" />
+    <link rel="prev" title="Lab 5 - Microsegmentation" href="lab5.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="home.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/hpe-logo.png" class="logo__image only-light" alt="TE4201 - Home"/>
+    <script>document.write(`<img src="_static/hpe-logo.png" class="logo__image only-dark" alt="TE4201 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="home.html">
+                    Lab Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">Lab 1 - Accessing the Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - Create Network Resource Pools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3 - Build the Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - AFC Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab5.html">Lab 5 - Microsegmentation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 6 - Visibility and Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary.html">Summary and Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lab6.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 6 - Visibility and Troubleshooting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-1-add-svi-to-vlan-10">Lab 6.1 - Add SVI to VLAN 10</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-2-test-policies-and-svi">Lab 6.2 - Test Policies and SVI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-3-view-flow-logs">Lab 6.3 - View Flow Logs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-4-analyze-flow-graphs">Lab 6.4 - Analyze Flow Graphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-5-add-policy-rules">Lab 6.5 - Add Policy Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-6-test-policy-rules">Lab 6.6 - Test Policy Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-7-testing-iperf">Lab 6.7 - Testing iPerf</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-8-unique-flows">Lab 6.8 - Unique Flows</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-summary">Lab 6 Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>Confidential | For Training Purposes Only</p>
+<section class="tex2jax_ignore mathjax_ignore" id="lab-6-visibility-and-troubleshooting">
+<h1>Lab 6 - Visibility and Troubleshooting<a class="headerlink" href="#lab-6-visibility-and-troubleshooting" title="Link to this heading">#</a></h1>
+<section id="lab-overview">
+<h2>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h2>
+<p>Lab time:  30 minutes</p>
+<p>On top of the stateful services and microsegmentation, the CX 10000 also delivers visibility into each and every East / West flow.  During this lab, we will test some basic traffic flows (ping, SSH, iPerf3), the firewalling policies and also explore the power of having complete visibility.</p>
+</section>
+<section id="lab-6-1-add-svi-to-vlan-10">
+<h2>Lab 6.1 - Add SVI to VLAN 10<a class="headerlink" href="#lab-6-1-add-svi-to-vlan-10" title="Link to this heading">#</a></h2>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h3>
+<p>In order to successfully redirect packets over the switch, we need to create a correspondng Switched Virtual Interface (SVI) for VLAN 10 to the switch.</p>
+</section>
+<section id="validate">
+<h3>Validate<a class="headerlink" href="#validate" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In Fabric Composer, using the top menu, navigate to <strong>Configuration / Routing</strong> and then select <strong>VRF</strong>.</p></li>
+<li><p>Click the 3 dots left of <strong>default</strong> and select <strong>IP Interfaces</strong>.</p></li>
+</ol>
+<p><img alt="IP Interfaces" src="_images/image49.png" /><br />
+<em>Fig. Lab 6 IP Interfaces</em></p>
+<ol class="arabic simple" start="3">
+<li><p>In the <strong>IP Interfaces</strong> context, select <strong>Actions</strong>, then <strong>Add</strong> and enter the following information in the form</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Interfaces Type</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable this IP interface</p></td>
+<td><p>Yes (select)</p></td>
+</tr>
+<tr class="row-even"><td><p>Type</p></td>
+<td><p>SVI</p></td>
+</tr>
+<tr class="row-odd"><td><p>VLAN</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Switches</p></td>
+<td><p>Select the VSX pair (<code class="docutils literal notranslate"><span class="pre">dsf_LG01-Leaf01-A_LG01-Leaf...</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>IP Subnet Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.10.0/24</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>IPv4 Addresses</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.10.2-10.0.10.6</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Active Gateway IP Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.10.1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Active Gateway MAC Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">02:00:00:00:00:01</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable VSX Shutdown on Split</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Enable Local Proxy ARP</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SVI10</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Review the Summary and <strong>APPLY</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="expected-results">
+<h3>Expected Results<a class="headerlink" href="#expected-results" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Verify the new SVI in the AFC</p></li>
+</ol>
+<p><img alt="New SVI" src="_images/lab5-new-svi.png" /><br />
+<em>Fig. Lab 6 New SVI</em></p>
+<ol class="arabic simple" start="2">
+<li><p>Now let’s ensure that the Network was added to the PSM by logging into the PSM:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>URL</p></td>
+<td><p>10.250.2<strong>LG</strong>.31 (LG = Labgroup Number)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Username</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Password</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Pensando0$</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Go to <strong>Tenants / Networks</strong>  and you should see VLAN10 listed in your networks</p></li>
+</ol>
+<p><img alt="PSM Networks" src="_images/lab5-psm-networks.png" /><br />
+<em>Fig. Lab 6 PSM Networks</em></p>
+</section>
+</section>
+<section id="lab-6-2-test-policies-and-svi">
+<h2>Lab 6.2 - Test Policies and SVI<a class="headerlink" href="#lab-6-2-test-policies-and-svi" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Description<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>In the previous activity, you created a policy with a single <code class="docutils literal notranslate"><span class="pre">allow_all</span></code> rule, to allow all traffic between <code class="docutils literal notranslate"><span class="pre">Workload01</span></code> and <code class="docutils literal notranslate"><span class="pre">Workload02</span></code>.</p>
+</section>
+<section id="id2">
+<h3>Validate<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>To test the rule and visualize the flows, follow the following steps:</p>
+<ol class="arabic simple">
+<li><p>Using Putty or TeraTerm, open an SSH session with each workload</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Workload</p></th>
+<th class="head"><p>Address for SSH*</p></th>
+<th class="head"><p>Username</p></th>
+<th class="head"><p>Password</p></th>
+<th class="head"><p>Hostname</p></th>
+<th class="head"><p>VLAN 10 Address</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>10.250.2<strong>LG</strong>.201</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">arubatm</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+<td><p>lg<strong>LG</strong>-wl01</p></td>
+<td><p>10.0.10.101</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>10.250.2<strong>LG</strong>.202</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">arubatm</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+<td><p>lg<strong>LG</strong>-wl01</p></td>
+<td><p>10.0.10.102</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>From each workload, ping the VLAN 10 SVI 10.0.10.1 to verify connectivity between the VMs and the switches.</p></li>
+</ol>
+<p><img alt="Ping SVI" src="_images/lab5-ping-svi.png" /><br />
+<em>Fig. Lab 6 Ping SVI</em></p>
+</section>
+<section id="id3">
+<h3>Expected Results<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>If you cannot ping your gateway, check to see if the switch ports are up!</p></li>
+</ul>
+</div>
+<p><img alt="Ping SVI" src="_images/image55.png" /><br />
+<em>Fig. show ip interface brief</em></p>
+<p>Now have a look at the following network diagram to understand the flow.  Both WL01 and WL2 have <a class="reference external" href="http://10.0.10.xxx">10.0.10.xxx</a> IP Addresses and the Primary VLAN (VLAN 10) is paired with an Isolated VLAN (VLAN 11).  The traffic on VLAN 11 is re-routed to the DSM chip on the CX10K for processing via the primary VLAN 10.</p>
+<p><img alt="SVI Diagram" src="_images/lab5-svi-diagram.png" /><br />
+<em>Fig. Lab 6 SVI Diagram</em></p>
+<p>Policies will be defined using the AFC and sent, via automation, to the Pensando PSM. In turn, the PSM will program the enforcement on the DSM chips. A workload aware infrastructure built on top of a fully programmable, Automated, Scalable network pipeline.</p>
+</section>
+</section>
+<section id="lab-6-3-view-flow-logs">
+<h2>Lab 6.3 - View Flow Logs<a class="headerlink" href="#lab-6-3-view-flow-logs" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>Description<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Now that we have traffic on VLAN 10 being redirected over the DSM, we can start to look at some of the telemetry.  During this lab, we will generate traffic betweeen two VMs on the same ESXi host, and will view the live flow logs.</p>
+</section>
+<section id="id5">
+<h3>Validate<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Using the SSH sessions to Workload01 and Workload02 from the previous exercise, initiate a new continuous ping and do not interrupt it:</p></li>
+</ol>
+<ul class="simple">
+<li><p>From <code class="docutils literal notranslate"><span class="pre">Workload01</span></code>, ping <code class="docutils literal notranslate"><span class="pre">10.0.10.102</span></code></p></li>
+<li><p>From <code class="docutils literal notranslate"><span class="pre">Workload02</span></code>, ping <code class="docutils literal notranslate"><span class="pre">10.0.10.101</span></code></p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Open two new SSH sessions, to each CX 10000 Switch:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Switch</p></th>
+<th class="head"><p>Address for SSH</p></th>
+<th class="head"><p>Username</p></th>
+<th class="head"><p>Password</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>10.250.2<strong>LG</strong>.101</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>10.250.2<strong>LG</strong>.102</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>On one of the switches, find which VLANs are being redirected to the DSM (Distributed Services Module = the Pensando Elba Packet Processor) for policy enforcement</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The CX 10000 Switch has two DSMs, and redirected VLANs are distributed between them using a hashing algorithm.  In a CX 10000 VSX pair, all redirection and flow policing is synchronized across both switches</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>On each switch, run the following command and you should see an output similar to the screenshot below:</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">dsm</span> <span class="pre">redirect</span></code></p>
+<p><img alt="Show DSM Redirect" src="_images/lab5-show-dsm-redirect.png" /><br />
+<em>Fig. Lab 6 Show DSM Redirect</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this example, VLAN 10 is redirected to DSM 1/1 on both switches, however in your lab, you may see redirection to DSM 1/2</p>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>To visualize the flows, enter diagnostics mode on the switch by entering the following commands:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">diagnostics</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">diag</span> <span class="pre">dsm</span> <span class="pre">console</span> <span class="pre">1/1</span> <span class="pre">or</span> <span class="pre">1/2</span></code> (<span style="color:orange"><strong>ensure you specify the DSM from the command above</strong></span>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pdsctl</span> <span class="pre">show</span> <span class="pre">flow</span></code></p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>Expected Results<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>After running the command <code class="docutils literal notranslate"><span class="pre">pdsctl</span> <span class="pre">show</span> <span class="pre">flow</span></code>, you should a table showing the two flows, in each direction.</p>
+<p><img alt="pdsctl show flow" src="_images/lab5-pdsctl-show-flow.png" /><br />
+<em>Fig. Lab 6 pdsctl show flow</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that the action is A (allow) for all 4 flows</p>
+</div>
+</section>
+</section>
+<section id="lab-6-4-analyze-flow-graphs">
+<h2>Lab 6.4 - Analyze Flow Graphs<a class="headerlink" href="#lab-6-4-analyze-flow-graphs" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>The Switches forward flow data to the PSM and using the PSM, you can create different visualizations and dashboards based on that data.  During this exercise, we will create some flow graphs to do just that.</p>
+</section>
+<section id="id8">
+<h3>Validate<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In the PSM browser tab, goto <strong>Sytem / DSS</strong> and then click on the <em>first DSS-ID</em></p></li>
+</ol>
+<p><img alt="DSS Overview" src="_images/lab5-dss-overview.png" /><br />
+<em>Fig. Lab 6 DSS Overview</em></p>
+<ol class="arabic simple" start="2">
+<li><p>Scroll down and look to the bottom right to see the graphs.</p></li>
+</ol>
+<p><img alt="Flow Graphs" src="_images/lab5-flow-graphs.png" /><br />
+<em>Fig. Lab 6 Flow Graphs</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Go to <strong>Monitoring / Metrics</strong> and select <strong>CREATE CHART</strong> (top right)</p></li>
+</ol>
+<p><img alt="Create Chart" src="_images/image61.png" /><br />
+<em>Fig. Create Chart</em></p>
+<ol class="arabic simple" start="4">
+<li><p>Create a chart using the following paramters and save it.  For the <em><strong>Select DSSs</strong></em> drop down, choose the <em><strong>both switches</strong></em>.  <em>Make sure to select the DPU you saw from the PDSCTL command you ran earlier</em> (should be either 1/1 or 1/2).  Once completed, click <strong>Save Chart</strong></p></li>
+</ol>
+<p><img alt="Create Chart" src="_images/lab5-create-chart.png" /><br />
+<em>Fig. Chart Options</em></p>
+</section>
+<section id="id9">
+<h3>Expected Results<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Since we should still have ping running between the workloads, we should see a graph similar to the following screenshot.  You can use this reporting function from the PSM to visualize all traffic passing through the DSM chips.</p>
+<p><img alt="New Flow Chart" src="_images/lab5-new-flow-chart.png" /><br />
+<em>Fig. New Flow Chart</em></p>
+</section>
+</section>
+<section id="lab-6-5-add-policy-rules">
+<h2>Lab 6.5 - Add Policy Rules<a class="headerlink" href="#lab-6-5-add-policy-rules" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h3>Description<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>During this exercise, we will use the AFC to modify the policy that we created in an earlier step, and add the following rules between Workload01 and Workload02:</p>
+<ul class="simple">
+<li><p>Allow SSH</p></li>
+<li><p>Allow iPerf3 client/server flows (default using TCP port 5201) with the server on Workload02</p></li>
+<li><p>Deny All (block everything else, including ping)</p></li>
+</ul>
+</section>
+<section id="id11">
+<h3>Validate<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Using the browser, navigate back to the Fabric Composer</p></li>
+<li><p>Go to <strong>Configuration / Policy / Rules</strong></p></li>
+</ol>
+<p><img alt="New Flow Chart" src="_images/image68.png" /><br />
+<em>Fig. Rules Menu</em></p>
+<p><img alt="New Flow Chart" src="_images/image69.png" /><br />
+<em>Fig. Add New Rule</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Create the first <code class="docutils literal notranslate"><span class="pre">allow_ssh</span></code> Rule using the following settings:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">allow_ssh</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3</p></td>
+</tr>
+<tr class="row-even"><td><p>Action</p></td>
+<td><p>Allow</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3 - Endpoint Groups</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source Endpoint Groups</p></td>
+<td><p><em>Select both Workload Groups</em></p></td>
+</tr>
+<tr class="row-even"><td><p>Destination Endpoint Groups</p></td>
+<td><p><em>Select both Workload Groups</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 4 - Application and Service Qualifiers</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Applications</p></td>
+<td><p>SSH</p></td>
+</tr>
+<tr class="row-even"><td><p>Service Qualifiers</p></td>
+<td><p>(leave empty)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Review the Summary and <strong>Click APPLY</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Create the second <code class="docutils literal notranslate"><span class="pre">allow_iPerf_TCP_5201</span></code> Rule using the following settings:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">allow_iPerf_TCP_5201</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3</p></td>
+</tr>
+<tr class="row-even"><td><p>Action</p></td>
+<td><p>Allow</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3 - Endpoint Groups</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source Endpoint Groups</p></td>
+<td><p><em>Select both Workload Groups</em></p></td>
+</tr>
+<tr class="row-even"><td><p>Destination Endpoint Groups</p></td>
+<td><p><em>Select both Workload Groups</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 4 - Application and Service Qualifiers</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><span style="color:orange"><strong>Leave the Application box emtpy and click ADD at the bottom</strong></span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>Sub-step A - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Name</p></td>
+<td><p>TCP_5201</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p></p></td>
+<td><p><strong>Sub-step B - Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>IP Protocol</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tcp</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Source Port</p></td>
+<td><p>any</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Destination Port</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5201</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Click <strong>ADD</strong> (bottom left), <strong>NEXT</strong>, review the Summary and <strong>APPLY</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Create the third <code class="docutils literal notranslate"><span class="pre">deny_all</span></code> rule using the following settings:</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is an implicit deny all rule at the end of any policy, so this step is optional</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1 - Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">deny_all</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>(optional)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2 - Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3</p></td>
+</tr>
+<tr class="row-even"><td><p>Action</p></td>
+<td><p>Drop</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3 - Endpoint Groups</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source Endpoint Groups</p></td>
+<td><p>(leave empty)</p></td>
+</tr>
+<tr class="row-even"><td><p>Destination Endpoint Groups</p></td>
+<td><p>(leave empty)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 4 - Application and Service Qualifiers</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Applications</p></td>
+<td><p>(leave empty)</p></td>
+</tr>
+<tr class="row-even"><td><p>Service Qualifiers</p></td>
+<td><p>(leave empty)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Click NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Review the Summary and <strong>Click APPLY</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Note:</span> <span class="pre">Super</span> <span class="pre">Important!!!</span></code></p>
+<ol class="arabic simple" start="6">
+<li><p>Go to <strong>Policies</strong>, find the <strong>dsf-leafLG-01</strong> policy, and click the <strong>3 dots</strong> to add/modify the rules</p></li>
+<li><p>Select the <code class="docutils literal notranslate"><span class="pre">allow_all_vlan_10</span></code> rule and under <strong>ACTIONS</strong>, click <strong>Remove</strong></p></li>
+<li><p>Click the <strong>ACTIONS</strong> menu again, and now select <strong>ADD &gt; Existing</strong> in order to add the rules from the previous step, to this policy</p></li>
+<li><p>Select the new rules and click <strong>APPLY</strong></p></li>
+</ol>
+<p><img alt="Add Rules" src="_images/lab5-add-rules.png" /><br />
+<em>Fig. Add Rules</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure the deny_all rule is the last rule in the policy - this will create a default deny scenario.  If the deny all rule is not the last rule, you can change the order by editing the policy.</p>
+</div>
+</section>
+<section id="id12">
+<h3>Expected Results<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>Our Firewall Policy should now have a zero trust type of behavior, where all East/West traffic on VLAN 10 is dropped, with the exception of SSH between two workloads, and iPerf.</p>
+</section>
+</section>
+<section id="lab-6-6-test-policy-rules">
+<h2>Lab 6.6 - Test Policy Rules<a class="headerlink" href="#lab-6-6-test-policy-rules" title="Link to this heading">#</a></h2>
+<section id="id13">
+<h3>Description<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>In the previous activity you created new rules for traffic between Workload011 and Workload02, as well as a deny_all rule.  Now we will test the behavior of these new rules.  Our pings between Workload01 and Workload02 should still be running in the background as well.</p>
+</section>
+<section id="id14">
+<h3>Validate<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Go back to the SSH session from one of your switches and rerun the command:  <code class="docutils literal notranslate"><span class="pre">pdsctl</span> <span class="pre">show</span> <span class="pre">flow</span></code></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the flow table, notice that now the Action is D (deny) for all 4 flows.</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Return to the SSH sessions of each workload and stop the ping.  Restart the ping and according to the new ruleset, the ping should be blocked.</p></li>
+<li><p>To test SSH on Workload01, run the following command using the credentials <code class="docutils literal notranslate"><span class="pre">arubatm</span></code> / <code class="docutils literal notranslate"><span class="pre">admin</span></code>:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">10.0.10.102</span></code></p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>Return to the SSH session of one of your switches.  Enter the DSM diagnostics mode (similar to a previous exercise) by running:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">diagnostics</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">diag</span> <span class="pre">dsm</span> <span class="pre">console</span> <span class="pre">1/x</span></code>  (ensure you enter the diagnostics of the DSM which VLAN 10 is redirected to)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pdsctl</span> <span class="pre">show</span> <span class="pre">flow</span></code></p></li>
+</ul>
+<p><img alt="Show Flow SSH" src="_images/lab5-show-flow-ssh.png" /><br />
+<em>Fig. Show Flow SSH</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that the action for the flow to and from port 22 (SSH) is A (Allow)</p>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Open the PSM browser tab and refresh the Metrics page.  You should see a graph similar to the following screenshot.</p></li>
+</ol>
+<p><img alt="Graph SSH" src="_images/lab5-graph-ssh.png" /><br />
+<em>Fig. Graph SSH</em></p>
+</section>
+<section id="id15">
+<h3>Expected Results<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>During this lab we tested the firewall policies that we created from the previous exercise.  Ping should now be blocked on VLAN 10, however SSH between our two Workload VMs should still be allowed.  The graphs and flow data available in PSM allows us to view all of the allowed and denied traffic patterns.</p>
+</section>
+</section>
+<section id="lab-6-7-testing-iperf">
+<h2>Lab 6.7 - Testing iPerf<a class="headerlink" href="#lab-6-7-testing-iperf" title="Link to this heading">#</a></h2>
+<section id="id16">
+<h3>Description<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>Other than SSH, we also added a rule to test iPerf which is a network performance testing tool.  We will configure Workload02 as the iPerf3 server, and Workload01 as the iPerf3 client.</p>
+</section>
+<section id="id17">
+<h3>Validate<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Go back to your SSH session on <code class="docutils literal notranslate"><span class="pre">Workload02</span></code> and run the following command in order to start the <strong>iPerf3 server</strong>:  <code class="docutils literal notranslate"><span class="pre">iperf3</span> <span class="pre">-s</span></code></p></li>
+</ol>
+<p><img alt="iPerf Server" src="_images/lab5-iperf-server.png" /><br />
+<em>Fig. iPerf Server</em></p>
+<ol class="arabic simple" start="2">
+<li><p>Go back to the <code class="docutils literal notranslate"><span class="pre">Workload01</span></code> SSH session, and log out of SSH session from <strong>Workload01</strong> to <strong>Workload02</strong> <em>(if still active)</em></p></li>
+<li><p>On <code class="docutils literal notranslate"><span class="pre">Workload01</span></code>, start the iPerf3 client using this command:  <code class="docutils literal notranslate"><span class="pre">iperf3</span> <span class="pre">-c</span> <span class="pre">10.0.10.102</span> <span class="pre">-t</span> <span class="pre">1000</span></code></p></li>
+</ol>
+<p><img alt="iPerf Client" src="_images/lab5-iperf-client-running.png" /><br />
+<em>Fig. iPerf Client</em></p>
+<ol class="arabic simple" start="4">
+<li><p>Now let’s look at the flow table on one of the switches again.  On one of the switches, rerun the command: <code class="docutils literal notranslate"><span class="pre">pdctl</span> <span class="pre">show</span> <span class="pre">flow</span></code></p></li>
+</ol>
+<p><img alt="iPerf Flow Logs" src="_images/lab5-iperf-flow-logs.png" /><br />
+<em>Fig. iPerf Flow Logs</em></p>
+<ol class="arabic simple" start="5">
+<li><p>Go to the PSM UI and refresh the Metrics page one more time.  You should see some updated graphs like the following.</p></li>
+</ol>
+<p><img alt="iPerf Graph" src="_images/lab5-iperf-graphs.png" /><br />
+<em>Fig. iPerf Graph</em></p>
+</section>
+<section id="id18">
+<h3>Expected Results<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>Just like in the previous lab, we should have the behavior that all traffic in VLAN 10 is denied, with the exception of SSH and iPerf.  This lab should have confirmed this behavior.</p>
+</section>
+</section>
+<section id="lab-6-8-unique-flows">
+<h2>Lab 6.8 - Unique Flows<a class="headerlink" href="#lab-6-8-unique-flows" title="Link to this heading">#</a></h2>
+<section id="id19">
+<h3>Description<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>Enabling stateful services or microsegmentation in a brownfield environment, where little to no enforcement is d, is not an easy task.  This is where some of the built in metrics to the CX 10000 help.  We will look at how to find analyze unique flows on a given network.</p>
+</section>
+<section id="id20">
+<h3>Validate<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In the PSM UI, navigate to <strong>Tenant / Security Policies</strong></p></li>
+<li><p>Click the <strong>Table View</strong> menu from the top right corner, and select <strong>Network Graph</strong></p></li>
+</ol>
+<p><img alt="Network Graph Menu" src="_images/lab5-network-graph-menu.png" /><br />
+<em>Fig. Network Graph Menu</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Under the Security Policies filter, select the <strong>default</strong> VRF</p></li>
+</ol>
+<p><img alt="Security Policies Filter" src="_images/lab5-security-policies-filter.png" /><br />
+<em>Fig. Security Policies Filter</em></p>
+<ol class="arabic simple" start="4">
+<li><p>Wait for the data to load and analyze the Unique Flows table on the right hand side.</p></li>
+<li><p>Go to workload01 and stop the ipfer3 client.</p></li>
+</ol>
+<p>Verify the ssh rule is working.</p>
+<ol class="arabic simple" start="6">
+<li><p>Open an SSH session from <strong>workload01</strong> to <strong>workload02</strong></p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">arubatm&#64;10.0.10.102</span></code></p></li>
+</ul>
+</section>
+<section id="id21">
+<h3>Expected Results<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>The SSH session should connect, if not check the rules assigned to the policy.</p>
+<p>Using the Unique Flows function from the PSM, we are able to see all of our unique flows on VLAN, over a specified time period.  Having this level of data is crucial for implementing stateful services on your network.</p>
+</section>
+</section>
+<section id="lab-6-summary">
+<h2>Lab 6 Summary<a class="headerlink" href="#lab-6-summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>We added a Switched Virtual Interface to the switch for VLAN 10</p></li>
+<li><p>We verified that the traffic for VLAN 10 is successfully redirected over the AMD DSM, and become stateful</p></li>
+<li><p>We analyzed the DSM flow tables to see allowed or denied traffic</p></li>
+<li><p>We set up a zero trust and microsegmentation policy for VLAN 10, where all traffic is denied, with the exception of iPerf and SSH between two workloads</p></li>
+<li><p>We verified that the firewall policies that we defined for VLAN 10 are enforced</p>
+<ul>
+<li><p>SSH (tcp 22) between Workload01 and Workload02 is open</p></li>
+<li><p>iPerf3 (tcp 5201) between Workload01 and Workload02 is open</p></li>
+<li><p>All other traffic patterns are denied - we verified this by attempting a ping from one workload to the other</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab5.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab 5 - Microsegmentation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="summary.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Summary and Feedback</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-1-add-svi-to-vlan-10">Lab 6.1 - Add SVI to VLAN 10</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-2-test-policies-and-svi">Lab 6.2 - Test Policies and SVI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-3-view-flow-logs">Lab 6.3 - View Flow Logs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-4-analyze-flow-graphs">Lab 6.4 - Analyze Flow Graphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-5-add-policy-rules">Lab 6.5 - Add Policy Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-6-test-policy-rules">Lab 6.6 - Test Policy Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-7-testing-iperf">Lab 6.7 - Testing iPerf</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-8-unique-flows">Lab 6.8 - Unique Flows</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-6-summary">Lab 6 Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By aruba-te@hpe.com - Confidential - For training purposes only
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Hewlett Packard Enterprise Development LP.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

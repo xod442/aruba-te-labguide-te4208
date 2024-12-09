@@ -1,467 +1,285 @@
-# Lab 3 - Create EPG's and Deploy a Policy  
+Confidential | For Training Purposes Only
+
+
+# Lab 3 - Build the Fabric
 
 ## Lab Overview
-Lab time:  30 minutes  
 
-With all the systems in place, we can now leverage the various components to create a policy that can be deployed from a single pane of glass to multiple switches within the fabric.  
+Lab time:  20 minutes
 
-## Lab 3.1 - Redirect VLANs to DSM  
+In this lab, we are going to use the Aruba Fabric Composer (AFC) to:
 
-### Description  
-The first step is to Configure the VRFs to sync with the Policy Service Manager that will utilize the defined networks..  
+* Discover the CX10000 switches
+* Create a new fabric
+* Assign the newly discovered switches to the fabric
+* Configure NTP, DNS
+* Create a VSX Cluster
 
-### Validate   
-1. In the Guided Setup Pane, switch from the **Network** tab to the **Distributed Services** tab.  _Be sure to switch over to Distributed Services from the Network Tab_!  
 
-![Distributed Services Menu](images/lab3-distributed-services-menu.png)  
-_Fig. Distributed Services Menu_  
+## Lab 3.1 - Discover the Switches
 
-2. Click **Configure VRFs** to navigate to the VRFs page under **Configuration/Routing**  
+### Description
+Using the AFC we will discover the already deployed CX10000 switches.
+ 
+1. Using the **Guided Setup** menu on the right side, click on the **SWITCHES** button in order to discover the new switches. If the right-hand menu is missing, click on the icon to the left of the person icon. This toggles the workflow menu.
 
-3. In the Configure VRFs page, within the right-hand pane for Distributed Services, choose **dsa/over** as the selected VRF in the **Distributed Services Setup** drop-down, then select **Configure Networks** just below the VRF selection drop-down menu
+![Discover Switches](images/lab2-discover-switches-menu.png)  
+_Fig. Lab 3 Discover Switches_  
+
+2. To import the CX 10000 Switches, enter the following parameters in the form:  
+
+|   |   |
+|---|---|
+|Switches| ``10.250.2LG.101, 10.250.2LG.102`` (where LG is your Lab Group #)|
+|Switch "admin" account password| ``admin`` |
+|Service Account User| ``afc_admin`` (do not change the default) |
+|Service Account Password| ``admin`` |  
+| ***Click APPLY***
 
 ```{note}
-Be sure to select the dsa/over VRF
-```  
-
-![dsa over](images/lab3-dsa-over.png)  
-_Fig. dsa/over_  
-
-```{note}
-Also accessed via Configuration/Routing/VRF - [over] - (3 dots on left) /Networks/From Networks Tab/Actions Menu (mid-right) - Add
-```  
-
-4. In the **ACTIONS** menu under the **Networks** tab, click **Add** and configure the following for VLAN 10.  
-
-![Add Redirect](images/lab3-add-redirect.png)  
-_Fig. Add Redirect_  
-
-|||
-|---|---|
-| Step 1: Name ||  
-| Name | vlan10 |  
-| Description | vlan10 |  
-| Click **NEXT** to continue ||  
-
-|||
-|---|---|
-| Step 2: Settings ||  
-| VLAN | 10 |  
-| Click **NEXT** to continue ||  
-| Click **Apply** ||  
-
-5. Repeat the previous step, but for VLAN 20.  In the **ACTIONS** menu under the **Networks** tab, click **Add** and configure the following for VLAN 20.  
-
-|||
-|---|---|
-| Step 1: Name ||  
-| Name | vlan20 |  
-| Description | vlan20 |  
-| Click **NEXT** to continue ||  
-
-|||
-|---|---|
-| Step 2: Settings ||  
-| VLAN | 20 |  
-| Click **NEXT** to continue ||  
-| Click **Apply** ||  
-
-### Expected Results  
-
-1. You should see the newly created networks under the Networks tab for the VRF in a green Healthy state.  
-
-![VLANs Created](images/lab3-vlans-created.png)  
-_Fig. VLANs Created_  
-
-2. Verify the VLANs are in operation by using the embedded **CLI Command Tool** to verify their status.  
-
-The command to execute against the leaf switches is:  
-- ``show vlan``  
-- VLANs 10 & 20 should be listed  
-
-## Lab 3.2 Configure Endpoint Groups  
-
-### Overview 
-Endpoint group objects represent source and destination IP addresses referenced in firewall rules that can represent one or multiple devices. **Dynamic** endpoint groups can be **auto-populated** based on the assignment of **vSphere Tags** to VMs identified through AFC’s vCenter integration along with the PSM. All VMs assigned the same tag should be auto-populated as a member of the dynamic group when on a **distributed vSwitch**.  _When member IP addresses change or tag assignments are changed in vCenter, dynamic group objects are updated automatically_.  
-
-```{note}
-In this workshop you will see workloads that are learned from vSphere. You can ignore them, and create your own! 
-```  
-
-### Validate  
-1. In the **Guided Setup Pane**, under the **Distributed Services** tab, click **Configure Policy**, followed by **Endpoint Groups** on the left-hand menu.  
-
-![Configure Policy](images/lab3-configure-policy.png)  
-_Fig. Configure Policy_  
-
-```{note}
-Also accessed via Configuration/Policy/Endpoint Groups  
-```  
-
-```{note}
-To proceed with manual endpoint group creation, begin by clicking Add under the ACTIONS Menu in the top-right under Configuration/Policy/Endpoint Groups/Actions Menu (top-right)/Add
-```  
-
-![Add Enpoint Group](images/lab3-add-endpoint-group.png)  
-_Fig. Add Enpoint Group_  
-
-3. Enter the following configuration to create an Endoint Group for Workload01 & Workload02:
-
-|||
-|---|---|
-| Step 1: Name ||  
-| Name | Web Servers |  
-| Description | Web Server EPG |  
-| Click **NEXT** to continue ||  
-
-|||
-|---|---|
-| Step 2: Type ||  
-| Type | Layer 3 ***(default setting)*** |  
-| Click **NEXT** to continue ||  
-
-|||
-|---|---|
-| Step 3: Endpoints ||  
-| Criteria | VM Tag ***(default setting)*** |  
-| VM Tag | AFC-integration.Workload01 _(select from the dropdown)_ |  
-| VNIC | Network adapter 2 ||
-| Scroll down and click **Add** ||  
-
-![VM Tag](images/lab3-vm-tag.png)  
-_Fig. VM Tag_  
-
-```{note}
-Stay on the Endpoints page and repeat the process again to add Workload02, you will have two workloads in this Endpoint Group!  
-```  
-
-|||
-|---|---|
-| Step 4: Endpoints ||  
-| Criteria | VM Tag ***(default setting)*** |  
-| VM Tag | AFC-integration.Workload02 _(select from the dropdown)_ |  
-| VNIC | Network adapter 2 ||
-| Scroll down and click **Add** ||  
-| Click **Next** to continue ||  
-
-|||
-|---|---|
-| Step 5: Summary ||  
-| On the Summary page, verify the settings, then click **Apply** to save the configuration. |  
-
-![Web Server EPG](images/lab3-web-server-epg.png)  
-_Fig. Web Server EPG_  
-
-4. Now create a second Endpoint Group for the Database Servers, by clicking **Add** under the **ACTIONS** menu.  
-
-|||
-|---|---|
-| Step 1: Name ||  
-| Name | Database-Servers |  
-| Description | Database-Servers EPG |  
-| Click **NEXT** to continue ||  
-
-|||
-|---|---|
-| Step 2: Type ||  
-| Type | Layer 3 ***(default setting)*** |  
-| Click **NEXT** to continue ||  
-
-|||
-|---|---|
-| Step 3: Endpoints ||  
-| Criteria | VM Tag ***(default setting)*** |  
-| VM Tag | AFC-integration.Workload03 _(select from the dropdown)_ |  
-| VNIC | Network adapter 2 ||
-| Scroll down and click **Add** ||  
-| On the Summary page, verify the settings, then click **Apply** to save the configuration. |  
-
-
-### Expected Results  
-
-Verify the Endpoint Groups were created successfully, as shown in the following screenshot.  
-
-![Endpoint Groups](images/lab3-endpoint-groups.png)  
-_Fig. Endpoint Groups_  
-
-## Lab 3.3 Create Firewall Rules  
-
-### Description  
-The goals of the rules that will be used to enforce the policy for this workshop, seek to achieve three things in this scenario:  
-
-- Allow **workload01** and **workload02** to SSH into **workload03**  
-- Block everything else between these two workloads  
-- Allow everything else
-
-### Validate  
-1. Under the **Configuration** menu, go to **Policy/Rules**  
-
-![Policy Rules Menu](images/lab3-policy-rules-menu.png)  
-_Fig. Policy Rules Menu_  
-
-2. First, we will create the ``Allow SSH Web to DB Rule``.  Under **ACTIONS**, click **ADD** to create a rule, and configure the following parameters.  
-
-```{note}
-Stick to lower-case & NO SPACES for the Rule Name (may result in errors when applying these rules to a policy if not entered the same as below as the UI does not restrict case at this time.)
-```  
-
-![Rule Workflow](images/lab3-rule-workflow.png)  
-_Fig. Rule Worklow_  
-
-|||  
-|---|---|  
-| Step 1: Name ||  
-| Name | allow-ssh-web-db |  
-| Description | Allow SSH between Web and Database Servers |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 2: Settings ||  
-| Type | Layer 3 |  
-| Action | Allow ***(default setting)*** |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 3: Endpoint Groups ||  
-| Source Endpoint Group | Web-Servers |  
-| Destination Endpoint Group | Database-Servers |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 4: Applications and Service Qualifiers  ||  
-| Applications | ***leave empty*** |  
-| Service Qualifiers | SSH ***(type ssh)*** |  
-| Click **NEXT** to continue ||  
-| Review the Summary and click **Apply** ||  
-
-3. Now we will create the second rule: ``Web to Database Rule``.  Under **ACTIONS**, click **ADD** to create a rule, and configure the following parameters.  
-
-|||  
-|---|---|  
-| Step 1: Name ||  
-| Name | drop-all-web-db |  
-| Description | Block all other traffic between web and database |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 2: Settings ||  
-| Type | Layer 3 |  
-| Action | Drop |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 3: Endpoint Groups ||  
-| Source Endpoint Group | Web-Servers |  
-| Destination Endpoint Group | Database-Servers |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 4: Applications and Service Qualifiers  ||  
-| Applications | ***leave empty*** |  
-| Service Qualifiers | all |  
-| Click **NEXT** to continue ||  
-| Review the Summary and click **Apply** ||  
-
-4. Now we will create the third rule: ``Database to Web Rule``.  Under **ACTIONS**, click **ADD** to create a rule, and configure the following parameters.  
-
-|||  
-|---|---|  
-| Step 1: Name ||  
-| Name | drop-all-db-web |  
-| Description | Block all other traffic between database and web |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 2: Settings ||  
-| Type | Layer 3 |  
-| Action | Drop |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 3: Endpoint Groups ||  
-| Source Endpoint Group | Web-Servers |  
-| Destination Endpoint Group | Database-Servers |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 4: Applications and Service Qualifiers  ||  
-| Applications | ***leave empty*** |  
-| Service Qualifiers | all |  
-| Click **NEXT** to continue ||  
-| Review the Summary and click **Apply** ||  
-
-5. Now we will create the last and catch all rule: ``Allow Any to Any Rule``.  Under **ACTIONS**, click **ADD** to create a rule, and configure the following parameters.  
-
-|||  
-|---|---|  
-| Step 1: Name ||  
-| Name | allow-all |  
-| Description | Allow all traffic |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 2: Settings ||  
-| Type | Layer 3 |  
-| Action | Allow |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 3: Endpoint Groups ||  
-| Source Endpoint Group | ***leave blank*** |  
-| Destination Endpoint Group | ***leave blank*** |  
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 4: Applications and Service Qualifiers  ||  
-| Applications | ***leave empty*** |  
-| Service Qualifiers | all |  
-| Click **NEXT** to continue ||  
-| Review the Summary and click **Apply** ||  
-
-### Expected Results  
-When finished, you should see four rules like in the screenshot below.  
-
-![Rule List](images/lab3-rule-list.png)  
-_Fig. Rule List_  
-
-## Lab 3.4 Create Firewall Policy  
-
-### Description 
-
-Now that the rules are in place, create a Policy to enforce those rules, showcasing the power of the CX10K to apply stateful firewall rules at scale and effectively govern east-west traffic.
-
-### Validate - Ingress policy 
-1.  In the **Configuration Menu**, go to **Policy/Policies**.
-
-```{note}
-Also accessed via the ‘Guided Setup Pane/Distributed Services Tab/Configure Policy’
-```
-2.  Under the Actions Menu, select **Add** to create a policy and configure the following parameters:
-
-![Policy](images/pol1.png)  
-_Fig. Policy_  
-
-|||  
-|---|---|  
-| Step 1. Name ||  
-| Name | ``dsa-ingress-policy`` |     
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 2. Policies ||  
-| Type | ``distributed firewall`` |     
-| Click **NEXT** to continue ||  
-
-Step 3.
-
-Add rules to the policy by using the **Actions** menu and select **Add**. You will add existing rules to this policy, make sure they are in the correct order.
-
-Using the arrows on the left move the rules into the correct order. Be sure to move the allow-all rule to the bottom of the sequence (rule #4)
-
-Click **NEXT** to continue
-
-
-![Arange Rules](images/pol2.png)  
-_Fig. Arange Rules_  
-
-
-3. Add the enforcer information.
-
-![Arange Rules](images/pol3.png)  
-_Fig. Enforcers_  
-
-|||  
-|---|---|  
-| Step 1. Name ||  
-| Faric | ``dsa`` |
-| Policy Distribution Type | ``leaf`` |
-| Direction | ``ingress`` |
-| VRF | ``over`` |
-| Networks | ``Pick both vlan 10 & 20`` |
-| Click **ADD** , next to the **CLEAR** button |    
-| Click **NEXT** and **APPLY** ||  
-
-### Define Egress Policy
-
-1. Using the same process, add another policy for the **egreess** policy.
-
-2.  Under the Actions Menu, select **Add** to create a policy and configure the following parameters:
-
-![Policy](images/pol1.png)  
-_Fig. Policy_  
-
-|||  
-|---|---|  
-| Step 1. Name ||  
-| Name | ``dsa-egress-policy`` |     
-| Click **NEXT** to continue ||  
-
-|||  
-|---|---|  
-| Step 2. Policies ||  
-| Type | ``distributed firewall`` |     
-| Click **NEXT** to continue ||  
-
-Step 3.
-
-Add rules to the policy by using the **Actions** menu and select **Add**. You will add existing rules to this policy, make sure they are in the correct order.
-
-Using the arrows on the left move the rules into the correct order. Be sure to move the allow-all rule to the bottom of the sequence (rule #4)
-
-Click **NEXT** to continue
-
-
-![Arange Rules](images/pol2.png)  
-_Fig. Arange Rules_  
-
-
-3. Add the enforcer information.
-
-![Arange Rules](images/pol3.png)  
-_Fig. Enforcers_  
-
-|||  
-|---|---|  
-| Step 1. Name ||  
-| Faric | ``dsa`` |
-| Policy Distribution Type | ``leaf`` |
-| Direction | ``egress`` |
-| VRF | ``over`` |
-| Networks | ``Pick both vlan 10 & 20`` |
-| Click **ADD** , next to the **CLEAR** button |    
-| Click **NEXT** and **APPLY** ||  
-
-```{note}
-NOTE: If you don’t see both policies are healthy, click on the refresh wheel next to the actions menu
+The Service Account User will be created on each switch, and will be used for API access.
 ```
 
-### Expected Results  
+### Expected Results
+The Switches should be discovered as shown in the following screenshot.  The **Health** Status should show **HEALTHY, BUT** or **UNKNOWN**.  This means that the switches have been discovered, but are not yet assigned to a fabric.  
 
-Verify the policies.
-![Arange Rules](images/pol5.png)  
-_Fig. Policies_  
+![Discovered Switches](images/lab2-discovered-switches.png)  
+_Fig. Lab 3 Discovered Switches_ 
 
+## Lab 3.2 - Create a Fabric
+
+### Description
+In this step, we will create a Fabric.  In the AFC, a fabric is the group of devices with their corresponding configuration and state, including switches, and integrated platforms (vSphere, PSM, etc.).
+
+### Validate
+
+1. On the **Guided Step** menu on the right side, select the **FABRIC** button.
+
+![Create Fabric](images/lab2-create-fabric.png)  
+_Fig. Lab 3 Create Fabric_ 
+
+2. Create a new fabric using the following parameters:
+
+|   |   |
+|---|---|
+|Name| dsf |
+|Description| Distributed Services Fabric |
+|Type| Data |
+|Time Zone| America/New_York |
+|Auto Save Interval| 600 |
+| ***Click APPLY to create the Fabric***
+
+### Expected Results
+Verify that the Fabric state is **HEALTHY** and looks similar to the following screenshot.
+
+![Healthy Fabric](images/lab2-healthy-fabric.png)  
+_Fig. Lab 3 Healthy Fabric_ 
+
+## Lab 3.3 - Assign Switches to a Fabric
+
+### Description
+Once a Switch is discovered, you can use the Assign Switch wizard to assign a role to the switch (Leaf, Spine, Border Leaf, etc) and also assign the Switch to a Fabric.  We will use this step to assign the switches to the newly created Fabric.
+
+### Validate
+
+1. On the **Guided Setup** menu click on **ASSIGN SWITCH TO FABRIC**
+
+![Assign Switch](images/lab2-assign-switch.png)  
+_Fig. Lab 3 Assign Switch_ 
+
+2. Select the Fabric, the Switches and the Role Leaf as in this table:
+
+|   |   |
+|---|---|
+|Fabric| dsf |
+|Switches| LGxx-Leaf01-A - LGxx-Leaf01-B |
+|Role| Leaf |
+|Force LLDP Discovery| Yes (select) |
+|Initialize Ports| Yes (Select) |
+| ***Scroll down, click ADD and APPLY***
+
+### Expected Results
+After a short moment, the switches should appear as **HEALTHY** and the status should be **Synced**, as in the following screenshot:
+
+![Healthy Switches](images/lab2-healthy-switches.png)  
+_Fig. Lab 3 Healthy Switches_  
+
+If the Switch status does not change after a few moments, refresh the page in the RDP session.
+
+![Refresh Browser](images/lab2-refresh-browser.png)  
+_Fig. Lab 3 Refresh Browser_  
+
+```{note}
+If the workflow wizard has disappeared on the right-hand side of the screen. Click the icon shown below in the top right corner and you will see the workflows reappear.
+```
+
+![Workflow Wizard](images/lab2-workflow-wizard.png)  
+_Fig. Lab 3 Workflow Wizard_  
+
+## Lab 3.4 - Configure NTP
+
+### Description
+As in any organization or infrastructure, accurate time is crucial!  In this step, we will make sure that the Switches are configured to sync their time with a valid NTP server.
+
+### Validate
+
+On the **Guided Setup** menu click on **NTP Configuration**
+
+![Configure NTP](images/lab2-configure-ntp.png)  
+_Fig. Lab 3 Configure NTP_ 
+
+|   |   |
+|---|---|
+|**Step 1 - Name**|  |
+| Name | dsf-ntp |
+| Description | Time Server |
+| ***Click NEXT***||
+
+|   |   |
+|---|---|
+|**Step 2 - Entries**|  |
+| Server | 10.250.2LG.9 (LG is your labgroup number) |
+| ***Scroll down, click ADD and NEXT***||
+
+|   |   |
+|---|---|
+|**Step 3 - Application**|  |
+| Fabric | dsf |
+| Switches | Leave empty (they are already assigned to the dsf Fabric) |
+| ***Click NEXT***||
+
+|   |   |
+|---|---|
+|**Step 4 - Summary**|  |
+| Review the summary and then ***Click APPLY***||
+
+### Expected Results
+The Lab NTP server should be assigned to the Fabric and Switches.
+
+
+## Lab 3.5 - Configure DNS
+
+### Description
+DNS is equally as crucial for running infrastructure.  This step will assign a DNS server to the Fabric and Switches. 
+
+### Validate
+
+In the **Guided Setup** menu click on **DNS Configuration**
+
+![Configure DNS](images/lab2-configure-dns.png)  
+_Fig. Lab 3 Configure DNS_ 
+
+
+|   |   |
+|---|---|
+|**Step 1 - Name**|  |
+| Name | dsf-dns |
+| Description | Name Server |
+| ***Click NEXT***||
+
+|   |   |
+|---|---|
+|**Step 2 - Settings**|  |
+| Domain Name | dsf.lab.local |  
+| Name Server | 10.250.2LG.9 - hit **Enter** after typing the IP Address (LG is your labgroup number) |  
+| ***Click NEXT*** |
+
+|   |   |
+|---|---|
+|**Step 3 - Application**|  |
+| Fabric | dsf |
+| ***Click NEXT***||
+
+|   |   |
+|---|---|
+|**Step 4 - Summary**|  |
+| Review the summary and then ***Click APPLY***||
+
+### Expected Results
+The Lab DNS server should be assigned to the Fabric and Switches.
+
+
+## Lab 3.6 - Create a VSX Cluster
+
+### Description
+Virtual Switching Extension (VSX) is virtualization technology for switches running the AOS-CX operating system. This solution lets the switches present as one virtualized switch in critical areas. Configuration synchronization is an aspect of the VSX solution where the primary switch configuration is synchronized with the secondary switch.
+
+In this step, we will create a VSX cluster with both CX 10000 Switches.
+
+### Validate
+In the **Guided Setup** menu click on **VSX Configuration**
+
+![VSX Configuration](images/lab2-vsx-configuration.png)  
+_Fig. Lab 3 VSX Configuration_ 
+
+
+|   |   |
+|---|---|
+|**Step 1 - Create Mode**|  |
+| Automatically generate VSX pairs | (Select) |
+| ***Click NEXT***||
+
+|   |   |
+|---|---|
+|**Step 2 - Name**|  |
+| Name Prefix | dsf |
+| Description | Leaf-LG VSX |
+| ***Click NEXT***||
+
+|   |   |
+|---|---|
+|**Step 3 - Inter-Switch Link Settings**|  |
+| Keep all the default values |  |
+| ***Click NEXT***||
+
+
+|   |   |   |
+|---|---|---|
+|**Step 4 - Keep Alive Interfaces**| |
+|Interface Mode| Point-to-Point |
+|IPv4 Address Resource Pool| Pull **DOWN** on the right hand arrow and select the pre-defined IPv4 pool|
+||``dsf-ipv4-pool(10.10.0.0-10.10.0.255)``|
+| ***Click NEXT***||
+
+
+|   |   |
+|---|---|
+|**Step 5 - Keep Alive Settings**|  |
+| Keep all the default values |  |
+| ***Click NEXT***||
+
+
+|   |   |   |
+|---|---|---|
+|**Step 6 - Options**| |
+|Linkup Delay Timer| (keep the default value) |
+|MAC Address Resource Pool| Pull **DOWN** on the right hand arrow and select the pre-defined MAC address pool|
+||``02:00:00:00:00:aa-02:00:00:00:00:ff``|
+| ***Click NEXT***||
+
+
+|   |   |
+|---|---|
+|**Step 4 - Summary**|  |
+| Review the summary and then ***Click APPLY***||
+
+
+### Expected Results
+The VSX cluster consisting of the two CX 10000 should be successfully created and should also be up and healthy. Refresh browswer, if necessary.
+
+![VSX Health](images/lab2-vsx-health.png)  
+_Fig. Lab 3 VSX Health_ 
 
 ## Lab 3 Summary
 
-In this lab you redirected vlan 10 and 20 to be examined by the DPU chips on the HPE Aruba Networking CX10K switch. You have to create endpoint groups and add VMs to them. Finally, you created rules and policies to limit traffic flow between the two endpoint groups.
+- Using the Aruba Fabric Composer, we discovered two CX 10000 Switches  
+- We created a new Fabric and assigned the two Switches to that fabric  
+- We configured the basic network services (DNS and NTP) and assigned these profiles to the switches  
+- We built a VSX cluster of the two switches  
 
 ## Lab 3 Learning Check
 
-- Endpoint Groups are just logical containers for sever VMs with a similar function.
-- Ingress is for traffic leaving the DPU
-- Egrees is for traffic coming into the DPU.
-- Rules are added to policies, a rule can belong to more than one policy.
+- AFC uses Network Resource pools for IP and MAC addresses
+- Switches must be assigned to a fabric
+- VSX workflow makes configuration simple
+- DNS & NTP are configured and assigned to a fabric

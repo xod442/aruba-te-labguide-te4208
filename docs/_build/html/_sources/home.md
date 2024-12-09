@@ -3,20 +3,25 @@
 ![Disclosure](images/disclose.png)
 
 
-<h1>HPE Aruba Networking Micro Data Centers with CX10K</h1>
+<h1>Data Center Networking - Microsegmentation with AFC & CX 10K</h1>
 
 <h2>Technical Enablement Hands-On Lab Guide</h2>
 
-# Lab Overview 
-The popularity of micro data centers is on the rise. Edge data can have a very short shelf life. Sometimes the data needs to collected and analyzed at the edge. To run the applications found in a hyperscale data center, the micro data center needs to be robust and secure. During this session you will deploy a micro data center (MDC). Your MDC will be built out of a pair of HPE Aruba CK10 Distributed Services Switches. A layer 2 switch will be added to the core of the MDC as well as a VMware ESX server. Using AFC you will create a new vSwitch in VMware and add VM hosts. Explore adding VMs to endpoint groups and observing the virtual network behavior.
+### Lab Overview
+This Lab Guide will walk you through the various parts of this Hands On Lab session.  During this deep dive session, you will:
 
-### Introduction  
-The Aruba CX 10000 Series Switch introduces a ground-breaking data center switch category known as Distributed Services Switch (DSS). It combines top-notch Aruba CX data center L2/3 switching capabilities with the industry's pioneering hardware accelerated programmable processor, Pensando P4. This remarkable integration enables stateful firewall services to be delivered inline and at scale, offering wire-rate performance and significant enhancements compared to traditional data center L2/3 switches.  
+* Use Aruba Fabric Composer to orchestrate the network fabric and the stateful policies
+* Integrate the AMD Pensando Policy and Services Manager as the intermediary between the CX 10000 switches and Fabric Composer for policy deployment and orchestration
+* Deploy microsegmentation as part of a distributed services architecture based on the CX 10000 Switch integrated stateful firewall preventing the east-west traffic associated with security threats
+* Leverage the CX 10000 telemetry to gain full visibility into every flow on the network
 
-In this workshop, students will have the opportunity to access two of these innovative switches as micro data center. A HPE Aruba Networking 6300 will be used as a layer 2 switch and all the switches will be managed with the HPE Aruba Networking Fabric Composer (AFC), a powerful API-driven, software-defined orchestration solution. Additionally, they will be able to deploy VMware networking and interact with virtual machines.
+#### Objective
+This Hands-On Lab is composed of the following activities:
+1. Import the CX 10000 switches, and assign them to a new fabric 
+2. Create a VSX cluster using both CX 10000 switches
+3. Integrate VMware vSphere and AMD Pensando Policy and Services Manager
+4. Deploy micro segmentation to apply and enforce a traffic policy between two VMs (Workloads)
+5. Test the policy applied between the Workloads
 
-### Objective
-1. Use Aruba Fabric Composer (AFC) to configure LACP connections between switches.
-2. Build distributed virtual switch in ESX server 
-3. Test network connectivity. 
+
 
