@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab 1 - Accessing the Lab &#8212; CX 10K Spine-Leaf Workshop</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lab1';</script>
+    <link rel="icon" href="_static/fav-icon-32.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 2 - AFC Configuration" href="lab2.html" />
+    <link rel="prev" title="Lab Overview" href="home.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="home.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/hpe-logo.png" class="logo__image only-light" alt="CX 10K Spine-Leaf Workshop - Home"/>
+    <script>document.write(`<img src="_static/hpe-logo.png" class="logo__image only-dark" alt="CX 10K Spine-Leaf Workshop - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="home.html">
+                    Lab Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 1 - Accessing the Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - AFC Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3 - Create EPG’s and Deploy a Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - Test the Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary.html">Summary and Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lab1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 1 - Accessing the Lab</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-1-management-ip-addresses">Lab 1.1 Management IP Addresses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-software-versions">1.2 Lab Software Versions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-3-pre-staged-workshop-environment">Lab 1.3 Pre-Staged Workshop Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vsphere-integration">Vsphere integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pensando-integration">Pensando integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ipv4-address-pool">IPv4 Address Pool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-address-pool">MAC address pool</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-accessing-the-lab">
+<h1>Lab 1 - Accessing the Lab<a class="headerlink" href="#lab-1-accessing-the-lab" title="Link to this heading">#</a></h1>
+<section id="lab-overview">
+<h2>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h2>
+<p>Lab time:  15 minutes</p>
+<p>In this lab, we are going to explore the lab environment and access the various components of the lab.  The lab consists of the following components:</p>
+<ul class="simple">
+<li><p>1x CX 6300 Switch which acts as the Spine</p></li>
+<li><p>2x CX 10000 Switches configured as Leaf Switches</p></li>
+<li><p>1x ProLiant Server running ESXi and connected to both Leaf Switches</p></li>
+</ul>
+<p><img alt="Lab Layout" src="images/lab1-lab-topology.png" />
+<em>Fig. Lab Physical Layout</em></p>
+</section>
+<section id="lab-1-1-management-ip-addresses">
+<h2>Lab 1.1 Management IP Addresses<a class="headerlink" href="#lab-1-1-management-ip-addresses" title="Link to this heading">#</a></h2>
+<p>The following table represents the Management IP Addresses we will use to access each of the different components within the labs:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>DEVICE</p></th>
+<th class="head"><p>INTERFACE</p></th>
+<th class="head"><p>IP ADDRESS</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Aruba Fabric Composer (AFC)</p></td>
+<td><p>Managment</p></td>
+<td><p>10.250.2<span style="color:orange"><strong>[LG]</strong></span>.30</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pensando PSM</p></td>
+<td><p>Managment</p></td>
+<td><p>10.250.2<span style="color:orange"><strong>[LG]</strong></span>.31</p></td>
+</tr>
+<tr class="row-even"><td><p>LGXX-spine01</p></td>
+<td><p>Managment</p></td>
+<td><p>10.250.2<span style="color:orange"><strong>[LG]</strong></span>.103</p></td>
+</tr>
+<tr class="row-odd"><td><p>LGXX-leaf01</p></td>
+<td><p>Managment</p></td>
+<td><p>10.250.2<span style="color:orange"><strong>[LG]</strong></span>.101</p></td>
+</tr>
+<tr class="row-even"><td><p>LGXX-leaf02</p></td>
+<td><p>Managment</p></td>
+<td><p>10.250.2<span style="color:orange"><strong>[LG]</strong></span>.102</p></td>
+</tr>
+<tr class="row-odd"><td><p>Workload-01</p></td>
+<td><p>Managment</p></td>
+<td><p>10.250.2<span style="color:orange"><strong>[LG]</strong></span>.201</p></td>
+</tr>
+<tr class="row-even"><td><p>Workload-02</p></td>
+<td><p>Managment</p></td>
+<td><p>10.250.2<span style="color:orange"><strong>[LG]</strong></span>.202</p></td>
+</tr>
+<tr class="row-odd"><td><p>Workload-03</p></td>
+<td><p>Managment</p></td>
+<td><p>10.250.2<span style="color:orange"><strong>[LG]</strong></span>.203</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="lab-software-versions">
+<h2>1.2 Lab Software Versions<a class="headerlink" href="#lab-software-versions" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>DEVICE</p></th>
+<th class="head"><p>SOFTWARE VERSION</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Aruba Fabric Composer (AFC)</p></td>
+<td><p>7.01</p></td>
+</tr>
+<tr class="row-odd"><td><p>Policy Services Manager</p></td>
+<td><p>1.80.1-T-6</p></td>
+</tr>
+<tr class="row-even"><td><p>CX Switches</p></td>
+<td><p>DL 10.13.1010</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="lab-1-3-pre-staged-workshop-environment">
+<h2>Lab 1.3 Pre-Staged Workshop Environment<a class="headerlink" href="#lab-1-3-pre-staged-workshop-environment" title="Link to this heading">#</a></h2>
+<p>This is an accelerated workshop. A lot of the initial setup functions have been already configured. For this workshop to be successfully completed, in a reasonable amount of time, the lab gear must be configured to a specific level. The follow items are pre-staged:</p>
+<ul class="simple">
+<li><p>Discovery of the network switches</p></li>
+<li><p>Creating a fabric</p></li>
+<li><p>Adding the switches to the data center fabric</p></li>
+<li><p>Configuring Network Time Protocol (NTP)</p></li>
+<li><p>MAC and IPv4 pools</p></li>
+<li><p>Configuring Domain Naming Services (DNS)</p></li>
+<li><p>vSphere and Pensando integrations</p></li>
+</ul>
+<section id="vsphere-integration">
+<h3>Vsphere integration<a class="headerlink" href="#vsphere-integration" title="Link to this heading">#</a></h3>
+<p>For this workshop, the vSphere integration in AFC has been pre-staged. The Virtual Machines already have an identity tag applied. Two Endpoint groups should have automatically been created. These are the Endpoint Groups used in this workshop.</p>
+<p>There are three (3) virtual machines (VMs) being used for this workshop that will serve as our Endpoints; <strong>LGXX-WL01, LGXX-WL02 and LGXX-WL03</strong>. These workloads are Ubuntu Linux VM’s The <strong>XX</strong> will be replaced with the <em>Lab Group number</em> that was assigned at the start of this workshop.</p>
+<p>These workload VMs are tagged in vSphere and will be leveraged for Rule and Policy mapping.</p>
+<p>For more information on Data Center deployment check out the Aruba Validated Solutions Guide’s (VSG) VMware vSphere section located here:</p>
+<p><a class="reference external" href="https://www.arubanetworks.com/techdocs/VSG/docs/050-dc-deploy/esp-dc-deploy-120-fabric-deploy/#vmware-vsphere-integration">https://www.arubanetworks.com/techdocs/VSG/docs/050-dc-deploy/esp-dc-deploy-120-fabric-deploy/#vmware-vsphere-integration</a></p>
+<ul class="simple">
+<li><p>See also AFC User Guide (Version 6.5 used for this workshop):
+<a class="reference external" href="https://www.arubanetworks.com/techdocs/AFC/PDFs/64/AFC64UG.pdf">https://www.arubanetworks.com/techdocs/AFC/PDFs/64/AFC64UG.pdf</a></p></li>
+</ul>
+</section>
+<section id="pensando-integration">
+<h3>Pensando integration<a class="headerlink" href="#pensando-integration" title="Link to this heading">#</a></h3>
+<p>For this workshop, the AMD Pensando Policy and Services Manager (PSM) integration has been pre-staged.</p>
+</section>
+<section id="ipv4-address-pool">
+<h3>IPv4 Address Pool<a class="headerlink" href="#ipv4-address-pool" title="Link to this heading">#</a></h3>
+<p>As the Aruba Fabric Composer relies on automation to deploy the data center infrastructure, an IPv4 address pool has been created and ready to use. (<strong>10.100.0.0/24</strong>)</p>
+</section>
+<section id="mac-address-pool">
+<h3>MAC address pool<a class="headerlink" href="#mac-address-pool" title="Link to this heading">#</a></h3>
+<p>As the Aruba Fabric Composer relies on automation to deploy the data center infrastructure, a MAC address pool has been created. This is just a pool of address that AFC can use to assign MAC addresses when required. (<strong>02:00:00:00:00:aa-02:00:00:00:00:ff</strong>)</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="home.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lab2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lab 2 - AFC Configuration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-1-management-ip-addresses">Lab 1.1 Management IP Addresses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-software-versions">1.2 Lab Software Versions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-1-3-pre-staged-workshop-environment">Lab 1.3 Pre-Staged Workshop Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vsphere-integration">Vsphere integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pensando-integration">Pensando integration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ipv4-address-pool">IPv4 Address Pool</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mac-address-pool">MAC address pool</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By aruba-te@hpe.com - Confidential - For training purposes only
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Hewlett Packard Enterprise Development LP.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+title : CX 10K Spine-Leaf Workshop
+author: 'aruba-te@hpe.com - Confidential - For training purposes only'
+copyright: '2024 Hewlett Packard Enterprise Development LP'
+logo: 'images/hpe-logo.png'
+
+description: >-
+  CX 10K Spine-Leaf Lab Guide
+
+execute:
+  execute_notebooks           : off
+
+html:
+  home_page_in_navbar         : true
+  favicon                     : 'images/fav-icon-32.png'

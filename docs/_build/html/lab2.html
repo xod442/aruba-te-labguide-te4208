@@ -1,0 +1,1491 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab 2 - AFC Configuration &#8212; CX 10K Spine-Leaf Workshop</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lab2';</script>
+    <link rel="icon" href="_static/fav-icon-32.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 3 - Create EPG’s and Deploy a Policy" href="lab3.html" />
+    <link rel="prev" title="Lab 1 - Accessing the Lab" href="lab1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="home.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/hpe-logo.png" class="logo__image only-light" alt="CX 10K Spine-Leaf Workshop - Home"/>
+    <script>document.write(`<img src="_static/hpe-logo.png" class="logo__image only-dark" alt="CX 10K Spine-Leaf Workshop - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="home.html">
+                    Lab Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">Lab 1 - Accessing the Lab</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 2 - AFC Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab3.html">Lab 3 - Create EPG’s and Deploy a Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - Test the Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary.html">Summary and Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lab2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 2 - AFC Configuration</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-1-create-layer-3-spine-leaf-fabric">Lab 2.1 - Create Layer 3 Spine/Leaf Fabric</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-2-configure-the-underlay">Lab 2.2 - Configure the Underlay</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-3-configure-the-overlay">Lab 2.3 - Configure the Overlay</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-4-evpn-configuration">Lab 2.4 - EVPN Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-5-create-overlay-vrf">Lab 2.5 - Create Overlay VRF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-6-create-vlan-interfaces">Lab 2.6 - Create VLAN Interfaces</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-summary">Lab 2 Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-learninig-check">Lab 2 Learninig Check</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-2-afc-configuration">
+<h1>Lab 2 - AFC Configuration<a class="headerlink" href="#lab-2-afc-configuration" title="Link to this heading">#</a></h1>
+<section id="lab-overview">
+<h2>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h2>
+<p>Lab time:  45 minutes</p>
+<p>The spine leaf architecture provides for massive bandwidth between racks in the data center. Another reason for deploying a spine leaf is resiliency. The spine switches connect to leafs, the leafs, to the spines. The connections between them, are routed IP layer 3 links. They will not pass VLAN information. To get layer 2 traffic between the leafs, VXLAN must be used to create an overlay network.</p>
+<p><img alt="Spine Leaf Architecture" src="images/lab2-spine-leaf-architecture.png" /><br />
+<em>Fig. Spine Leaf Architecture</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>VSX Configuration is being skipped in this workshop due to limited hardware availability, but it is always recommended to configure a high-availability setup for critical server workloads. Refer to our Validated Solutions Guide (VSG) to learn more:</p>
+<p><a class="reference external" href="https://www.arubanetworks.com/techdocs/VSG/docs/050-dc-deploy/esp-dc-deploy-120-fabric-deploy/#configure-vsx-on-leaf-switches">https://www.arubanetworks.com/techdocs/VSG/docs/050-dc-deploy/esp-dc-deploy-120-fabric-deploy/#configure-vsx-on-leaf-switches</a></p>
+</div>
+<p>You were <em>assigned a pod number</em> at the start of the workshop. Add a zero in front of it and it becomes the <em>lab group number</em>. In the third octet of the IP address, start with the number 2 and add your lab group number to it. As an example, user1 = lab group 01 – 3rd octet, 201. The AFC IP for lab group 01 would be 10.250.201.30</p>
+</section>
+<section id="lab-2-1-create-layer-3-spine-leaf-fabric">
+<h2>Lab 2.1 - Create Layer 3 Spine/Leaf Fabric<a class="headerlink" href="#lab-2-1-create-layer-3-spine-leaf-fabric" title="Link to this heading">#</a></h2>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h3>
+<p>In this workflow the Aruba Fabric Composer (AFC) will automate configuring the routed interfaces and assigning IP addresses.  Once complete, the network will be ready to deploy the Underlay network.</p>
+</section>
+<section id="validate">
+<h3>Validate<a class="headerlink" href="#validate" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Open a new browser tab/window and log into the HPE Aruba Networking Fabric Composer (AFC).  Use the following URL and credentials to access the AFC.</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>URL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">https://10.250.2LG.30</span></code> where <strong>LG = your Lab Group Number</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Username</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Password</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="AFC Login" src="images/lab2-afc-login.png" /><br />
+<em>Fig. AFC Login</em></p>
+<ol class="arabic simple" start="2">
+<li><p>Once logged in, we will use the <strong>L3 Leaf-Spine Configuration</strong> worflow on the right hand side to launch the configuration workflow. This workflow will configure all the routed interfaces used by the spine-leaf.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the workflows on the right-hand side are not present, click on the icon next to the person at the top right</p>
+</div>
+<p><img alt="AFC Wizard Menu" src="images/lab2-afc-wizard-menu.png" /><br />
+<em>Fig. AFC Wizard Menu</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Follow the workflow by filling out the forms and clicking next. Finish by reviewing content and selecting <strong>Apply</strong>.</p></li>
+</ol>
+<p><img alt="Workflow Screens" src="images/lab2-workflow-screens.png" /><br />
+<em>Fig. Workflow Screens</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 1:  Create Mode</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Automatically generate L3 Leaf-Spine Pairs</p></td>
+<td><p>Select</p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 2:  Name</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name Prefix</p></td>
+<td><p>dsa-L3</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>DSA Leaf-Spine Pairs</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Step 3:  Settings</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>IPv4 Address Pool</p></td>
+<td><p>From the pulldown, select <code class="docutils literal notranslate"><span class="pre">10.100.0.0/24</span></code> <strong>DO NOT CLICK ADD</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Verify the settings and click <strong>APPLY</strong> to commit</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="expected-results">
+<h3>Expected Results<a class="headerlink" href="#expected-results" title="Link to this heading">#</a></h3>
+<p>You should see the newly created configuration, similar to the below screenshot.</p>
+<p><img alt="L3 Leaf-Spine Created" src="images/lab2-leaf-spine-created.png" /><br />
+<em>Fig. L3 Leaf-Spine Created</em></p>
+</section>
+</section>
+<section id="lab-2-2-configure-the-underlay">
+<h2>Lab 2.2 - Configure the Underlay<a class="headerlink" href="#lab-2-2-configure-the-underlay" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Description<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>The underlay network connects each switches loopback interface via OSPF routing. In this task OSPF routing will be configured on all switches. AFC has a built-in workflow that make it easy to create the underlay network.</p>
+</section>
+<section id="id2">
+<h3>Validate<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Begin by choosing the UNDERLAYS workflow from the right hand menu, to launch the configuration workflow.</p></li>
+</ol>
+<p><img alt="Underlays Menu" src="images/lab2-underlays-menu.png" /><br />
+<em>Fig. Underlays Menu</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also accessed via the Configuration/Routing/VRF/default/Underlays tab under the Actions menu</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Follow the workflow by filling out the forms and clicking next. Finish by reviewing content and selecting <strong>Apply</strong>.</p></li>
+</ol>
+<p><img alt="Create Underlay Network" src="images/lab2-create-underlay-network.png" /><br />
+<em>Fig. Create Underlay Network</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1:  Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>dsa-underlay</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Underlay Network for the DSF Fabric</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2:  Underlay Type</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Underlay Type</p></td>
+<td><p>OSPF</p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3:  Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>IPv4 Address Pool</p></td>
+<td><p>From the pulldown, select <code class="docutils literal notranslate"><span class="pre">10.100.0.0/24</span></code> <strong>DO NOT CLICK ADD</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Transit VLAN</p></td>
+<td><p>1000</p></td>
+</tr>
+<tr class="row-odd"><td><p>Leave all other default settings and click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4:  Max Metric</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Leave all settings as default</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Review the Summary page, and click <strong>APPLY</strong> to commit the changes</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="Underlay Created" src="images/lab2-underlay-created.png" /><br />
+<em>Fig. Underlay Created</em></p>
+</section>
+<section id="id3">
+<h3>Expected Results<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>You can see the underlay exists in the <strong>Underlays Tab</strong> above, use the embedded <strong>CLI Command Tool</strong> to verify the loopback interfaces and confirm the underlay routing tables have been established.</p></li>
+</ol>
+<p><img alt="Show Commands Menu" src="images/lab2-show-commands-menu.png" /><br />
+<em>Fig. Show Commands Menu</em></p>
+<ol class="arabic simple" start="2">
+<li><p>Pull down the fabric menu and select the <strong>dsa</strong> fabric</p></li>
+<li><p>In the commands box, enter each of the following commands, one at a time and click the <strong>RUN</strong> button.</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">run</span> <span class="pre">interface</span> <span class="pre">loopback</span> <span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">ospf</span> <span class="pre">routes</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run each command individually for best results.  Do not truncate commands.</p>
+<p>Examine the results of the commands. You just enabled OSPF underlay routing!</p>
+</div>
+</section>
+</section>
+<section id="lab-2-3-configure-the-overlay">
+<h2>Lab 2.3 - Configure the Overlay<a class="headerlink" href="#lab-2-3-configure-the-overlay" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>Description<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>With the Underlay established, the next step is to configure the Overlay Network. The Aruba ESP Data Center spine-and-leaf design uses the <strong>Internal Border Gateway Protocol (iBGP)</strong> as the control plane for the fabric overlay. iBGP provides a mechanism to share host routes across the fabric using the EVPN address family. VTEP interfaces are the VXLAN encapsulation and decapsulation points for traffic entering and exiting the overlay.</p>
+<p>To briefly summarize from the primer presentation and external links from the workshop’s introduction, <strong>EVPN-VXLAN</strong> is an industry standard network fabric technology that extends Layer 2 connectivity as a network overlay over an existing physical network. <strong>VXLAN</strong> is an IEEE standard that is used to address scalability issues in cloud-based environments via switch-to-switch tunneling. This protocol encapsulates Layer 2 Ethernet frames in Layer 3 UDP packets, meaning <strong>virtual L2 subnets</strong> can span underlying L3 networks. The Layer 2 information is simply wrapped inside a Layer 3 frame.</p>
+<p><img alt="Overlay Ethernet Frame" src="images/lab2-overlay-eth-frame.png" /><br />
+<em>Fig. Overlay Ethernet Frame</em></p>
+<p>A <strong>Virtual Network Identifier (VNI)</strong> is mapped to traditional VLAN IDs. <strong>VXLAN Endpoints</strong>, in turn, terminate VXLAN tunnels, which can be virtual or physical, and are therefore referred to as <strong>VXLAN Tunnel Endpoints (VTEPS)</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is very complex configuration. The AFC makes it very easy.</p>
+</div>
+<p>Bearing all this in mind, this task will have you use the <strong>AFC Overlay Configuration Workflow</strong> to implement iBGP settings using a private Autonomous System Number (ASN) to establish VTEPs. VTEP IP addresses will be assigned using a pre-defined IP address range. Finally, iBGP neighbor relationships will be verified using the AFC CLI Command Processor.</p>
+</section>
+<section id="id5">
+<h3>Validate<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>3.1	In the Configuration workflows on the right-hand side, click <strong>Overlays</strong>.</p></li>
+</ol>
+<p><img alt="Configure Overlays" src="images/lab2-configure-overlays.png" /><br />
+<em>Fig. Configure Overlays</em></p>
+<ol class="arabic simple" start="2">
+<li><p>In the Overlay Configuration Workflow, configure the following parameters for each page.</p></li>
+</ol>
+<p><img alt="Overlay Workflow" src="images/lab2-overlay-workflow.png" /><br />
+<em>Fig. Overlay Workflow</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1:  Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>dsa-overlay</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Overlay for the DSA Fabric</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2:  Overlay Type</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Ovderlay Type</p></td>
+<td><p>iBGP <em><strong>default setting</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3:  iBGP Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Spine-Leaf ASN</p></td>
+<td><p>65000.0 <em><strong>default setting, ASPlain notation</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Route Reflector Servers</p></td>
+<td><p>Select <strong>LG[LG]-Spine</strong> from the drop-down</p></td>
+</tr>
+<tr class="row-odd"><td><p>Leaf Group Name</p></td>
+<td><p>leaf</p></td>
+</tr>
+<tr class="row-even"><td><p>Spine Group</p></td>
+<td><p>spine-RR</p></td>
+</tr>
+<tr class="row-odd"><td><p>Leave all other default settings and click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4:  IPv4 Network Address</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>IPv4 Address Resource Pool</p></td>
+<td><p>From the pulldown, select <code class="docutils literal notranslate"><span class="pre">10.100.0.0/24</span></code> <strong>DO NOT CLICK ADD</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 5:  Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Authentication Password</p></td>
+<td><p><em>Ensure that this field is not auto-filling</em>.  The password should be <strong>Aruba123</strong> (case-sensitive).  Leave all other settings as default</p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Review the Summary page, and click <strong>APPLY</strong> to commit the changes</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="Overlay Created" src="images/lab2-overlay-created.png" /><br />
+<em>Fig. Overlay Created</em></p>
+</section>
+<section id="id6">
+<h3>Expected Results<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Verify the overlay under the <strong>Overlays Tab</strong> and use the embedded <strong>CLI Command Tool</strong> to verify BGP has been established.</p></li>
+<li><p>Use the show commands again and examine the results. The command to execute against the “DSA” fabric is:  <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">run</span> <span class="pre">bgp</span></code></p></li>
+</ol>
+</section>
+</section>
+<section id="lab-2-4-evpn-configuration">
+<h2>Lab 2.4 - EVPN Configuration<a class="headerlink" href="#lab-2-4-evpn-configuration" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>With the underlay and overlay established, specific EVPN parameters can be set using the steps below for use within the overlay. An EVPN instance joins a distributed set of VLANs across multiple switches into a single logical broadcast domain with a common L2 VNI. A prefix value is provided for automatic generation of route targets, and a resource pool is used to assign the EVPN system MAC addresses. Once this task is completed, distributed L2 connectivity across both switches in the fabric will be established.</p>
+</section>
+<section id="id8">
+<h3>Validate<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In the Configuration Workflows on the right-hand side, click <strong>EVPN Configuration</strong></p></li>
+</ol>
+<p><img alt="EVPN Configuration" src="images/lab2-evpn-configuration.png" /><br />
+<em>Fig. EVPN Configuration</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also access via Configuration/Routing/EVPN/Actions Menu/Add</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>In the EVPN Configuration Workflow, configure the following parameters for each page.</p></li>
+</ol>
+<p><img alt="EVPN Workflow" src="images/lab2-evpn-workflow.png" /><br />
+<em>Fig. EVPN Workflow</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1:  Intro</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Read the Introduction adn click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2:  Switches</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Create EVPN instances across the entire Fabric and all Leaf and Border Leaf Switches contained within it</p></td>
+<td><p>Yes <strong>(default setting)</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3:  Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>dsa</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>EVPN Configuration for the DSF Fabric</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4:  VNI Mappings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>VLANs</p></td>
+<td><p>10,20</p></td>
+</tr>
+<tr class="row-even"><td><p>Base L2VNI</p></td>
+<td><p>2000</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 5:  Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>MAC Address Resource Pool</p></td>
+<td><p>02:00:00:00:00:aa-02:00:00:00:00:ff <strong>pull down and select predefined MAC address pool</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Route Target Type</p></td>
+<td><p>ASN:VLAN (Scroll down to see in the drop-down)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Route Target ASN Prefix</p></td>
+<td><p>65001</p></td>
+</tr>
+<tr class="row-even"><td><p>Leave all other default settings and click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Review the Summary and click <strong>APPLY</strong> to commit</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="EVPN Created" src="images/lab2-evpn-created.png" /><br />
+<em>Fig. EVPN Created</em></p>
+</section>
+<section id="id9">
+<h3>Expected Results<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Verify the configuration under the EVPN Tab. Observe that VLAN entries with corresponding L2VNIs have been automatically generated for each Leaf Switch based on the parameters defined in the step above. Imagine the time savings at scale!</p>
+<p>At this point any workstations on VLAN 10 should be able to reach each other. No matter where in the network they are. To get a workstation on VLAN 10 (Switch 1) to reach a workstation on VLAN 20 (Switch2), Symmetrical IRB, or Integrated Route Bridging will need to be configured. This is commonly referred to as an <strong>L3-VNI</strong> or Virtual Network Interface.</p>
+</section>
+</section>
+<section id="lab-2-5-create-overlay-vrf">
+<h2>Lab 2.5 - Create Overlay VRF<a class="headerlink" href="#lab-2-5-create-overlay-vrf" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h3>Description<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>Overlay VRFs are used to provide the Layer 3 virtualization and macro segmentation required for flexible and secure data centers and are distributed across all leaf switches. A VRF instance on one switch is associated to the same VRF on other leaf switches using a common Layer 3 VNI and EVPN route-target, binding them together into one logical routing domain.</p>
+<p>The below steps will utilize the <strong>Virtual Routing &amp; Forwarding</strong> workflow to create an overlay network VRF and associate that VRF with a <strong>Layer 3 VNI</strong> and <strong>EVPN route target</strong>. The VNI and route target for the overlay VRF must be unique to preserve traffic separation.</p>
+</section>
+<section id="id11">
+<h3>Validate<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>To create a VRF for the overlay, navigate to <strong>Configuration/Routing/VRF</strong> using the top menu.</p></li>
+<li><p>In the <strong>ACTIONS</strong> menu, select <strong>Add</strong> to create a new <strong>VRF</strong>. The following screen will appear.</p></li>
+</ol>
+<p><img alt="Create VRF" src="images/lab2-create-vrf.png" /><br />
+<em>Fig. Create VRF</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Configure the following parameters:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>over</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Overlay VRF</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Scope</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Apply the VRF to the entire fabric and all switches contained within it</p></td>
+<td><p>Select <em><strong>default setting</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Routing</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>L3 VNI</p></td>
+<td><p>3000</p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4: Route Target</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Route Target Mode</p></td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>Route Target Ext-Community</p></td>
+<td><p>65001:1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Address Family</p></td>
+<td><p>EVPN</p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>ADD</strong> to add the entry to the table</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Stay on the same page!</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><em><strong>Create a second Route Target Entry using the following parameters</strong></em></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Route Target Mode</p></td>
+<td><p>both</p></td>
+</tr>
+<tr class="row-even"><td><p>Route Target Ext-Community</p></td>
+<td><p>65001:2</p></td>
+</tr>
+<tr class="row-odd"><td><p>Address Family</p></td>
+<td><p>IPv4 Unicast</p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>ADD</strong> to add the entry to the table</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 5: Summary</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Verify the settings, then click <strong>APPLY</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id12">
+<h3>Expected Results<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>You shoudl see the newly created Overlay VRF in the VRF list as in the screenshot below.</p>
+<p><img alt="Overlay VRF Created" src="images/lab2-overlay-vrf-created.png" /><br />
+<em>Fig. Overlay VRF Created</em></p>
+</section>
+</section>
+<section id="lab-2-6-create-vlan-interfaces">
+<h2>Lab 2.6 - Create VLAN Interfaces<a class="headerlink" href="#lab-2-6-create-vlan-interfaces" title="Link to this heading">#</a></h2>
+<section id="id13">
+<h3>Description<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>Now that we have the newly created Overlay VRF, we will add VLAN interfaces to it.</p>
+</section>
+<section id="id14">
+<h3>Validate<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Click the <em>three green dots</em> on the left-hand side of the <strong>Overlay VRF</strong> you created called <strong>over</strong> and select <strong>IP Interfaces</strong>.</p></li>
+<li><p>In the <strong>IP Interfaces</strong> Tab, click <strong>ACTIONS</strong> on the right-hand side and select <strong>Add</strong></p></li>
+</ol>
+<p><img alt="IP Interfaces" src="images/lab2-ip-interfaces.png" /><br />
+<em>Fig. IP Interfaces</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Create the Switched Virtual Interfaces (SVI) VLAN 10 with the following parameters:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Interface Type</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable this IP Interface</p></td>
+<td><p>Select <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Type</p></td>
+<td><p>SVI <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-odd"><td><p>VLAN</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Switches</p></td>
+<td><p>Select both CX 10000 Leaf switches</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPv4 Subnetwork Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.10.0/24</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>IPv4 Addresses</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.10.10-10.0.10.20</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Active Gateway IP Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.10.1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Active Gateway MAC Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">02:00:00:00:00:01</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable VSX Shutdown on Split</p></td>
+<td><p>Select <em><strong>(does not apply to this lab, but turn on)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Enable Local Proxy ARP</p></td>
+<td><p>Select</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>SVI10</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Interface VLAN 10</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Summary</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Verify the settings and click <strong>APPLY</strong> to save the configuration</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="VLAN10 SVI" src="images/lab2-vlan10-svi.png" /><br />
+<em>Fig. VLAN10 SVI</em></p>
+<ol class="arabic simple" start="4">
+<li><p>Repeat the same process to create the SVI for VLAN 20 now - In the <strong>IP Interfaces</strong> Tab, click <strong>ACTIONS</strong> on the right-hand side and select <strong>Add</strong> and enter the following paramaters:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Interface Type</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable this IP Interface</p></td>
+<td><p>Select <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Type</p></td>
+<td><p>SVI <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-odd"><td><p>VLAN</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-even"><td><p>Switches</p></td>
+<td><p>Select both CX 10000 Leaf switches</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPv4 Subnetwork Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.20.0/24</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>IPv4 Addresses</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.20.10-10.0.20.20</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Active Gateway IP Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10.0.20.1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Active Gateway MAC Address</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">02:00:00:00:00:01</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Enable VSX Shutdown on Split</p></td>
+<td><p>Select <em><strong>(does not apply to this lab, but turn on)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Enable Local Proxy ARP</p></td>
+<td><p>Select</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>SVI20</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Interface VLAN 20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Summary</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Verify the settings and click <strong>APPLY</strong> to save the configuration</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="VLAN20 SVI" src="images/lab2-vlan20-svi.png" /><br />
+<em>Fig. VLAN20 SVI</em></p>
+</section>
+<section id="id15">
+<h3>Expected Results<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Verify the underlay use the <strong>Underlays Tab</strong>, and then use the embedded <strong>CLI Command Tool</strong> to verify the loopback interfaces and confirm the underlay routing tables have been established</p></li>
+</ol>
+<p><img alt="Show Commands" src="images/lab2-show-commands.png" /><br />
+<em>Fig. Show Commands</em></p>
+<ol class="arabic simple" start="2">
+<li><p>Pull down the fabric menu and select the <strong>dsa</strong> fabric</p></li>
+<li><p>In the commands box enter each of the following, one at a time and click the <strong>RUN</strong> button:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">ip</span> <span class="pre">route</span> <span class="pre">vrf</span> <span class="pre">over</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">evpn</span> <span class="pre">evi</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Run each command individually for best results</p>
+</div>
+<p>Examine the results of the commands. When you show the evpn EVI both L2 VNI’s are displayed along with the L3 VNI in support of the Symmetrical <strong>Integrated Route Bridge (IRB)</strong></p>
+</section>
+</section>
+<section id="lab-2-summary">
+<h2>Lab 2 Summary<a class="headerlink" href="#lab-2-summary" title="Link to this heading">#</a></h2>
+<p>During this short lab, you used the highly automated AFC workflows to do the following tasks:</p>
+<ul class="simple">
+<li><p>Created a Layer 3 Spine / Leaf Fabric</p></li>
+<li><p>Created an OSPF Underlay</p></li>
+<li><p>Created an EVPN-VXLAN Overlay</p></li>
+<li><p>Created a new VRF</p></li>
+<li><p>Created VLAN Interfaces for VLANs that we will test out later on</p></li>
+</ul>
+<p>The AFC provides built in workflows to automate normally complex tasks.</p>
+</section>
+<section id="lab-2-learninig-check">
+<h2>Lab 2 Learninig Check<a class="headerlink" href="#lab-2-learninig-check" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The underlay OSPF network carries advertisments for each switches loopback <strong>IP</strong> address</p></li>
+<li><p>The overlay network is used to extwnd layer 2 networks beyond router boundries</p></li>
+<li><p>Layer 2 networks are assigned a <strong>virtual network identifier</strong> or <strong>VNI</strong></p></li>
+<li><p>Different layer 2 networks can communicate with others via a Layer 3 VNI</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab 1 - Accessing the Lab</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lab3.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lab 3 - Create EPG’s and Deploy a Policy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-1-create-layer-3-spine-leaf-fabric">Lab 2.1 - Create Layer 3 Spine/Leaf Fabric</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-2-configure-the-underlay">Lab 2.2 - Configure the Underlay</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-3-configure-the-overlay">Lab 2.3 - Configure the Overlay</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-4-evpn-configuration">Lab 2.4 - EVPN Configuration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-5-create-overlay-vrf">Lab 2.5 - Create Overlay VRF</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-6-create-vlan-interfaces">Lab 2.6 - Create VLAN Interfaces</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-summary">Lab 2 Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-2-learninig-check">Lab 2 Learninig Check</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By aruba-te@hpe.com - Confidential - For training purposes only
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Hewlett Packard Enterprise Development LP.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

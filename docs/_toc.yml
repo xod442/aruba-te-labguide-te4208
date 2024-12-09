@@ -1,0 +1,8 @@
+format: jb-article
+root: home
+sections:
+- file: lab1
+- file: lab2
+- file: lab3
+- file: lab4
+- file: summary

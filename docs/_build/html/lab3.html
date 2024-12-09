@@ -1,0 +1,1528 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab 3 - Create EPG’s and Deploy a Policy &#8212; CX 10K Spine-Leaf Workshop</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lab3';</script>
+    <link rel="icon" href="_static/fav-icon-32.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 4 - Test the Policy" href="lab4.html" />
+    <link rel="prev" title="Lab 2 - AFC Configuration" href="lab2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="home.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/hpe-logo.png" class="logo__image only-light" alt="CX 10K Spine-Leaf Workshop - Home"/>
+    <script>document.write(`<img src="_static/hpe-logo.png" class="logo__image only-dark" alt="CX 10K Spine-Leaf Workshop - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="home.html">
+                    Lab Overview
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">Lab 1 - Accessing the Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">Lab 2 - AFC Configuration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 3 - Create EPG’s and Deploy a Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">Lab 4 - Test the Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary.html">Summary and Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/lab3.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 3 - Create EPG’s and Deploy a Policy</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-1-redirect-vlans-to-dsm">Lab 3.1 - Redirect VLANs to DSM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-2-configure-endpoint-groups">Lab 3.2 Configure Endpoint Groups</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-3-create-firewall-rules">Lab 3.3 Create Firewall Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-4-create-firewall-policy">Lab 3.4 Create Firewall Policy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate-ingress-policy">Validate - Ingress policy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-egress-policy">Define Egress Policy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-summary">Lab 3 Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-learning-check">Lab 3 Learning Check</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-3-create-epg-s-and-deploy-a-policy">
+<h1>Lab 3 - Create EPG’s and Deploy a Policy<a class="headerlink" href="#lab-3-create-epg-s-and-deploy-a-policy" title="Link to this heading">#</a></h1>
+<section id="lab-overview">
+<h2>Lab Overview<a class="headerlink" href="#lab-overview" title="Link to this heading">#</a></h2>
+<p>Lab time:  30 minutes</p>
+<p>With all the systems in place, we can now leverage the various components to create a policy that can be deployed from a single pane of glass to multiple switches within the fabric.</p>
+</section>
+<section id="lab-3-1-redirect-vlans-to-dsm">
+<h2>Lab 3.1 - Redirect VLANs to DSM<a class="headerlink" href="#lab-3-1-redirect-vlans-to-dsm" title="Link to this heading">#</a></h2>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading">#</a></h3>
+<p>The first step is to Configure the VRFs to sync with the Policy Service Manager that will utilize the defined networks..</p>
+</section>
+<section id="validate">
+<h3>Validate<a class="headerlink" href="#validate" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In the Guided Setup Pane, switch from the <strong>Network</strong> tab to the <strong>Distributed Services</strong> tab.  <em>Be sure to switch over to Distributed Services from the Network Tab</em>!</p></li>
+</ol>
+<p><img alt="Distributed Services Menu" src="images/lab3-distributed-services-menu.png" /><br />
+<em>Fig. Distributed Services Menu</em></p>
+<ol class="arabic simple" start="2">
+<li><p>Click <strong>Configure VRFs</strong> to navigate to the VRFs page under <strong>Configuration/Routing</strong></p></li>
+<li><p>In the Configure VRFs page, within the right-hand pane for Distributed Services, choose <strong>dsa/over</strong> as the selected VRF in the <strong>Distributed Services Setup</strong> drop-down, then select <strong>Configure Networks</strong> just below the VRF selection drop-down menu</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Be sure to select the dsa/over VRF</p>
+</div>
+<p><img alt="dsa over" src="images/lab3-dsa-over.png" /><br />
+<em>Fig. dsa/over</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also accessed via Configuration/Routing/VRF - [over] - (3 dots on left) /Networks/From Networks Tab/Actions Menu (mid-right) - Add</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>In the <strong>ACTIONS</strong> menu under the <strong>Networks</strong> tab, click <strong>Add</strong> and configure the following for VLAN 10.</p></li>
+</ol>
+<p><img alt="Add Redirect" src="images/lab3-add-redirect.png" /><br />
+<em>Fig. Add Redirect</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>vlan10</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>vlan10</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>VLAN</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>Apply</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Repeat the previous step, but for VLAN 20.  In the <strong>ACTIONS</strong> menu under the <strong>Networks</strong> tab, click <strong>Add</strong> and configure the following for VLAN 20.</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>vlan20</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>vlan20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>VLAN</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>Apply</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="expected-results">
+<h3>Expected Results<a class="headerlink" href="#expected-results" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>You should see the newly created networks under the Networks tab for the VRF in a green Healthy state.</p></li>
+</ol>
+<p><img alt="VLANs Created" src="images/lab3-vlans-created.png" /><br />
+<em>Fig. VLANs Created</em></p>
+<ol class="arabic simple" start="2">
+<li><p>Verify the VLANs are in operation by using the embedded <strong>CLI Command Tool</strong> to verify their status.</p></li>
+</ol>
+<p>The command to execute against the leaf switches is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">vlan</span></code></p></li>
+<li><p>VLANs 10 &amp; 20 should be listed</p></li>
+</ul>
+</section>
+</section>
+<section id="lab-3-2-configure-endpoint-groups">
+<h2>Lab 3.2 Configure Endpoint Groups<a class="headerlink" href="#lab-3-2-configure-endpoint-groups" title="Link to this heading">#</a></h2>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h3>
+<p>Endpoint group objects represent source and destination IP addresses referenced in firewall rules that can represent one or multiple devices. <strong>Dynamic</strong> endpoint groups can be <strong>auto-populated</strong> based on the assignment of <strong>vSphere Tags</strong> to VMs identified through AFC’s vCenter integration along with the PSM. All VMs assigned the same tag should be auto-populated as a member of the dynamic group when on a <strong>distributed vSwitch</strong>.  <em>When member IP addresses change or tag assignments are changed in vCenter, dynamic group objects are updated automatically</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this workshop you will see workloads that are learned from vSphere. You can ignore them, and create your own!</p>
+</div>
+</section>
+<section id="id1">
+<h3>Validate<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In the <strong>Guided Setup Pane</strong>, under the <strong>Distributed Services</strong> tab, click <strong>Configure Policy</strong>, followed by <strong>Endpoint Groups</strong> on the left-hand menu.</p></li>
+</ol>
+<p><img alt="Configure Policy" src="images/lab3-configure-policy.png" /><br />
+<em>Fig. Configure Policy</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also accessed via Configuration/Policy/Endpoint Groups</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To proceed with manual endpoint group creation, begin by clicking Add under the ACTIONS Menu in the top-right under Configuration/Policy/Endpoint Groups/Actions Menu (top-right)/Add</p>
+</div>
+<p><img alt="Add Enpoint Group" src="images/lab3-add-endpoint-group.png" /><br />
+<em>Fig. Add Enpoint Group</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Enter the following configuration to create an Endoint Group for Workload01 &amp; Workload02:</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Web Servers</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Web Server EPG</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Type</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3 <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Endpoints</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Criteria</p></td>
+<td><p>VM Tag <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>VM Tag</p></td>
+<td><p>AFC-integration.Workload01 <em>(select from the dropdown)</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>VNIC</p></td>
+<td><p>Network adapter 2</p></td>
+</tr>
+<tr class="row-even"><td><p>Scroll down and click <strong>Add</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="VM Tag" src="images/lab3-vm-tag.png" /><br />
+<em>Fig. VM Tag</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Stay on the Endpoints page and repeat the process again to add Workload02, you will have two workloads in this Endpoint Group!</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4: Endpoints</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Criteria</p></td>
+<td><p>VM Tag <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>VM Tag</p></td>
+<td><p>AFC-integration.Workload02 <em>(select from the dropdown)</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>VNIC</p></td>
+<td><p>Network adapter 2</p></td>
+</tr>
+<tr class="row-even"><td><p>Scroll down and click <strong>Add</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>Next</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 5: Summary</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>On the Summary page, verify the settings, then click <strong>Apply</strong> to save the configuration.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img alt="Web Server EPG" src="images/lab3-web-server-epg.png" /><br />
+<em>Fig. Web Server EPG</em></p>
+<ol class="arabic simple" start="4">
+<li><p>Now create a second Endpoint Group for the Database Servers, by clicking <strong>Add</strong> under the <strong>ACTIONS</strong> menu.</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Database-Servers</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Database-Servers EPG</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Type</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3 <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Endpoints</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Criteria</p></td>
+<td><p>VM Tag <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>VM Tag</p></td>
+<td><p>AFC-integration.Workload03 <em>(select from the dropdown)</em></p></td>
+</tr>
+<tr class="row-odd"><td><p>VNIC</p></td>
+<td><p>Network adapter 2</p></td>
+</tr>
+<tr class="row-even"><td><p>Scroll down and click <strong>Add</strong></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>On the Summary page, verify the settings, then click <strong>Apply</strong> to save the configuration.</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id2">
+<h3>Expected Results<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Verify the Endpoint Groups were created successfully, as shown in the following screenshot.</p>
+<p><img alt="Endpoint Groups" src="images/lab3-endpoint-groups.png" /><br />
+<em>Fig. Endpoint Groups</em></p>
+</section>
+</section>
+<section id="lab-3-3-create-firewall-rules">
+<h2>Lab 3.3 Create Firewall Rules<a class="headerlink" href="#lab-3-3-create-firewall-rules" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>Description<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>The goals of the rules that will be used to enforce the policy for this workshop, seek to achieve three things in this scenario:</p>
+<ul class="simple">
+<li><p>Allow <strong>workload01</strong> and <strong>workload02</strong> to SSH into <strong>workload03</strong></p></li>
+<li><p>Block everything else between these two workloads</p></li>
+<li><p>Allow everything else</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Validate<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Under the <strong>Configuration</strong> menu, go to <strong>Policy/Rules</strong></p></li>
+</ol>
+<p><img alt="Policy Rules Menu" src="images/lab3-policy-rules-menu.png" /><br />
+<em>Fig. Policy Rules Menu</em></p>
+<ol class="arabic simple" start="2">
+<li><p>First, we will create the <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">SSH</span> <span class="pre">Web</span> <span class="pre">to</span> <span class="pre">DB</span> <span class="pre">Rule</span></code>.  Under <strong>ACTIONS</strong>, click <strong>ADD</strong> to create a rule, and configure the following parameters.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Stick to lower-case &amp; NO SPACES for the Rule Name (may result in errors when applying these rules to a policy if not entered the same as below as the UI does not restrict case at this time.)</p>
+</div>
+<p><img alt="Rule Workflow" src="images/lab3-rule-workflow.png" /><br />
+<em>Fig. Rule Worklow</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>allow-ssh-web-db</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Allow SSH between Web and Database Servers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3</p></td>
+</tr>
+<tr class="row-even"><td><p>Action</p></td>
+<td><p>Allow <em><strong>(default setting)</strong></em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Endpoint Groups</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source Endpoint Group</p></td>
+<td><p>Web-Servers</p></td>
+</tr>
+<tr class="row-even"><td><p>Destination Endpoint Group</p></td>
+<td><p>Database-Servers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4: Applications and Service Qualifiers</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Applications</p></td>
+<td><p><em><strong>leave empty</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Service Qualifiers</p></td>
+<td><p>SSH <em><strong>(type ssh)</strong></em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Review the Summary and click <strong>Apply</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Now we will create the second rule: <code class="docutils literal notranslate"><span class="pre">Web</span> <span class="pre">to</span> <span class="pre">Database</span> <span class="pre">Rule</span></code>.  Under <strong>ACTIONS</strong>, click <strong>ADD</strong> to create a rule, and configure the following parameters.</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>drop-all-web-db</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Block all other traffic between web and database</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3</p></td>
+</tr>
+<tr class="row-even"><td><p>Action</p></td>
+<td><p>Drop</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Endpoint Groups</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source Endpoint Group</p></td>
+<td><p>Web-Servers</p></td>
+</tr>
+<tr class="row-even"><td><p>Destination Endpoint Group</p></td>
+<td><p>Database-Servers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4: Applications and Service Qualifiers</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Applications</p></td>
+<td><p><em><strong>leave empty</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Service Qualifiers</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Review the Summary and click <strong>Apply</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Now we will create the third rule: <code class="docutils literal notranslate"><span class="pre">Database</span> <span class="pre">to</span> <span class="pre">Web</span> <span class="pre">Rule</span></code>.  Under <strong>ACTIONS</strong>, click <strong>ADD</strong> to create a rule, and configure the following parameters.</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>drop-all-db-web</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Block all other traffic between database and web</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3</p></td>
+</tr>
+<tr class="row-even"><td><p>Action</p></td>
+<td><p>Drop</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Endpoint Groups</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source Endpoint Group</p></td>
+<td><p>Web-Servers</p></td>
+</tr>
+<tr class="row-even"><td><p>Destination Endpoint Group</p></td>
+<td><p>Database-Servers</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4: Applications and Service Qualifiers</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Applications</p></td>
+<td><p><em><strong>leave empty</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Service Qualifiers</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Review the Summary and click <strong>Apply</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Now we will create the last and catch all rule: <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Any</span> <span class="pre">to</span> <span class="pre">Any</span> <span class="pre">Rule</span></code>.  Under <strong>ACTIONS</strong>, click <strong>ADD</strong> to create a rule, and configure the following parameters.</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1: Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>allow-all</p></td>
+</tr>
+<tr class="row-even"><td><p>Description</p></td>
+<td><p>Allow all traffic</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2: Settings</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p>Layer 3</p></td>
+</tr>
+<tr class="row-even"><td><p>Action</p></td>
+<td><p>Allow</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 3: Endpoint Groups</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Source Endpoint Group</p></td>
+<td><p><em><strong>leave blank</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Destination Endpoint Group</p></td>
+<td><p><em><strong>leave blank</strong></em></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 4: Applications and Service Qualifiers</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Applications</p></td>
+<td><p><em><strong>leave empty</strong></em></p></td>
+</tr>
+<tr class="row-even"><td><p>Service Qualifiers</p></td>
+<td><p>all</p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Review the Summary and click <strong>Apply</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id5">
+<h3>Expected Results<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>When finished, you should see four rules like in the screenshot below.</p>
+<p><img alt="Rule List" src="images/lab3-rule-list.png" /><br />
+<em>Fig. Rule List</em></p>
+</section>
+</section>
+<section id="lab-3-4-create-firewall-policy">
+<h2>Lab 3.4 Create Firewall Policy<a class="headerlink" href="#lab-3-4-create-firewall-policy" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h3>Description<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Now that the rules are in place, create a Policy to enforce those rules, showcasing the power of the CX10K to apply stateful firewall rules at scale and effectively govern east-west traffic.</p>
+</section>
+<section id="validate-ingress-policy">
+<h3>Validate - Ingress policy<a class="headerlink" href="#validate-ingress-policy" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>In the <strong>Configuration Menu</strong>, go to <strong>Policy/Policies</strong>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also accessed via the ‘Guided Setup Pane/Distributed Services Tab/Configure Policy’</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Under the Actions Menu, select <strong>Add</strong> to create a policy and configure the following parameters:</p></li>
+</ol>
+<p><img alt="Policy" src="images/pol1.png" /><br />
+<em>Fig. Policy</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1. Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dsa-ingress-policy</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2. Policies</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">distributed</span> <span class="pre">firewall</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Step 3.</p>
+<p>Add rules to the policy by using the <strong>Actions</strong> menu and select <strong>Add</strong>. You will add existing rules to this policy, make sure they are in the correct order.</p>
+<p>Using the arrows on the left move the rules into the correct order. Be sure to move the allow-all rule to the bottom of the sequence (rule #4)</p>
+<p>Click <strong>NEXT</strong> to continue</p>
+<p><img alt="Arange Rules" src="images/pol2.png" /><br />
+<em>Fig. Arange Rules</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Add the enforcer information.</p></li>
+</ol>
+<p><img alt="Arange Rules" src="images/pol3.png" /><br />
+<em>Fig. Enforcers</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1. Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Faric</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dsa</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Policy Distribution Type</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">leaf</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Direction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ingress</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>VRF</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">over</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Networks</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Pick</span> <span class="pre">both</span> <span class="pre">vlan</span> <span class="pre">10</span> <span class="pre">&amp;</span> <span class="pre">20</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>ADD</strong> , next to the <strong>CLEAR</strong> button</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> and <strong>APPLY</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="define-egress-policy">
+<h3>Define Egress Policy<a class="headerlink" href="#define-egress-policy" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Using the same process, add another policy for the <strong>egreess</strong> policy.</p></li>
+<li><p>Under the Actions Menu, select <strong>Add</strong> to create a policy and configure the following parameters:</p></li>
+</ol>
+<p><img alt="Policy" src="images/pol1.png" /><br />
+<em>Fig. Policy</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1. Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dsa-egress-policy</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 2. Policies</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Type</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">distributed</span> <span class="pre">firewall</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>NEXT</strong> to continue</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Step 3.</p>
+<p>Add rules to the policy by using the <strong>Actions</strong> menu and select <strong>Add</strong>. You will add existing rules to this policy, make sure they are in the correct order.</p>
+<p>Using the arrows on the left move the rules into the correct order. Be sure to move the allow-all rule to the bottom of the sequence (rule #4)</p>
+<p>Click <strong>NEXT</strong> to continue</p>
+<p><img alt="Arange Rules" src="images/pol2.png" /><br />
+<em>Fig. Arange Rules</em></p>
+<ol class="arabic simple" start="3">
+<li><p>Add the enforcer information.</p></li>
+</ol>
+<p><img alt="Arange Rules" src="images/pol3.png" /><br />
+<em>Fig. Enforcers</em></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Step 1. Name</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Faric</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dsa</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Policy Distribution Type</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">leaf</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Direction</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">egress</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>VRF</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">over</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Networks</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Pick</span> <span class="pre">both</span> <span class="pre">vlan</span> <span class="pre">10</span> <span class="pre">&amp;</span> <span class="pre">20</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Click <strong>ADD</strong> , next to the <strong>CLEAR</strong> button</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Click <strong>NEXT</strong> and <strong>APPLY</strong></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NOTE: If you don’t see both policies are healthy, click on the refresh wheel next to the actions menu</p>
+</div>
+</section>
+<section id="id7">
+<h3>Expected Results<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Verify the policies.
+<img alt="Arange Rules" src="images/pol5.png" /><br />
+<em>Fig. Policies</em></p>
+</section>
+</section>
+<section id="lab-3-summary">
+<h2>Lab 3 Summary<a class="headerlink" href="#lab-3-summary" title="Link to this heading">#</a></h2>
+<p>In this lab you redirected vlan 10 and 20 to be examined by the DPU chips on the HPE Aruba Networking CX10K switch. You have to create endpoint groups and add VMs to them. Finally, you created rules and policies to limit traffic flow between the two endpoint groups.</p>
+</section>
+<section id="lab-3-learning-check">
+<h2>Lab 3 Learning Check<a class="headerlink" href="#lab-3-learning-check" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Endpoint Groups are just logical containers for sever VMs with a similar function.</p></li>
+<li><p>Ingress is for traffic leaving the DPU</p></li>
+<li><p>Egrees is for traffic coming into the DPU.</p></li>
+<li><p>Rules are added to policies, a rule can belong to more than one policy.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lab2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab 2 - AFC Configuration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lab4.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lab 4 - Test the Policy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-overview">Lab Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-1-redirect-vlans-to-dsm">Lab 3.1 - Redirect VLANs to DSM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#description">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-results">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-2-configure-endpoint-groups">Lab 3.2 Configure Endpoint Groups</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-3-create-firewall-rules">Lab 3.3 Create Firewall Rules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Validate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-4-create-firewall-policy">Lab 3.4 Create Firewall Policy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validate-ingress-policy">Validate - Ingress policy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-egress-policy">Define Egress Policy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Expected Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-summary">Lab 3 Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-3-learning-check">Lab 3 Learning Check</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By aruba-te@hpe.com - Confidential - For training purposes only
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Hewlett Packard Enterprise Development LP.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
