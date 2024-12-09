@@ -9,7 +9,7 @@ In this lab, we are going to explore the lab environment and access the various 
 - 1x ProLiant Server running ESXi and connected to both Leaf Switches  
 
 ![Lab Layout](images/lab_topo.png)
-_Fig. Lab Physical Layout_  
+
 
 ## Lab 1.1 Management IP Addresses
 
