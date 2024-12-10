@@ -1,285 +1,405 @@
 Confidential | For Training Purposes Only
 
-
-# Lab 3 - Build the Fabric
+# Lab 3 - Visibility and Troubleshooting
 
 ## Lab Overview
 
-Lab time:  20 minutes
+Lab time:  30 minutes
 
-In this lab, we are going to use the Aruba Fabric Composer (AFC) to:
+On top of the stateful services and microsegmentation, the CX 10000 also delivers visibility into each and every East / West flow.  During this lab, we will test some basic traffic flows (ping, SSH, iPerf3), the firewalling policies and also explore the power of having complete visibility.
 
-* Discover the CX10000 switches
-* Create a new fabric
-* Assign the newly discovered switches to the fabric
-* Configure NTP, DNS
-* Create a VSX Cluster
-
-
-## Lab 3.1 - Discover the Switches
+## Lab 3.1 - Add SVI to VLAN 10
 
 ### Description
-Using the AFC we will discover the already deployed CX10000 switches.
- 
-1. Using the **Guided Setup** menu on the right side, click on the **SWITCHES** button in order to discover the new switches. If the right-hand menu is missing, click on the icon to the left of the person icon. This toggles the workflow menu.
+In order to successfully redirect packets over the switch, we need to create a correspondng Switched Virtual Interface (SVI) for VLAN 10 to the switch.
 
-![Discover Switches](images/lab2-discover-switches-menu.png)  
-_Fig. Lab 3 Discover Switches_  
+### Validate  
+1. In Fabric Composer, using the top menu, navigate to **Configuration / Routing** and then select **VRF**.  
 
-2. To import the CX 10000 Switches, enter the following parameters in the form:  
+2. Click the 3 dots left of **default** and select **IP Interfaces**.  
 
-|   |   |
+![IP Interfaces](images/image49.png)  
+_Fig. Lab 3 IP Interfaces_  
+
+3. In the **IP Interfaces** context, select **Actions**, then **Add** and enter the following information in the form  
+
+|   |   |  
 |---|---|
-|Switches| ``10.250.2LG.101, 10.250.2LG.102`` (where LG is your Lab Group #)|
-|Switch "admin" account password| ``admin`` |
-|Service Account User| ``afc_admin`` (do not change the default) |
-|Service Account Password| ``admin`` |  
-| ***Click APPLY***
+| **Step 1 - Interfaces Type** | |
+| Enable this IP interface | Yes (select) |  
+| Type | SVI |  
+| VLAN | 10 |  
+| Switches | Select the VSX pair (``dsf_LG01-Leaf01-A_LG01-Leaf...``) |  
+| IP Subnet Address | ``10.0.10.0/24`` |  
+| IPv4 Addresses | ``10.0.10.2-10.0.10.6`` |  
+| Active Gateway IP Address | ``10.0.10.1`` |  
+| Active Gateway MAC Address | ``02:00:00:00:00:01`` |  
+| Enable VSX Shutdown on Split | Yes |  
+| Enable Local Proxy ARP | Yes |  
+| **Click NEXT** | |  
+
+|   |   |  
+|---|---|
+| **Step 2 - Name** | |
+| Name | ``SVI10`` |  
+| Description | (optional) |  
+| **Click NEXT** | |  
+| Review the Summary and **APPLY** | |  
+
+### Expected Results
+
+1. Verify the new SVI in the AFC  
+
+![New SVI](images/lab5-new-svi.png)  
+_Fig. Lab 6 New SVI_  
+
+2. Now let's ensure that the Network was added to the PSM by logging into the PSM:  
+
+|   |   |  
+|---|---|  
+| URL | 10.250.2**LG**.31 (LG = Labgroup Number)|
+| Username | ``admin`` |  
+| Password | ``Pensando0$`` |  
+
+3. Go to **Tenants / Networks**  and you should see VLAN10 listed in your networks
+
+![PSM Networks](images/lab5-psm-networks.png)  
+_Fig. Lab 3 PSM Networks_  
+
+
+## Lab 3.2 - Test Policies and SVI
+
+### Description
+In the previous activity, you created a policy with a single ``allow_all`` rule, to allow all traffic between ``Workload01`` and ``Workload02``.  
+
+### Validate
+To test the rule and visualize the flows, follow the following steps:  
+
+1. Using Putty or TeraTerm, open an SSH session with each workload  
+
+| Workload | Address for SSH* | Username | Password | Hostname | VLAN 10 Address | 
+|---|---|---|---|---|---|
+| 1 | 10.250.2**LG**.201 | ``arubatm`` | ``admin`` | lg**LG**-wl01 | 10.0.10.101 |
+| 2 | 10.250.2**LG**.202 | ``arubatm`` | ``admin`` | lg**LG**-wl01 | 10.0.10.102 |  
+
+2. From each workload, ping the VLAN 10 SVI 10.0.10.1 to verify connectivity between the VMs and the switches.  
+
+![Ping SVI](images/lab5-ping-svi.png)  
+_Fig. Lab 3 Ping SVI_  
+
+### Expected Results
+```{note}
+* If you cannot ping your gateway, check to see if the switch ports are up!
+```
+![Ping SVI](images/image55.png)  
+_Fig. show ip interface brief_ 
+
+Now have a look at the following network diagram to understand the flow.  Both WL01 and WL2 have 10.0.10.xxx IP Addresses and the Primary VLAN (VLAN 10) is paired with an Isolated VLAN (VLAN 11).  The traffic on VLAN 11 is re-routed to the DSM chip on the CX10K for processing via the primary VLAN 10.  
+
+![SVI Diagram](images/lab5-svi-diagram.png)  
+_Fig. Lab 3 SVI Diagram_  
+
+Policies will be defined using the AFC and sent, via automation, to the Pensando PSM. In turn, the PSM will program the enforcement on the DSM chips. A workload aware infrastructure built on top of a fully programmable, Automated, Scalable network pipeline.  
+
+
+## Lab 3.3 - View Flow Logs
+
+### Description  
+Now that we have traffic on VLAN 10 being redirected over the DSM, we can start to look at some of the telemetry.  During this lab, we will generate traffic betweeen two VMs on the same ESXi host, and will view the live flow logs.
+
+### Validate  
+
+1. Using the SSH sessions to Workload01 and Workload02 from the previous exercise, initiate a new continuous ping and do not interrupt it:
+  - From ``Workload01``, ping ``10.0.10.102``  
+  - From ``Workload02``, ping ``10.0.10.101``  
+
+2. Open two new SSH sessions, to each CX 10000 Switch:
+
+|Switch|Address for SSH|Username|Password|
+|---|---|---|---|
+| 1 | 10.250.2**LG**.101 | ``admin`` | ``admin`` |  
+| 2 | 10.250.2**LG**.102 | ``admin`` | ``admin`` |  
+
+3. On one of the switches, find which VLANs are being redirected to the DSM (Distributed Services Module = the Pensando Elba Packet Processor) for policy enforcement  
 
 ```{note}
-The Service Account User will be created on each switch, and will be used for API access.
-```
+The CX 10000 Switch has two DSMs, and redirected VLANs are distributed between them using a hashing algorithm.  In a CX 10000 VSX pair, all redirection and flow policing is synchronized across both switches
+```  
 
-### Expected Results
-The Switches should be discovered as shown in the following screenshot.  The **Health** Status should show **HEALTHY, BUT** or **UNKNOWN**.  This means that the switches have been discovered, but are not yet assigned to a fabric.  
+4. On each switch, run the following command and you should see an output similar to the screenshot below:  
 
-![Discovered Switches](images/lab2-discovered-switches.png)  
-_Fig. Lab 3 Discovered Switches_ 
+```show dsm redirect```  
 
-## Lab 3.2 - Create a Fabric
-
-### Description
-In this step, we will create a Fabric.  In the AFC, a fabric is the group of devices with their corresponding configuration and state, including switches, and integrated platforms (vSphere, PSM, etc.).
-
-### Validate
-
-1. On the **Guided Step** menu on the right side, select the **FABRIC** button.
-
-![Create Fabric](images/lab2-create-fabric.png)  
-_Fig. Lab 3 Create Fabric_ 
-
-2. Create a new fabric using the following parameters:
-
-|   |   |
-|---|---|
-|Name| dsf |
-|Description| Distributed Services Fabric |
-|Type| Data |
-|Time Zone| America/New_York |
-|Auto Save Interval| 600 |
-| ***Click APPLY to create the Fabric***
-
-### Expected Results
-Verify that the Fabric state is **HEALTHY** and looks similar to the following screenshot.
-
-![Healthy Fabric](images/lab2-healthy-fabric.png)  
-_Fig. Lab 3 Healthy Fabric_ 
-
-## Lab 3.3 - Assign Switches to a Fabric
-
-### Description
-Once a Switch is discovered, you can use the Assign Switch wizard to assign a role to the switch (Leaf, Spine, Border Leaf, etc) and also assign the Switch to a Fabric.  We will use this step to assign the switches to the newly created Fabric.
-
-### Validate
-
-1. On the **Guided Setup** menu click on **ASSIGN SWITCH TO FABRIC**
-
-![Assign Switch](images/lab2-assign-switch.png)  
-_Fig. Lab 3 Assign Switch_ 
-
-2. Select the Fabric, the Switches and the Role Leaf as in this table:
-
-|   |   |
-|---|---|
-|Fabric| dsf |
-|Switches| LGxx-Leaf01-A - LGxx-Leaf01-B |
-|Role| Leaf |
-|Force LLDP Discovery| Yes (select) |
-|Initialize Ports| Yes (Select) |
-| ***Scroll down, click ADD and APPLY***
-
-### Expected Results
-After a short moment, the switches should appear as **HEALTHY** and the status should be **Synced**, as in the following screenshot:
-
-![Healthy Switches](images/lab2-healthy-switches.png)  
-_Fig. Lab 3 Healthy Switches_  
-
-If the Switch status does not change after a few moments, refresh the page in the RDP session.
-
-![Refresh Browser](images/lab2-refresh-browser.png)  
-_Fig. Lab 3 Refresh Browser_  
+![Show DSM Redirect](images/lab5-show-dsm-redirect.png)  
+_Fig. Lab 3 Show DSM Redirect_  
 
 ```{note}
-If the workflow wizard has disappeared on the right-hand side of the screen. Click the icon shown below in the top right corner and you will see the workflows reappear.
+In this example, VLAN 10 is redirected to DSM 1/1 on both switches, however in your lab, you may see redirection to DSM 1/2  
+```  
+
+5. To visualize the flows, enter diagnostics mode on the switch by entering the following commands:  
+
+  - ``diagnostics``  
+  - ``diag dsm console 1/1 or 1/2`` (<span style="color:orange">**ensure you specify the DSM from the command above**</span>)  
+  - ``pdsctl show flow``  
+
+### Expected Results  
+
+After running the command ``pdsctl show flow``, you should a table showing the two flows, in each direction.  
+
+![pdsctl show flow](images/lab5-pdsctl-show-flow.png)  
+_Fig. Lab 6 pdsctl show flow_  
+
+```{note}
+Notice that the action is A (allow) for all 4 flows  
+```  
+
+
+## Lab 3.4 - Add Policy Rules
+
+### Description  
+During this exercise, we will use the AFC to modify the policy that we created in an earlier step, and add the following rules between Workload01 and Workload02:
+
+- Allow SSH  
+- Allow iPerf3 client/server flows (default using TCP port 5201) with the server on Workload02  
+- Deny All (block everything else, including ping)  
+
+### Validate  
+
+1. Using the browser, navigate back to the Fabric Composer  
+
+2. Go to **Configuration / Policy / Rules**  
+
+![New Flow Chart](images/image68.png)  
+_Fig. Rules Menu_  
+
+![New Flow Chart](images/image69.png)  
+_Fig. Add New Rule_  
+
+
+3. Create the first ``allow_ssh`` Rule using the following settings:  
+
+
+|   |   |
+|---|---|
+| **Step 1 - Name** | |  
+| Name | ``allow_ssh`` |  
+| Description | (optional) |  
+| **Click NEXT** | |
+
+|   |   |
+|---|---|
+| **Step 2 - Settings** | |  
+| Type | Layer 3 |  
+| Action | Allow |  
+| **Click NEXT** | |
+
+|   |   |
+|---|---|
+| **Step 3 - Endpoint Groups** | |  
+| Source Endpoint Groups | _Select both Workload Groups_ |  
+| Destination Endpoint Groups | _Select both Workload Groups_ |  
+| **Click NEXT** | |
+
+|   |   |
+|---|---|
+| **Step 4 - Application and Service Qualifiers** | |  
+| Applications | SSH |  
+| Service Qualifiers | (leave empty) |  
+| **Click NEXT** | |
+| Review the Summary and **Click APPLY** | |  
+
+4. Create the second ``allow_iPerf_TCP_5201`` Rule using the following settings:  
+
+|   |   |
+|---|---|
+| **Step 1 - Name** | |  
+| Name | ``allow_iPerf_TCP_5201`` |  
+| Description | (optional) |  
+| **Click NEXT** | |
+
+|   |   |
+|---|---|
+| **Step 2 - Settings** | |  
+| Type | Layer 3 |  
+| Action | Allow |  
+| **Click NEXT** | |
+
+|   |   |
+|---|---|
+| **Step 3 - Endpoint Groups** | |  
+| Source Endpoint Groups | _Select both Workload Groups_ |  
+| Destination Endpoint Groups | _Select both Workload Groups_ |  
+| **Click NEXT** | |
+
+|   |   |
+|---|---|
+| **Step 4 - Application and Service Qualifiers** | |  
+| <span style="color:orange">**Leave the Application box emtpy and click ADD at the bottom**</span> | |
+
+|   |   |   |
+|---|---|---|  
+| | **Sub-step A - Name** | |  
+| | Name | TCP_5201 |  
+| | Description | (optional) |  
+| | **Click NEXT** | |
+
+|   |   |   |
+|---|---|---|  
+| | **Sub-step B - Settings** | |  
+| | IP Protocol | ``tcp`` |  
+| | Source Port | any |  
+| | Destination Port | ``5201`` |  
+| | Click **ADD** (bottom left), **NEXT**, review the Summary and **APPLY** | |  
+
+
+5. Create the third ``deny_all`` rule using the following settings:  
+
+```{note}  
+There is an implicit deny all rule at the end of any policy, so this step is optional
 ```
 
-![Workflow Wizard](images/lab2-workflow-wizard.png)  
-_Fig. Lab 3 Workflow Wizard_  
-
-## Lab 3.4 - Configure NTP
-
-### Description
-As in any organization or infrastructure, accurate time is crucial!  In this step, we will make sure that the Switches are configured to sync their time with a valid NTP server.
-
-### Validate
-
-On the **Guided Setup** menu click on **NTP Configuration**
-
-![Configure NTP](images/lab2-configure-ntp.png)  
-_Fig. Lab 3 Configure NTP_ 
+|   |   |
+|---|---|
+| **Step 1 - Name** | |  
+| Name | ``deny_all`` |  
+| Description | (optional) |  
+| **Click NEXT** | |
 
 |   |   |
 |---|---|
-|**Step 1 - Name**|  |
-| Name | dsf-ntp |
-| Description | Time Server |
-| ***Click NEXT***||
+| **Step 2 - Settings** | |  
+| Type | Layer 3 |  
+| Action | Drop |  
+| **Click NEXT** | |
 
 |   |   |
 |---|---|
-|**Step 2 - Entries**|  |
-| Server | 10.250.2LG.9 (LG is your labgroup number) |
-| ***Scroll down, click ADD and NEXT***||
+| **Step 3 - Endpoint Groups** | |  
+| Source Endpoint Groups | (leave empty) |  
+| Destination Endpoint Groups | (leave empty) |  
+| **Click NEXT** | |
 
 |   |   |
 |---|---|
-|**Step 3 - Application**|  |
-| Fabric | dsf |
-| Switches | Leave empty (they are already assigned to the dsf Fabric) |
-| ***Click NEXT***||
+| **Step 4 - Application and Service Qualifiers** | |  
+| Applications | (leave empty) |  
+| Service Qualifiers | (leave empty) |  
+| **Click NEXT** | |
+| Review the Summary and **Click APPLY** | | 
 
-|   |   |
-|---|---|
-|**Step 4 - Summary**|  |
-| Review the summary and then ***Click APPLY***||
+```Note: Super Important!!!```
 
-### Expected Results
-The Lab NTP server should be assigned to the Fabric and Switches.
+6. Go to **Policies**, find the **dsf-leafLG-01** policy, and click the **3 dots** to add/modify the rules  
 
+7. Select the ``allow_all_vlan_10`` rule and under **ACTIONS**, click **Remove**  
 
-## Lab 3.5 - Configure DNS
+8. Click the **ACTIONS** menu again, and now select **ADD > Existing** in order to add the rules from the previous step, to this policy  
 
-### Description
-DNS is equally as crucial for running infrastructure.  This step will assign a DNS server to the Fabric and Switches. 
+9. Select the new rules and click **APPLY**  
 
-### Validate
+![Add Rules](images/lab5-add-rules.png)  
+_Fig. Add Rules_  
 
-In the **Guided Setup** menu click on **DNS Configuration**
+```{note}
+Ensure the deny_all rule is the last rule in the policy - this will create a default deny scenario.  If the deny all rule is not the last rule, you can change the order by editing the policy.
+```
 
-![Configure DNS](images/lab2-configure-dns.png)  
-_Fig. Lab 3 Configure DNS_ 
+### Expected Results  
 
+Our Firewall Policy should now have a zero trust type of behavior, where all East/West traffic on VLAN 10 is dropped, with the exception of SSH between two workloads, and iPerf.  
 
-|   |   |
-|---|---|
-|**Step 1 - Name**|  |
-| Name | dsf-dns |
-| Description | Name Server |
-| ***Click NEXT***||
+## Lab 3.5 - Test Policy Rules  
 
-|   |   |
-|---|---|
-|**Step 2 - Settings**|  |
-| Domain Name | dsf.lab.local |  
-| Name Server | 10.250.2LG.9 - hit **Enter** after typing the IP Address (LG is your labgroup number) |  
-| ***Click NEXT*** |
+### Description  
+In the previous activity you created new rules for traffic between Workload011 and Workload02, as well as a deny_all rule.  Now we will test the behavior of these new rules.  Our pings between Workload01 and Workload02 should still be running in the background as well.  
 
-|   |   |
-|---|---|
-|**Step 3 - Application**|  |
-| Fabric | dsf |
-| ***Click NEXT***||
+### Validate  
+1. Go back to the SSH session from one of your switches and rerun the command:  ``pdsctl show flow``  
 
-|   |   |
-|---|---|
-|**Step 4 - Summary**|  |
-| Review the summary and then ***Click APPLY***||
+```{note}
+In the flow table, notice that now the Action is D (deny) for all 4 flows.
+```  
 
-### Expected Results
-The Lab DNS server should be assigned to the Fabric and Switches.
+2. Return to the SSH sessions of each workload and stop the ping.  Restart the ping and according to the new ruleset, the ping should be blocked.  
 
+3. To test SSH on Workload01, run the following command using the credentials ``arubatm`` / ``admin``:
 
-## Lab 3.6 - Create a VSX Cluster
+- ``ssh 10.0.10.102``  
 
-### Description
-Virtual Switching Extension (VSX) is virtualization technology for switches running the AOS-CX operating system. This solution lets the switches present as one virtualized switch in critical areas. Configuration synchronization is an aspect of the VSX solution where the primary switch configuration is synchronized with the secondary switch.
+4. Return to the SSH session of one of your switches.  Enter the DSM diagnostics mode (similar to a previous exercise) by running:  
 
-In this step, we will create a VSX cluster with both CX 10000 Switches.
+- ``diagnostics``  
+- ``diag dsm console 1/x``  (ensure you enter the diagnostics of the DSM which VLAN 10 is redirected to)  
+- ``pdsctl show flow``
 
-### Validate
-In the **Guided Setup** menu click on **VSX Configuration**
+![Show Flow SSH](images/lab5-show-flow-ssh.png)  
+_Fig. Show Flow SSH_  
 
-![VSX Configuration](images/lab2-vsx-configuration.png)  
-_Fig. Lab 3 VSX Configuration_ 
+```{note}
+Notice that the action for the flow to and from port 22 (SSH) is A (Allow)
+```  
 
 
-|   |   |
-|---|---|
-|**Step 1 - Create Mode**|  |
-| Automatically generate VSX pairs | (Select) |
-| ***Click NEXT***||
 
-|   |   |
-|---|---|
-|**Step 2 - Name**|  |
-| Name Prefix | dsf |
-| Description | Leaf-LG VSX |
-| ***Click NEXT***||
-
-|   |   |
-|---|---|
-|**Step 3 - Inter-Switch Link Settings**|  |
-| Keep all the default values |  |
-| ***Click NEXT***||
+### Expected Results  
+During this lab we tested the firewall policies that we created from the previous exercise.  Ping should now be blocked on VLAN 10, however SSH between our two Workload VMs should still be allowed.  The graphs and flow data available in PSM allows us to view all of the allowed and denied traffic patterns.  
 
 
-|   |   |   |
-|---|---|---|
-|**Step 4 - Keep Alive Interfaces**| |
-|Interface Mode| Point-to-Point |
-|IPv4 Address Resource Pool| Pull **DOWN** on the right hand arrow and select the pre-defined IPv4 pool|
-||``dsf-ipv4-pool(10.10.0.0-10.10.0.255)``|
-| ***Click NEXT***||
+## Lab 3.6 - Testing iPerf  
+
+### Description  
+Other than SSH, we also added a rule to test iPerf which is a network performance testing tool.  We will configure Workload02 as the iPerf3 server, and Workload01 as the iPerf3 client.  
+
+### Validate  
+1. Go back to your SSH session on ``Workload02`` and run the following command in order to start the **iPerf3 server**:  ``iperf3 -s``  
+
+![iPerf Server](images/lab5-iperf-server.png)  
+_Fig. iPerf Server_  
+
+2. Go back to the ``Workload01`` SSH session, and log out of SSH session from **Workload01** to **Workload02** _(if still active)_  
+
+3. On ``Workload01``, start the iPerf3 client using this command:  ``iperf3 -c 10.0.10.102 -t 1000``
+
+![iPerf Client](images/lab5-iperf-client-running.png)  
+_Fig. iPerf Client_  
+
+4. Now let's look at the flow table on one of the switches again.  On one of the switches, rerun the command: ``pdctl show flow``  
+
+![iPerf Flow Logs](images/lab5-iperf-flow-logs.png)  
+_Fig. iPerf Flow Logs_  
 
 
-|   |   |
-|---|---|
-|**Step 5 - Keep Alive Settings**|  |
-| Keep all the default values |  |
-| ***Click NEXT***||
+
+### Expected Results  
+Just like in the previous lab, we should have the behavior that all traffic in VLAN 10 is denied, with the exception of SSH and iPerf.  This lab should have confirmed this behavior.
+
+## Lab 3.7 - Unique Flows  
+
+### Description  
+Enabling stateful services or microsegmentation in a brownfield environment, where little to no enforcement is d, is not an easy task.  This is where some of the built in metrics to the CX 10000 help.  We will look at how to find analyze unique flows on a given network.  
+
+### Validate  
 
 
-|   |   |   |
-|---|---|---|
-|**Step 6 - Options**| |
-|Linkup Delay Timer| (keep the default value) |
-|MAC Address Resource Pool| Pull **DOWN** on the right hand arrow and select the pre-defined MAC address pool|
-||``02:00:00:00:00:aa-02:00:00:00:00:ff``|
-| ***Click NEXT***||
+1. Open an SSH session from **workload01** to **workload02**
+
+- ``ssh arubatm@10.0.10.102``
+
+### Expected Results 
+
+The SSH session should connect, if not check the rules assigned to the policy.
+
+If necessary, using the Unique Flows function from the PSM, we are able to see all of our unique flows on VLAN, over a specified time period.  Having this level of data is crucial for implementing stateful services on your network. Integration with PSM is covered in the TE4.207 course Fundamentals with AFC.  
 
 
-|   |   |
-|---|---|
-|**Step 4 - Summary**|  |
-| Review the summary and then ***Click APPLY***||
+## Lab 3 Summary  
+- We added a Switched Virtual Interface to the switch for VLAN 10
+- We verified that the traffic for VLAN 10 is successfully redirected over the AMD DSM, and become stateful  
+- We analyzed the DSM flow tables to see allowed or denied traffic  
+- We set up a zero trust and microsegmentation policy for VLAN 10, where all traffic is denied, with the exception of iPerf and SSH between two workloads
+- We verified that the firewall policies that we defined for VLAN 10 are enforced
+  - SSH (tcp 22) between Workload01 and Workload02 is open
+  - iPerf3 (tcp 5201) between Workload01 and Workload02 is open  
+  - All other traffic patterns are denied - we verified this by attempting a ping from one workload to the other  
 
-
-### Expected Results
-The VSX cluster consisting of the two CX 10000 should be successfully created and should also be up and healthy. Refresh browswer, if necessary.
-
-![VSX Health](images/lab2-vsx-health.png)  
-_Fig. Lab 3 VSX Health_ 
-
-## Lab 3 Summary
-
-- Using the Aruba Fabric Composer, we discovered two CX 10000 Switches  
-- We created a new Fabric and assigned the two Switches to that fabric  
-- We configured the basic network services (DNS and NTP) and assigned these profiles to the switches  
-- We built a VSX cluster of the two switches  
-
-## Lab 3 Learning Check
-
-- AFC uses Network Resource pools for IP and MAC addresses
-- Switches must be assigned to a fabric
-- VSX workflow makes configuration simple
-- DNS & NTP are configured and assigned to a fabric
