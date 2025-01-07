@@ -2,7 +2,7 @@
 
 ## Lab Overview
 
-Lab time:  15 minutes
+Lab time:  15 minutes.
 
 In this lab, we are going to explore the lab environment and access the various components of the lab.  The lab consists of the following components:
 - 2x CX 10000 Switches configured as Leaf Switches
